@@ -24,7 +24,7 @@ const Reviews = () => {
       <p className='text-xs text-[#5b5959] font-light float-right'>{new Date().toLocaleString()}</p>
         </div>
         <div className='flex flex-col'>
-            <p className='flex items-end justify-end'><AiOutlineLike className='mt-3 text-2xl'/></p>
+            <p className='flex items-end justify-end'><AiOutlineLike className='mt-3 text-2xl cursor-pointer'/></p>
             <p className='text-xs text-[grey]'>8 people found this helpfull</p>
         </div>
       </div>

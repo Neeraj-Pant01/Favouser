@@ -3,7 +3,7 @@ import { AiOutlineHeart } from 'react-icons/ai'
 
 const SingleItem = () => {
   return (
-    <div className='flex w-screen flex-col'>
+    <div className='flex flex-col md:w-96 md:border md:rounded-md md:border-[lightgrey]'>
     <div className='flex w-full items-center justify-center flex-col'>
         <img src='https://static.vecteezy.com/system/resources/previews/008/520/862/original/black-oversize-t-shirt-mockup-hanging-file-png.png' className='flex w-72'/>
     </div>

@@ -1,0 +1,27 @@
+.control-arrow {
+    color: red;
+  }
+  .control-arrow.control-next {
+    color: blue;
+  }
+  
+  /* Change the color of the left arrow to green */
+  .control-arrow.control-prev {
+    color: green;
+  }
+
+  .carousel-container {
+    touch-action: pan-y; /* Allow vertical scrolling within the carousel */
+  }
+  
+  /* Allow both vertical and horizontal scrolling within the carousel */
+  .carousel-container .carousel-slider {
+    touch-action: pan-x pan-y;
+  }
+  .carousel-container .control-arrow {
+    color: red !important;
+  }
+  .carousel-container {
+    width: 50%; /* Set the desired width for the carousel container */
+    height: 200px; /* Set the desired height for the carousel container */
+  }

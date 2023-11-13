@@ -1,0 +1,47 @@
+.PRODUCT{
+    width: 26%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+@media screen and (max-width:420px) {
+    .PRODUCT{
+        width: 48%;
+        background-color: transparent;
+    }
+    .left-side{
+        display: none;
+    }
+    .HR{
+        border-bottom: 0px;
+    }
+}
+.main{  
+    display: flex;
+}
+.left-side{
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 100px;
+    border: 1px solid lightgrey;
+    border-top: 0px;
+    border-bottom: 0px;
+    /* width: max-content; */
+    flex: 1;
+    padding: 5px 10px;
+    height: max-content;
+}
+.right-side{
+    flex: 3.5;
+    /* border: 2px solid blue; */
+    /* border: 2px solid orange; */
+}
+.c-name{
+    border-bottom: 2px solid orange;
+    width: max-content;
+}
+.cat:hover{
+    border-bottom: 2px solid orange;
+    cursor: pointer;
+    transition: all .3s linear;
+}

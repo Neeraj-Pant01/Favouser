@@ -13,7 +13,60 @@
   }
 }
 
+
 .hd::-webkit-scrollbar{
-    display: none;
+  display: none;
 }
+
+.options{
+  opacity: 0;
+}
+
+.options:hover{
+  opacity: 1;
+}
+
+.SLIDER{
+  height: 90vh;
+}
+
+.CAT-sc{
+  width: fit-content;
+}
+.cart{
+  transition: all .2s linear;
+}
+.cart:hover{
+  transform: scale(1.2);
+  background-color: lightgray;
+}
+.buy-now{
+  display: flex;
+  flex-wrap: wrap;
+  /* gap: 5px; */
+  justify-content: center;
+  margin: 10px 0px 20px 0px;
+
+}
+
+
+@media screen and (max-width:420px) {
+  .CAT-sc{
+    min-width: 45%;
+  }
+  .SLIDER{
+    height: auto;
+  }
+  .cart:hover{
+    transform: scale(0);
+  }
+  .buy-now{
+
+  }
+}
+
+
+
+
+
   

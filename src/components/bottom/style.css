@@ -1,0 +1,30 @@
+.pics{
+    width: 100%;
+    padding: 0px 2px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+.ITEM{
+    display: flex;
+    width: 23%;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+.item img{
+    width: 90%;
+    height: 150px;
+    object-fit: cover;
+    background-color: rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+}
+
+@media screen and (max-width:420px) {
+     .ITEM{
+        width: 47%;
+     }
+
+}

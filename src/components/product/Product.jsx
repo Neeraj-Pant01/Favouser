@@ -10,7 +10,7 @@ const Product = () => {
                 <img src='https://static.vecteezy.com/system/resources/previews/008/520/862/original/black-oversize-t-shirt-mockup-hanging-file-png.png' className='w-full'/>
             </div>
             <div className='flex flex-1 flex-col'>
-                <Link to={`/`}>Favouser</Link>
+                <Link className=' w-fit' to={`/`}>Favouser</Link>
                 <p className='text-[grey] font-light'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, dolor!</p>
             </div>
             <AiOutlineClose className='text-xl cursor-pointer'/>
@@ -19,13 +19,6 @@ const Product = () => {
             <span className='bg-[#d2e4eb] px-3 py-1 text-xs h-fit'>SIZE: XL</span>
             <select className='bg-[#d2e4eb] px-3 py-1 text-xs outline-none h-fit'>
                 <option>1</option>
-                {
-                    new Array(10).map((_,i)=>{
-                        return(
-                            <option>{i+1}</option>
-                        )
-                    })
-                }
             </select>
             <div className='flex flex-col items-end justify-end flex-1'>
                 <div className='flex items-center gap-2'>
