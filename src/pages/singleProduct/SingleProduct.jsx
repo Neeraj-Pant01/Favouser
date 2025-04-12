@@ -4,10 +4,74 @@ import {MdLocationOn,MdVerifiedUser} from "react-icons/md"
 import SingleItem from '../../components/singleproduct/SingleItem'
 import Size from '../../components/size/Size'
 import Reviews from '../../components/reviews/Reviews'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import {useDispatch, useSelector} from "react-redux"
+import { address } from '../../redux/DeliveryInfo'
+import { makeApiRequest } from '../../utils/makeRequest'
+import axios from 'axios'
 
 const SingleProduct = () => {
     const [show, setShow] = useState(false)
+    const [stars, setStars] = useState(0)
+    const [orderDetails, setOrderDetails] = useState({
+        area:"",
+        state:"Delhi",
+        address:"",
+        pincode:"",
+        landmark:"",
+        mobileNumber:"",
+    })
+    const[size, setSize] = useState(null)
+
+    const [product, setProduct] = useState({})
+
+    const {id} = useParams()
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch()
+
+    const token = useSelector((state)=>state.user?.currentUser?.token)
+
+    const api = makeApiRequest(token)
+
+    useEffect(()=>{
+        const loadProduct = async () =>{
+            try{
+                const response = await api.get(`/api/v1/products/${id}`)
+                setProduct(response.data)
+            }catch(err){
+                console.log(err)
+            }
+        }
+        loadProduct()
+    },[id])
+
+    useEffect(()=>{
+        window.scrollTo(0,0)
+    },[])
+
+    const handleChange = (e) =>{
+        const {name, value} = e.target;
+        setOrderDetails((pre)=>{
+            return{
+                ...pre,[name]:value
+            }
+        })
+    }
+
+    const handleOrder = () =>{
+        if(size === null){
+            alert("please select size first")
+        }else{
+        dispatch(address(orderDetails))
+        navigate('/order', {
+            state: {
+              product,
+              ...size
+            }
+          });
+    }
+}
 
   return (
     <div className='bg-white'>
@@ -21,25 +85,29 @@ const SingleProduct = () => {
     </div>
     <div className='md:flex md:gap-10'>
         <div className='md:sticky md:top-20 md:h-fit md:mb-5'>      
-    <SingleItem />
-    <Size />
+    <SingleItem product={product}/>
+    <Size size={size} setSize={setSize} />
         </div>
         <div className='md:flex md:flex-col'>
         <div className='flex flex-col gap-2 px-5 mt-8'>
         <div className='flex flex-col gap-3'>
             <b className='text-sm flex items-center text-[#51b4cb]'>Enter Delevery Details <MdLocationOn className='text-xl text-[red]'/> </b>
-            <select className='outline-none bg-transparent border border-[#51b4cb] py-2 px-4 rounded-md text-sm md:w-96 text-[grey]'>
+            <select className='outline-none bg-transparent border border-[#51b4cb] py-2 px-4 rounded-md text-sm md:w-96 text-[grey]' name='state' value={"Delhi"} onChange={handleChange}>
             <option defaultValue={"select state"} disabled>select state</option>
-                <option value={"uttarakhand"}>uttarakhand</option>
-                <option value={"uttrapradesh"}>uttrapradesh</option>
-                <option value={"haryana"}>haryana</option>
-                <option value={"punjab"}>punjab</option>
                 <option value={"Delhi"}>Delhi</option>
-                <option value={"Mumbail"}>Mumbail</option>
             </select>
-            <input className='border text-sm border-[#51b4cb] outline-none rounded-md md:w-96 py-2 px-4' type='text' placeholder='enter pin code' onFocus={()=>setShow(true)} onBlur={()=>setShow(false)}/>
+            <input className='border text-sm border-[#51b4cb] outline-none rounded-md md:w-96 py-2 px-4' type='text' placeholder='enter Area' name='area' onChange={handleChange}/>
+
+            <input className='border text-sm border-[#51b4cb] outline-none rounded-md md:w-96 py-2 px-4' type='text' placeholder='enter Address line' name='address' onChange={handleChange}/>
+
+            <input className='border text-sm border-[#51b4cb] outline-none rounded-md md:w-96 py-2 px-4' type='text' placeholder='enter pin code' onFocus={()=>setShow(true)} onBlur={()=>setShow(false)} name='pincode' onChange={handleChange}/>
             {show && <span className='text-sm text-red-600'>enter the valid pin code </span>}
-            <input className='border text-sm border-[#51b4cb] outline-none rounded-md md:w-96 py-2 px-4' type='text' placeholder='enter nearest landmark'/>
+            <input className='border text-sm border-[#51b4cb] outline-none rounded-md md:w-96 py-2 px-4' type='text' placeholder='enter nearest landmark' name='landmark' onChange={handleChange}/>
+
+            <input className='border text-sm border-[#51b4cb] outline-none rounded-md md:w-96 py-2 px-4' type='text' placeholder='enter mobile Number' name='mobileNumber' onChange={handleChange}/>
+
+            <button className='border border-[#51b4cb] w-fit rounded-lg text-[#51b4cb] py-1 px-4 md:py-2' onClick={handleOrder}>BUY NOW</button>
+
         </div>
         <hr className='mt-4'></hr>
         <div className='flex items-center justify-between mt-4 mb-2'>
@@ -71,6 +139,20 @@ const SingleProduct = () => {
                 <AiFillStar className='text-[goldenrod]'/>
             </div>
         </div>
+        <h1 className='text-[#212121] my-12'>Your experiences matter. Contribute by adding your review and helping users </h1>
+        <div className=' flex items-center border-[grey] gap-5 mb-5'>
+            <img src="https://www.pngall.com/wp-content/uploads/12/Avatar-PNG-Image.png" className='border-2 border-[grey] w-7 h-7 md:w-12 md:h-12 rounded-full' alt="" />
+            <div className='flex flex-col gap-2'>
+                <div className='flex gap-4 items-center'>
+                    {
+                        Array(5).fill().map((_,i)=><AiFillStar className='md:text-2xl cursor-pointer' style={{color:stars >=i ? "goldenrod":"lightgrey"}}  key={i} onClick={()=>setStars(i)}/>)
+                    }
+                </div>
+                <textarea type='text' placeholder='enter your review' className='border-2 outline-none w-48 h-28 resize-none rounded-lg my-2 px-5 py-4 text-sm md:text-md '/>
+                <button className='border py-2 rounded-md text-[#428fca] border-[#428fca]'>POST</button>
+            </div>
+        </div>
+
         <h1 className='text-[black] md:text-lg'>Explore the feedback from our community members.<span className='text-[black] text-xl'>(2)</span></h1>
         <Reviews />
         <Reviews />

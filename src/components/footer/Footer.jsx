@@ -6,7 +6,7 @@ import "./footer.css"
 
 const Footer = () => {
     return (
-        <div className='flex flex-col bg-[black] px-4 py-4 gap-7'>
+        <div className='flex flex-col bg-[#232222] px-4 py-4 gap-7'>
             <div className='flex flex-col text-[white]'>
                 <b className='text-sm md:text-lg'>customer support</b>
                 <p className='flex items-center gap-2'><span className='text-[grey]'>contact :</span> <span className='text-[white] text-sm'>8527737732</span></p>

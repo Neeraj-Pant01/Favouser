@@ -27,10 +27,10 @@ const Slider = () => {
 
 
   return (
-    <div className={`flex overflow-x-hidden w-full flex-col mb-10 pb-4 bg-[url("${slider[index].img}")] bg-cover md:overflow-hidden SLIDER`} style={{backgroundColor: index===0 ? '#cee2d6' : index===1 ? "#e2d3d4" : ''}}>
+    <div className={`flex overflow-x-hidden w-full flex-col mb-10 pb-4] bg-cover md:overflow-hidden SLIDER`} style={{backgroundImage:`url(${slider[index].img})`}}>
         <div className={`flex items-center justify-center px-10 pt-10`}>
                 <div className={`w-screen h-64 flex flex-col transition-all duration-300 ease-linear gap-2`}>
-                    <span className='text-3xl text-[white] font-extrabold'>{slider[index].title}</span>
+                    <span className='text-3xl text-[grey] font-extrabold'>{slider[index].title}</span>
                     <h1 className='text-[black] font-bold text-lg md:text-2xl uppercase'>{slider[index].desc}</h1>
                     <span className='text-[#585656] text-xl'>{slider[index].trend}</span>
                     <button className='border border-black text-white px-5 py-2 bg-black w-fit md:mt-14' onClick={()=>navigate(`/products`)}>SHOP NOW</button>

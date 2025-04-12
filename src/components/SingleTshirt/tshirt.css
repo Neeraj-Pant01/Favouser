@@ -1,11 +1,13 @@
 .PRODUCT{
-    width: 26%;
+    width: 250px;
     background-color: rgba(0,0,0,0.8);
+    height: 300px;;
 }
 
-@media screen and (max-width:420px) {
+@media screen and (max-width:500px) {
     .PRODUCT{
         width: 48%;
+        height: 300px;
         background-color: transparent;
     }
     .left-side{
@@ -23,16 +25,18 @@
     flex-direction: column;
     position: sticky;
     top: 100px;
-    border: 1px solid lightgrey;
+    /* border: 6px solid orange; */
     border-top: 0px;
     border-bottom: 0px;
     /* width: max-content; */
+    /* width: 300px; */
     flex: 1;
+    margin-left: 130px;
     padding: 5px 10px;
     height: max-content;
 }
 .right-side{
-    flex: 3.5;
+    flex: 3;
     /* border: 2px solid blue; */
     /* border: 2px solid orange; */
 }

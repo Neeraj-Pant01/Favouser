@@ -1,12 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { AiOutlineArrowLeft, AiOutlineGlobal, AiOutlineShoppingCart, AiOutlineVerified } from 'react-icons/ai'
 import Product from '../../components/product/Product'
 import { Link } from 'react-router-dom'
+import {makeApiRequest} from "../../utils/makeRequest"
+import { useSelector } from 'react-redux'
 
 const Cart = () => {
+  const [cart, setCart] = useState([])
+  const token = useSelector((state)=>state.user.currentUser.token)
+
+  const api = makeApiRequest(token)
+
+  useEffect(()=>{
+    const getUserCart = async () =>{
+      try{
+        const response = await api.get("/api/v1/cart")
+        setCart(response.data)
+      }catch(err){
+        console.log(err)
+      }
+    }
+    getUserCart()
+  },[])
   return (
     <div className='px-2 md:px-0'>
-      <div className='flex sticky top-0 border items-center px-4 py-3 bg-[white]'>
+      <div className='sticky top-0 border items-center px-4 py-3 bg-[white] hidden md:flex'>
         <Link to={`/`}>
         <AiOutlineArrowLeft className='text-2xl cursor-pointer'/>
         </Link>
@@ -16,14 +34,22 @@ const Cart = () => {
         <p className='mt-2 font-light text-[black] md:text-xl'>items (1)</p>
       </div>
 
+      {
+        cart.length < 1 &&
+        <div className='flex items-center justify-center h-screen flex-col'>
+          <span>CART EMPTY</span>
+          <span className='text-[grey]'>no item is added to the cart</span>
+          </div>
+      }
+
+      {/* <Product />
       <Product />
       <Product />
       <Product />
       <Product />
       <Product />
       <Product />
-      <Product />
-      <Product />
+      <Product /> */}
 
       <div className='flex items-center justify-between mt-4 mb-24 mx-5'>
             <div className='flex items-center justify-center flex-col gap2'>

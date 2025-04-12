@@ -1,6 +1,7 @@
 import React from 'react'
 import "./style.css"
 import { useNavigate } from 'react-router-dom'
+import "./style.css"
 
 const images = [
     {
@@ -23,33 +24,13 @@ const images = [
     }
 ]
 
-const Homebottom = () => {
+const Homebottom = ({item}) => {
     const navigate = useNavigate()
     return (
-        <div className='pics'>
-            {
-                images.map((item,index) => {
-                    return (
-                        <div key={index} className='ITEM border mb-2' onClick={()=>navigate(`/product/${index}`)}>
-                        <span className='text-[grey] text-center md:text-xl md:font-bold uppercase w-full'>title</span>
-                        <img src={item.img} />
-                        <div className='flex items-center gap-2 border-t-2 w-full justify-center'><span className='text-[grey] line-through'>699</span><span className='text-[green]'>499</span><span>30% OFF</span></div>
-                    </div>
-                    )
-                })
-            }
-
-{
-                images.map((item,index) => {
-                    return (
-                        <div key={index} className='ITEM border mb-2' onClick={()=>navigate(`/product/${index}`)}>
-                        <span className='text-[grey] text-center md:text-xl md:font-bold uppercase w-full'>title</span>
-                        <img src={item.img} />
-                        <div className='flex items-center gap-2 border-t-2 w-full justify-center'><span className='text-[grey] line-through'>699</span><span className='text-[green]'>499</span><span>30% OFF</span></div>
-                    </div>
-                    )
-                })
-            }
+        <div className='ITEM border-2 mb-2 rounded-md' onClick={() => navigate(`/product/${index}`)}>
+            <span className='text-[grey] text-center md:text-xl md:font-bold uppercase w-full'>title</span>
+            <img className='item-img' src={item.img}/>
+            <div className='flex items-center mt-4 gap-2 border-t-2 w-full justify-center py-5'><span className='text-[grey] line-through'>699</span><span className='text-[green]'>499</span><span>30% OFF</span></div>
         </div>
     )
 }

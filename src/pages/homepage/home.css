@@ -43,14 +43,14 @@
 .buy-now{
   display: flex;
   flex-wrap: wrap;
-  /* gap: 5px; */
+  gap: 15px;
   justify-content: center;
   margin: 10px 0px 20px 0px;
 
 }
 
 
-@media screen and (max-width:420px) {
+@media screen and (max-width:500px) {
   .CAT-sc{
     min-width: 45%;
   }
@@ -61,7 +61,7 @@
     transform: scale(0);
   }
   .buy-now{
-
+    gap: 5px;
   }
 }
 

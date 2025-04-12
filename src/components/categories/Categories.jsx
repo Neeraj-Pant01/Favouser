@@ -26,9 +26,9 @@ const Categories = () => {
           return (
             <div className='cat-item'>
               <h1 className='absolute top-0 w-full text-center text-3xl font-extrabold uppercase text-[white]'>{c.title}</h1>
-              <img src={c.image} />
+              <img src={c.image} className='cat-item-img'/>
               <div className='layer'>
-                <button className='btn text-[white]' onClick={()=>navigate(`/products?cat=${c.title}`)}>shop now</button>
+                <button className='btn text-[white] hover:bg-[#555252] transition-colors' onClick={()=>navigate(`/products?cat=${c.title}`)}>shop now</button>
                 <h1 className='w-full text-center text-2xl text-[white] font-bold desc'>{c?.desc}</h1>
               </div>
             </div>

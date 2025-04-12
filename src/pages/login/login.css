@@ -1,0 +1,30 @@
+.form-left{
+    flex: .5;
+    background-image: url("../../../public/assets/favouser.png");
+    height: 100vh;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 440px) {
+    .form-left{
+        display: none;
+    }
+    form{
+        align-items: center;
+        justify-content: center;
+        /* z-index: 999; */
+        position: relative;
+        background-color: black;
+    }
+    .bg-img{
+        position: absolute;
+        top: 0;
+        width: 50%;
+        height: 50%;
+        background-image: url("../../../public/assets/favouser.png");
+        background-size: contain;
+        /* filter: blur(10px) */
+    }
+
+}

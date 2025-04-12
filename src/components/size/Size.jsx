@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 const sizes = ["S","M","L","XL","2XL","3XL"]
 
-const Size = () => {
-    const[size, setSize] = useState(null)
+const Size = ({size, setSize}) => {
   return (
     <div className='flex gap-2 flex-col px-5 mt-5'>
         <div>

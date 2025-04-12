@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Slider from '../../components/slider/Slider'
 import Categories from '../../components/categories/Categories'
 import "./home.css"
@@ -9,27 +9,91 @@ import Bestpics from '../../components/bestPics/Bestpics'
 import Homebottom from '../../components/bottom/Homebottom'
 import Missed from '../../components/missed/Missed'
 import Tshirt from '../../components/SingleTshirt/Tshirt'
+import BestSellings from '../../components/BestSellings/BestSellings'
+import Accessories from '../../components/accessories/Accessories'
+import { useDispatch, useSelector } from 'react-redux'
+import { makeApiRequest } from '../../utils/makeRequest'
+
+const images = [
+  {
+      img: "https://images.unsplash.com/photo-1531891570158-e71b35a485bc?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      title: "",
+      desc: ""
+  },
+  {
+      img: "https://plus.unsplash.com/premium_photo-1664869376894-9e047086bb46?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      title: "",
+      desc: ""
+  }, {
+      img: "https://images.unsplash.com/photo-1556347961-f9521a88cb8a?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      title: "",
+      desc: ""
+  }, {
+      img: "https://images.unsplash.com/photo-1517267367903-519607b9060c?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      title: "",
+      desc: ""
+  }
+]
 
 const Homepage = () => {
-  const navigate = useNavigate()
+  const [showProducts, setShowProducts] = useState([])
+  const dispatch = useDispatch()
+
+  const token = useSelector((state)=>state.user?.currentUser?.token)
+
+  const api = makeApiRequest(token)
+
+  useEffect(()=>{
+    const getproducts = async () =>{
+      try{
+        const response = await api.get('/api/v1/products?show=true')
+        setShowProducts(response.data)
+        console.log("tshirts",response)
+      }catch(err){
+        console.log(err)
+      }
+    }
+    getproducts()
+  },[])
+
+const [cart, setCart] = useState()
+
+useEffect(()=>{
+  const getCart = async () =>{
+    try{
+      const response = await api.get('/api/v1/cart')
+      dispatch(response.data)
+    }catch(err){
+      console.log(err)
+    }
+  }
+  getCart()
+})
+
   return (
-    < div className='border'>
+    < div>
     <Navbar />
     <Slider />
     <Categories />
 
-    <div className='mt-10 flex flex-col overflow-x-hidden'>
-      <h1 className='text-center text-xl'>DESIGNS OF THE WEEK</h1>
-      <div className='flex items-center justify-between bg-[rgba(0,0,0,0.9)] text-[white]'>
-        <div className='flex items-center justify-between border-r-2 flex-1 py-1'>
-          <img src='/assets/d5white.png' className='flex w-28 md:w-96 md:ml-40'/>
-          <div className='flex flex-1 flex-col items-end'>
-            <span className='md:text-3xl'>DESIGNS </span>
+    <div className='mt-10 flex flex-col overflow-x-hidden md:min-h-80'>
+      <h1 className='text-center my-5 md:text-4xl text-2xl font-bold tracking-wider text-gray-800'>DESIGNS OF THE WEEK</h1>
+      <div className='flex items-center justify-between bg-gradient-to-r from-gray-900 to-black text-white md:h-[500px] relative overflow-hidden'>
+        <div className='absolute inset-0 bg-[url("/assets/d3black.png")] bg-center bg-no-repeat opacity-10'></div>
+        <div className='flex items-center justify-between w-full px-4 md:px-12 relative z-10'>
+          <div className='hidden md:flex flex-col items-start space-y-4 md:space-y-8'>
+            <span className='text-4xl md:text-7xl font-bold tracking-tight'>DESIGNS</span>
+            <span className='text-2xl md:text-4xl font-light tracking-wider'>OF THE</span>
+            <span className='text-5xl md:text-8xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-amber-600'>WEEK</span>
           </div>
-        </div>
-        <div className='flex items-center justify-between flex-1'>
-            <span className='text-xs flex items-center md:text-xl'>ofThe <span className='flex text-lg md:text-3xl'>WEEK</span></span>
-        <img src='/assets/d3black.png' className='flex w-28 md:w-96 md:mr-36'/>
+          <div className='flex-shrink-0 mx-4 md:mx-8'>
+            <img src='/assets/d1w.png' className='w-32 md:w-64 h-auto object-contain' alt='Featured Design' />
+          </div>
+          <div className='flex flex-col items-end space-y-4 md:space-y-8'>
+            <span className='text-4xl md:text-7xl font-bold tracking-tight'>TREND</span>
+            <span className='text-2xl md:text-4xl font-light tracking-wider'>OF THE</span>
+            <span className='text-5xl md:text-8xl font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-amber-600'>MONTH</span>
+          </div>
         </div>
       </div>
     </div>
@@ -43,71 +107,14 @@ const Homepage = () => {
 
     <div className='flex mt-12 flex-col'>
       <h1 className='text-xl text-center font-bold w-full text-[grey] mb-2 md:text-2xl'>BEST SELLINGS</h1>
-      <div className='grid grid-cols-2 md:grid-cols-4 overflow-hidden gap-2'>
+      <div className='grid grid-cols-2 md:grid-cols-3 overflow-hidden gap-2 md:gap-6 px-1 md:px-3'>
 
-        <div className='flex bg-[url("/assets/d2b.png")]  bg-cover bg-no-repeat items-center justify-center text-[black] h-32 md:h-52 md:bg-contain cursor-pointer relative border-[blue]' onClick={()=>navigate(`/product/123`)}>
-        <div className='flex absolute top-0 w-full h-full items-center md:rounded-lg justify-center bg-[black] opacity-50'>
-            <div className='flex gap-3 items-center justify-center'>
-            <AiOutlineShoppingCart className='AiOutlineShoppingCart text-2xl md:text-4xl mr-1 text-[black] cursor-pointer opacity-100 cart md:rounded-full md:bg-[white] md:flex md:justify-center md:p-2 '/>
-            </div>
-        </div>
-        </div>
-
-        <div className='flex bg-[url("/assets/d1w.png")]  bg-cover bg-no-repeat items-center justify-center text-[black] h-32 md:h-52 md:bg-contain cursor-pointer relative border-[blue]' onClick={()=>navigate(`/product/123`)}>
-        <div className='flex absolute top-0 w-full h-full items-center md:rounded-lg justify-center bg-[black] opacity-50'>
-            <div className='flex gap-3 items-center justify-center'>
-            <AiOutlineShoppingCart className='AiOutlineShoppingCart text-2xl md:text-4xl mr-1 text-[black] cursor-pointer opacity-100 cart md:rounded-full md:bg-[white] md:flex md:justify-center md:p-2 '/>
-            </div>
-        </div>
-        </div>
-
-        <div className='flex bg-[url("/assets/d3w.png")]  bg-cover bg-no-repeat items-center justify-center text-[black] h-32 md:h-52 md:bg-contain cursor-pointer relative border-[blue]' onClick={()=>navigate(`/product/123`)}>
-        <div className='flex absolute top-0 w-full h-full items-center md:rounded-lg justify-center bg-[black] opacity-50'>
-        <div className='flex gap-3 items-center justify-center'>
-        <AiOutlineShoppingCart className='AiOutlineShoppingCart text-2xl md:text-4xl mr-1 text-[black] cursor-pointer opacity-100 cart md:rounded-full md:bg-[white] md:flex md:justify-center md:p-2 '/>
-            </div>
-        </div>
-        </div>
-
-        <div className='flex bg-[url("/assets/d1b.png")]  bg-cover bg-no-repeat items-center justify-center text-[black] h-32 md:h-52 md:bg-contain cursor-pointer relative border-[blue]' onClick={()=>navigate(`/product/123`)}>
-        <div className='flex absolute top-0 w-full h-full items-center md:rounded-lg justify-center bg-[black] opacity-50'>
-        <div className='flex gap-3 items-center justify-center'>
-        <AiOutlineShoppingCart className='AiOutlineShoppingCart text-2xl md:text-4xl mr-1 text-[black] cursor-pointer opacity-100 cart md:rounded-full md:bg-[white] md:flex md:justify-center md:p-2 '/>
-            </div>
-        </div>
-        </div>
-
-        <div className='flex bg-[url("/assets/d2b.png")]  bg-cover bg-no-repeat items-center justify-center text-[black] h-32 md:h-52 md:bg-contain cursor-pointer relative border-[blue]' onClick={()=>navigate(`/product/123`)}>
-        <div className='flex absolute top-0 w-full h-full items-center md:rounded-lg justify-center bg-[black] opacity-50'>
-            <div className='flex gap-3 items-center justify-center'>
-            <AiOutlineShoppingCart className='AiOutlineShoppingCart text-2xl md:text-4xl mr-1 text-[black] cursor-pointer opacity-100 cart md:rounded-full md:bg-[white] md:flex md:justify-center md:p-2 '/>
-            </div>
-        </div>
-        </div>
-
-        <div className='flex bg-[url("/assets/d3black.png")]  bg-cover bg-no-repeat items-center justify-center text-[black] h-32 md:h-52 md:bg-contain cursor-pointer relative border-[blue]' onClick={()=>navigate(`/product/123`)}>
-        <div className='flex absolute top-0 w-full h-full items-center justify-center md:rounded-lg bg-[black] opacity-50'>
-        <div className='flex gap-3 items-center justify-center'>
-        <AiOutlineShoppingCart className='AiOutlineShoppingCart text-2xl md:text-4xl mr-1 text-[black] cursor-pointer opacity-100 cart md:rounded-full md:bg-[white] md:flex md:justify-center md:p-2 '/>
-            </div>
-        </div>
-        </div>
-
-        <div className='flex bg-[url("/assets/d5white.png")]  bg-cover bg-no-repeat items-center justify-center text-[black] h-32 md:h-52 md:bg-contain cursor-pointer relative border-[blue]' onClick={()=>navigate(`/product/123`)}>
-        <div className='flex absolute top-0 w-full h-full items-center justify-center md:rounded-lg bg-[black] opacity-50'>
-        <div className='flex gap-3 items-center justify-center'>
-        <AiOutlineShoppingCart className='AiOutlineShoppingCart text-2xl md:text-4xl mr-1 text-[black] cursor-pointer opacity-100 cart md:rounded-full md:bg-[white] md:flex md:justify-center md:p-2 '/>
-            </div>
-        </div>
-        </div>
-
-        <div className='flex bg-[url("/assets/d1w.png")]  bg-cover bg-no-repeat items-center justify-center text-[black] h-32 md:h-52 md:bg-contain cursor-pointer relative border-[blue]' onClick={()=>navigate(`/product/123`)}>
-        <div className='flex absolute top-0 w-full h-full items-center md:rounded-lg justify-center bg-[black] opacity-50'>
-            <div className='flex gap-3 items-center justify-center'>
-            <AiOutlineShoppingCart className='AiOutlineShoppingCart text-2xl md:text-4xl mr-1 text-[black] cursor-pointer opacity-100 cart md:rounded-full md:bg-[white] md:flex md:justify-center md:p-2 '/>
-            </div>
-        </div>
-        </div>
+        <BestSellings/>
+        <BestSellings />
+        <BestSellings />
+        <BestSellings />
+        <BestSellings />
+        <BestSellings />
 
       </div>
     </div>
@@ -115,23 +122,31 @@ const Homepage = () => {
     <div className='flex mt-10 flex-col mb-4'>
       <h1 className='text-center  w-full text-[black] text-lg font-bold md:text-2xl'>EXPLORE WHATS NEW HERE</h1>
       <div className='flex items-center justify-center bg-[] py-2'>
+      {/* <div className='pics'> */}
         <Bestpics />
+        {/* </div> */}
       </div>
     </div>
 
     <div className='bestPics'>
       <h1 className='text-[black] w-full text-center text-lg font-bold md:text-2xl'>OUR BEST PICKS</h1>
-      <Homebottom />
+      <div className='pics'>
+      {
+        images.map((item,index)=>{
+          return(
+            <Homebottom item={item} key={index}/>
+        )
+        })
+      }
+      </div>
     </div>
+    <Accessories />
     <Missed />
     <div className='buy-now'>
       <h1 className='w-full text-center md:text-3xl'>SHOP NOW WITH EXCLUSIVE OFFERS</h1>
-      <Tshirt />
-      <Tshirt />
-      <Tshirt />
-      <Tshirt />
-      <Tshirt />
-      <Tshirt />
+      {
+        showProducts.map((p)=><Tshirt key={p._id} p={p} />)
+      }
     </div>
     </div>
   )
