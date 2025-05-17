@@ -2,6 +2,7 @@ import React from "react";
 import { FaAmazonPay, FaAppStore, FaCcVisa, FaGooglePay, FaGooglePlay } from "react-icons/fa";
 import { SiPaytm } from "react-icons/si";
 import { RiMastercardFill } from "react-icons/ri";
+import { AiOutlineArrowRight } from "react-icons/ai";
 
 const Footer = () => {
   return (
@@ -46,14 +47,17 @@ const Footer = () => {
         {/* KEEP UP TO DATE */}
         <div>
           <h2 className="font-bold uppercase mb-3 text-white">Keep Up to Date</h2>
-          <div className="flex">
+          <div className="flex md:w-auto">
             <input
               type="email"
               placeholder="Enter Mail ID"
               className="p-2 text-black flex-grow rounded-l-md"
             />
-            <button className="bg-yellow-400 text-black px-4 rounded-r-md font-bold">
+            <button className="hidden md:block bg-yellow-400 md:w-auto  text-xs md:text-sm text-black px-4 rounded-r-md font-bold">
               SUBSCRIBE
+            </button>
+             <button className=" md:hidden bg-yellow-400 md:w-auto  text-xs md:text-sm text-black px-4 rounded-r-md font-bold">
+              <AiOutlineArrowRight />
             </button>
           </div>
         </div>
