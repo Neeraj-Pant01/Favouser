@@ -1,39 +1,95 @@
-import React from 'react'
-import { AiFillFacebook, AiFillInstagram, AiFillLinkedin, AiFillTwitterSquare } from "react-icons/ai"
-import { PiPaperPlaneRightFill } from "react-icons/pi"
-import "./footer.css"
-
+import React from "react";
+import { FaAmazonPay, FaAppStore, FaCcVisa, FaGooglePay, FaGooglePlay } from "react-icons/fa";
+import { SiPaytm } from "react-icons/si";
+import { RiMastercardFill } from "react-icons/ri";
 
 const Footer = () => {
-    return (
-        <div className='flex flex-col bg-[#232222] px-4 py-4 gap-7'>
-            <div className='flex flex-col text-[white]'>
-                <b className='text-sm md:text-lg'>customer support</b>
-                <p className='flex items-center gap-2'><span className='text-[grey]'>contact :</span> <span className='text-[white] text-sm'>8527737732</span></p>
-            </div>
-            <div className='flex flex-col text-[white]'>
-                <b className='text-sm'>CONNECT WITH US</b>
-                <div className='flex items-center text-[grey] gap-2 text-xl'>
-                    <AiFillLinkedin className='cursor-pointer'/>
-                    <AiFillFacebook className='cursor-pointer'/>
-                    <AiFillTwitterSquare className='cursor-pointer'/>
-                    <AiFillInstagram className='cursor-pointer'/>
-                    <PiPaperPlaneRightFill className='cursor-pointer'/>
-                </div>
-            </div>
-            <div className='flex flex-col text-[white]'>
-                <b className='text-sm leading-tight md:text-lg'>Online shopping at Favouser: Where hassle turns to ease, convenience reigns, and excitement prevails</b>
-                <p className='text-xs text-[grey] md:text-sm'>Online shopping has always been a delightful and exhilarating endeavor for many, especially when your shopping haven is none other than the comfort of your own home. We've all had those days when we meticulously planned trips to brick-and-mortar clothing stores, daydreaming about our anticipated purchases. However, in today's fast-paced world, you can relish this experience without a second thought through online shopping. Welcome to the era of shopping from the cozy confines of your home, replete with an array of online shopping offers that range from fantastic deals and discounts to an exceptionally user-friendly interface, setting us apart from most online shopping sites in India. We've incorporated numerous shopping filters to ensure your shopping experience is genuinely hassle-free. This, in our own words, is what we proudly call Favouser.com.
+  return (
+    <footer className="bg-black text-white py-10 px-4 md:px-16 md:pb-40">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 text-sm">
 
-                    Favouser, your ultimate destination for cutting-edge online fashion, presents an exquisite collection of high-quality products. Dive into the world of online shopping for men and women, exploring captivating categories that span from men's fashion to essential men's clothing and an extensive range of women's wear and women's apparel. Discover a plethora of accessories to complement your style. Fill up your shopping carts and experience swift home deliveries for all your orders. To sweeten the deal, we offer exclusive online shopping offers that create an enticing, irresistible, and exceptionally stylish package. You can even share these fantastic finds with your loved ones, knowing it will bring a smile to their faces.</p>
-            </div>
-            <div className='flex flex-col text-[white]'>
-                <b className='text-sm leading-tight md:text-lg'>Our Idealism</b>
-                <p className='text-xs text-[grey] md:text-sm'>Our commitment lies in designing fashion that allows you to shine, as it harmonizes seamlessly with the latest trends in both local and global fashion scenes. Simultaneously, we prioritize functionality, offering you great value for your money through the use of premium materials and designs that are both comfortable and flattering. When crafting our graphics, we immerse ourselves in the thoughts of our customers and find inspiration in the conversations and experiences that surround us, making sure our designs resonate with you.</p>
-            </div>
-            <hr className='mb-5 w-80 self-center md:w-full md:bg-[grey]'></hr>
+        {/* CUSTOMER SERVICE */}
+        <div>
+          <h2 className="font-bold uppercase mb-3 text-white">Customer Service</h2>
+          <ul className="space-y-1 text-gray-300">
+            <li>Contact Us</li>
+            <li>Track Order</li>
+            <li>Return Order</li>
+            <li>Cancel Order</li>
+          </ul>
         </div>
-    )
-}
 
-export default Footer
+        {/* COMPANY */}
+        <div>
+          <h2 className="font-bold uppercase mb-3 text-white">Company</h2>
+          <ul className="space-y-1 text-gray-300">
+            <li>About Us</li>
+            <li>About Team</li>
+            <li>Terms & Conditions</li>
+            <li>Privacy Policy</li>
+          </ul>
+        </div>
+
+        {/* CONNECT WITH US */}
+        <div>
+          <h2 className="font-bold uppercase mb-3 text-white">Connect With Us</h2>
+          <div className="flex gap-4 text-white text-2xl">
+            <i className="fab fa-whatsapp"></i>
+            <i className="fab fa-instagram"></i>
+            <i className="fab fa-facebook-f"></i>
+            <i className="fab fa-x-twitter"></i>
+            <i className="fab fa-telegram"></i>
+            <i className="fab fa-snapchat"></i>
+          </div>
+        </div>
+
+        {/* KEEP UP TO DATE */}
+        <div>
+          <h2 className="font-bold uppercase mb-3 text-white">Keep Up to Date</h2>
+          <div className="flex">
+            <input
+              type="email"
+              placeholder="Enter Mail ID"
+              className="p-2 text-black flex-grow rounded-l-md"
+            />
+            <button className="bg-yellow-400 text-black px-4 rounded-r-md font-bold">
+              SUBSCRIBE
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Divider */}
+      <div className="my-8 border-t border-gray-700"></div>
+
+      {/* App & Payment */}
+      <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+        {/* Download Now */}
+        <div>
+          <h2 className="uppercase font-bold mb-2 text-white text-sm">Download Now</h2>
+          <div className="flex text-xl md:text-3xl gap-3">
+            <span className="text-green-500 bg-[white] p-2 rounded-full"><FaGooglePlay /></span>
+            <span  className="bg-blue-700 p-2 rounded-full"><FaAppStore /></span>
+          </div>
+        </div>
+
+        {/* Secure Payment */}
+        <div>
+          <h2 className="uppercase font-bold mb-2 text-white text-sm text-center md:text-left">
+            100% Secure Payment
+          </h2>
+          <div className="flex text-xl md:text-3xl flex-wrap justify-center md:justify-start gap-3">
+            <span className="bg-[lightgrey] p-2 rounded-md text-[black]"><FaGooglePay /></span>
+            <span className="bg-[lightgrey] p-2 rounded-md text-[black]"><SiPaytm /></span>
+            <span className="bg-[lightgrey] p-2 rounded-md text-[black]"><FaAmazonPay /></span>
+            <span className="bg-[lightgrey] p-2 rounded-md text-[black]"><FaCcVisa /></span>
+            <span className="bg-[lightgrey] p-2 rounded-md text-[black]"><RiMastercardFill /></span>
+            {/* <span className="bg-[lightgrey] p-2 rounded-md"></span> */}
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

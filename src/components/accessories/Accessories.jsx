@@ -6,7 +6,7 @@ const Accessories = () => {
       id: 1,
       name: "Classic Watch",
       price: "Rs 999.99",
-      image: "https://images.unsplash.com/photo-1524805444758-089113d588a4?q=80&w=1888&auto=format&fit=crop"
+      image: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?q=80&w=1932&auto=format&fit=crop"
     },
     {
       id: 2,
@@ -53,8 +53,8 @@ const Accessories = () => {
   ]
 
   return (
-    <div className='mt-16 mb-8'>
-      <h1 className='text-center text-2xl md:text-3xl font-bold text-gray-800 mb-8'>ACCESSORIES</h1>
+    <div className='mt-2 bg-[black] mb-2 pt-4'>
+      <h1 className='text-center text-2xl md:text-3xl font-bold text-white mb-8'>ACCESSORIES</h1>
       <div className='grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 px-4 md:px-8'>
         {accessories.map((item) => (
           <div key={item.id} className='group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300'>
