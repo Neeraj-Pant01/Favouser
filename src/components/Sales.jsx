@@ -29,17 +29,17 @@ const SaleTags = () => {
       </div>
 
       {/* Product circles */}
-      <div className=" flex px-4 flex-wrap justify-between gap-6">
+      <div className=" flex px-4 flex-wrap justify-between md:gap-6 gap-3">
         {saleItems.map((src, index) => (
           <div key={index} className="flex flex-col items-center justify-between">
-            <div className="w-12 h-12 sm:w-[6vw] sm:h-[6vw] rounded-full overflow-hidden shadow-md">
+            <div className="w-[5vh] h-[5vh] sm:w-[6vw] sm:h-[6vw] rounded-full overflow-hidden shadow-md">
               <img
                 src={src}
                 alt={`Sale Item ${index + 1}`}
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <span className="mt-2 text-sm font-semibold">New</span>
+            <span className="mt-2 text-xs md:text-sm font-semibold">New</span>
           </div>
         ))}
       </div>
