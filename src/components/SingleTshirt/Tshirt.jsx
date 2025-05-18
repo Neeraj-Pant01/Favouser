@@ -6,43 +6,80 @@ import { items } from '../../redux/CartSlice';
 import { makeApiRequest } from '../../utils/makeRequest';
 import { userCart } from '../../redux/CurrentUserCart';
 
-const Tshirt = ({p}) => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-  const cart  = useSelector((cart)=>cart.currentCart.currentUserCart)
-  const token = useSelector((state)=>state.user?.currentUser?.token)
+const Tshirt = ({ p }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const cart = useSelector((cart) => cart.currentCart.currentUserCart)
+  const token = useSelector((state) => state.user?.currentUser?.token)
 
   const api = makeApiRequest(token)
 
   console.log(p)
 
-  const addToCart = async () =>{
-    try{
-        const response = cart ? await api.put(`/api/v1/cart/add-product`,{productId:p._id, ...p}) : await api.post(`/api/v1/cart`,{productId:p._id, ...p})
-        dispatch(userCart(response.data))
-        console.log(response)
-    }catch(err){
-        console.log(err)
+  const addToCart = async () => {
+    try {
+      const response = cart ? await api.put(`/api/v1/cart/add-product`, { productId: p._id, ...p }) : await api.post(`/api/v1/cart`, { productId: p._id, ...p })
+      dispatch(userCart(response.data))
+      // console.log(response)
+    } catch (err) {
+      console.log(err)
     }
   }
   return (
     <>
-        <div className='flex flex-col border my-1 PRODUCT md:pb-2 rounded-md cursor-pointer'>
-        <img onClick={()=>navigate(`/product/${p?._id}`)} src={ "/assets/black2.png"} className='w-[100%]'/>
-        <div className='flex mt-3 justify-between items-center'>
-            <div className='flex flex-col gap-2'>
-                <Link to={`product/${p?._id}`} className='text-sm text-[grey] px-2 md:text-[white]'>product name/title </Link>
-                <span className='text-xs text-[grey] px-2 font-light md:text-[lightgrey]'>{p?.productDesc.substring(0, 30)}<b className='text-[black] md:text-[lightgrey]'> ...</b></span>
-            </div>
-            <BsCart4 className='text-[goldenrod] text-2xl mr-1 cursor-pointer md:text-[lightgrey] md:text-2xl'onClick={addToCart}/>
-        </div>
-        <div className='flex px-2 mt-3 items-center'>
-            
-            <span className='text-[grey] line-through text-sm mr-2'>₹1699</span>
-            <span className='text-[grey] text-sm mr-1'>₹<b className='text-[black] text-lg md:text-white'>{p?.price}</b></span>
-             <span className='text-[green] text-sm ml-3 md:text-xl'>47% OFF</span>
-        </div>
+      <div className="w-[180px] md:w-[24%] lg:w-[24%] bg-white border rounded-md shadow hover:shadow-lg transition-all h-max duration-300 cursor-pointer relative overflow-hidden">
+  {/* Top Badge */}
+  <div className="absolute top-2 left-2 bg-green-500 text-white text-xs font-semibold px-2 py-0.5 rounded z-10">
+    BUY 2 FOR {Math.floor(p?.price + p?.price)}
+  </div>
+
+  {/* Product Image */}
+  <div className="w-full h-[220px] flex items-center justify-center bg-gray-50">
+    <img
+      src={p?.coverImage}
+      alt={p?.productName}
+      onClick={() => navigate(`/product/${p?._id}`)}
+      className="h-full object-cover rounded-sm"
+    />
+  </div>
+
+  {/* Product Info */}
+  <div className="p-2 flex flex-col gap-1">
+    {/* Rating */}
+    <div className="flex items-center gap-1 text-sm text-yellow-500 font-semibold">
+      <span>★</span>
+      <span className="text-black text-xs">4.4</span>
     </div>
+
+    {/* Name */}
+    <Link to={`/product/${p?._id}`} className="text-sm font-medium text-black line-clamp-1">
+      {p?.productName}
+    </Link>
+
+    {/* Description */}
+    <p className="text-xs text-gray-500 font-light line-clamp-2">
+      {p?.productDesc?.substring(0, 50)}...
+    </p>
+
+    {/* Pricing */}
+    <div className="flex items-center gap-2 mt-1">
+      <span className="line-through text-xs text-gray-400">
+        ₹{Math.floor(p?.price + (p?.price * 0.4))}
+      </span>
+      <span className="text-sm font-semibold text-black">₹{p?.price}</span>
+      <span className="text-green-600 text-xs font-semibold">40% OFF</span>
+    </div>
+  </div>
+
+  {/* Cart Icon */}
+  <div className="absolute bottom-2 right-2">
+    <BsCart4
+      className="text-yellow-500 text-xl hover:scale-110 transition-transform"
+      onClick={addToCart}
+    />
+  </div>
+</div>
+
     </>
   )
 }

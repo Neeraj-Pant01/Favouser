@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { AiFillMinusCircle, AiFillPlusCircle } from 'react-icons/ai'
 
 const OrderSummary = ({itemQuantity, setItemQuantity, product}) => {
+    console.log('order product',product)
     return (
         <div className='flex flex-col px-4 mt-3'>
             <div className='flex flex-col md:flex-row items-center gap-4'>
@@ -9,7 +10,8 @@ const OrderSummary = ({itemQuantity, setItemQuantity, product}) => {
                     <img className='w-28 rounded-md h-28 md:w-36 md:h-36' src={product?.product.coverImage} alt='' />
                 </div>
                 <div className='flex flex-col'>
-                    <h1 className='text-[black] font-thin'>{product?.product.productName} {product?.product.productDesc}</h1>
+                    <h1 className='text-[black] font-thin'>{product?.product.productName}</h1>
+                    <p>{product?.product.productDesc.substring(0,50)}{product?.product.productDesc.length > 50 && '...'}</p>
                     <span className='text-[grey]'>color</span>
                     <div className='flex items-center gap-3 justify-center md:justify-normal mt-4'>
                         <span className='text-[black] text-xl'>₹{Math.round(itemQuantity * product?.product.price)}</span>

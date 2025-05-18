@@ -10,7 +10,7 @@ const Navbar = () => {
   const navigate = useNavigate()
 
   const user = useSelector((state) => state.user.currentUser)
-  console.log(user)
+  const [searchQuerry, setSearchQuerry] = useState("")
 
   const handleSearch = () => {
     setSearchbar(true)
@@ -37,8 +37,8 @@ const Navbar = () => {
         </div>
 
         <div className='hidden md:flex items-center bg-[white] w-80 text-[black] rounded-md py-1 border border-[grey]'>
-          <input type='text' placeholder='search here..' className='px-4 w-full bg-[transparent] outline-none placeholder:text-black placeholder:font-light font-light text-[black]' />
-          <AiOutlineSearch className='text-xl mr-3' />
+          <input type='text' placeholder='search here..' className='px-4 w-full bg-[transparent] outline-none placeholder:text-black placeholder:font-light font-light text-[black]' onChange={(e)=>setSearchQuerry(e.target.value)} />
+          <AiOutlineSearch className='text-xl mr-3 cursor-pointer' onClick={()=>navigate(`/products?search=${searchQuerry}`)} />
         </div>
 
         <div className='flex items-center gap-2'>

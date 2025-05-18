@@ -1,4 +1,3 @@
-import React from 'react'
 import Homepage from './pages/homepage/Homepage'
 import SingleProduct from './pages/singleProduct/SingleProduct'
 import Cart from './pages/cart/Cart'
@@ -10,6 +9,8 @@ import Order from './pages/order/Order'
 import CompleteOrder from './pages/completeOrder/CompleteOrder'
 import { useSelector } from 'react-redux'
 import Myorders from './pages/myorders/Myorders'
+import RouteChangeTracker from './components/RouteChangeTracker'
+
 
 function App() {
   const user = useSelector((state)=>state.user?.currentUser)
@@ -17,6 +18,7 @@ function App() {
   const Layout = () =>{
     return (
       <>
+      <RouteChangeTracker />
       <Outlet />   
       <Footer />
       </>
