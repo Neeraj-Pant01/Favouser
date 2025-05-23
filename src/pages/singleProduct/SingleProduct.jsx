@@ -74,7 +74,7 @@ const SingleProduct = () => {
                 state: {
                     product,
                     ...size,
-
+                    ...color
                 }
             });
         }
@@ -91,7 +91,7 @@ const SingleProduct = () => {
                             <Link to={`/products`}>
                                 <AiOutlineArrowLeft className='font-extrabold text-2xl text-[black] cursor-pointer' />
                             </Link>
-                            <Link className=''>
+                            <Link to={'/'} className=''>
                                 <img src="/lb.png" className='w-[150px]' alt="" />
                             </Link>
                         </div>
@@ -108,7 +108,9 @@ const SingleProduct = () => {
                         <div className='md:flex md:flex-col'>
                             <Size size={size} setSize={setSize} />
                             <div className="flex">
-                                color logic updating soon !
+                                {
+                                    
+                                }
                             </div>
                             <div className='flex flex-col gap-2 px-5 mt-8'>
                                 <div className='flex flex-col gap-3'>

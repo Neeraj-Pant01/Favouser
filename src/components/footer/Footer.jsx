@@ -3,6 +3,7 @@ import { FaAmazonPay, FaAppStore, FaCcVisa, FaGooglePay, FaGooglePlay } from "re
 import { SiPaytm } from "react-icons/si";
 import { RiMastercardFill } from "react-icons/ri";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -12,22 +13,22 @@ const Footer = () => {
         {/* CUSTOMER SERVICE */}
         <div>
           <h2 className="font-bold uppercase mb-3 text-white">Customer Service</h2>
-          <ul className="space-y-1 text-gray-300">
-            <li>Contact Us</li>
-            <li>Track Order</li>
-            <li>Return Order</li>
-            <li>Cancel Order</li>
+          <ul className="space-y-1 flex flex-col gap-3 text-gray-300">
+            <Link>Contact Us</Link>
+            <Link>Track Order</Link>
+            <Link>Return Order</Link>
+            <Link>Cancel Order</Link>
           </ul>
         </div>
 
         {/* COMPANY */}
         <div>
           <h2 className="font-bold uppercase mb-3 text-white">Company</h2>
-          <ul className="space-y-1 text-gray-300">
-            <li>About Us</li>
-            <li>About Team</li>
-            <li>Terms & Conditions</li>
-            <li>Privacy Policy</li>
+          <ul className="space-y-1 flex flex-col text-gray-300 gap-3">
+            <Link className="hover:underline transition-all" to={'/favouser/about'}>About Us</Link>
+            <Link className="hover:underline transition-all" to={'/favouser/teams'}>About Team</Link>
+            <Link className="hover:underline transition-all" to={'/favouser/terms&conditions'}>Terms & Conditions</Link>
+            <Link className="hover:underline transition-all" to={'/favouser/privacy-policy'}>Privacy Policy</Link>
           </ul>
         </div>
 

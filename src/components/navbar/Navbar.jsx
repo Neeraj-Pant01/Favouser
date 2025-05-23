@@ -11,10 +11,11 @@ const Navbar = () => {
 
   const user = useSelector((state) => state.user.currentUser)
   const [searchQuerry, setSearchQuerry] = useState("")
-
   const handleSearch = () => {
     setSearchbar(true)
   }
+
+  const usercart = useSelector((state)=>state.cart);
 
   const subNavItems = ['SALE', 'MEN', 'WOMEN', 'ACCESSORIES', 'PLUS SIZE', 'SUMMER SALE', 'NEW ARRIVALS', 'BUY 3 @999', '80 OFF']
   return (
@@ -27,7 +28,7 @@ const Navbar = () => {
         <div className='hidden md:flex text-[lightgrey] items-center gap-10'>
           <Link to={`/products?cat=men`}>MEN</Link>
           <Link to={`/products?cat=women`}>WOMEN</Link>
-          <Link to={`/products`}>LGBTQ+</Link>
+          <Link to={`/products?cat=LGBTQ`}>LGBTQ+</Link>
           <Link to={`/products`}>ALL PRODUCTS</Link>
 
           {
@@ -54,7 +55,9 @@ const Navbar = () => {
           </div>
           <div className='flex items-center justify-center w-7 h-7 border-2 border-[lightgrey] relative rounded-full cursor-pointer' onClick={() => navigate(`/cart/${user._id}`)}>
             <span><AiOutlineShoppingCart className='md:text-2xl text-[lightgrey]' /></span>
-            <span to={`/cart/123`} className='text-white bg-red-600 absolute -right-1 md:right-0 text-xs rounded-full h-4 opacity-80 w-4 flex items-center justify-center'>2</span>
+            {user &&
+            <span to={`/cart/123`} className='text-white bg-red-600 absolute -right-1 md:right-0 text-xs rounded-full h-4 opacity-80 w-4 flex items-center justify-center'>{usercart?.quantity}</span>
+            }
           </div>
         </div>
         {open &&
@@ -75,7 +78,7 @@ const Navbar = () => {
       </div>
       <div className="hidden md:flex items-center justify-between py-2 px-4 bg-[white]">
         {
-          subNavItems.map((item, i)=><span className='' key={i}>{item}</span>)
+          subNavItems.map((item, i)=><Link className='hover:underline hover:text-yellow-500 underline-offset-4 decoration-orange-400 transition-all duration-300' key={i}>{item}</Link>)
         }
       </div>
       {/* <div className='hidden md:flex py-5 bg-[white] text-[white] border-b-2 items-center gap-36'>

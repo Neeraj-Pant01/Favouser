@@ -20,6 +20,8 @@ import BestProduct from '../../components/BestProducts'
 import BestSelling from '../../components/BestSelling'
 import FavoUser from '../../components/FavoUser'
 import ScrollButton from '../../components/ScrollButton'
+import { userCart } from '../../redux/CurrentUserCart'
+import { setCartFromDB } from '../../redux/CartSlice'
 
 const images = [
   {
@@ -63,13 +65,16 @@ const Homepage = () => {
     getproducts()
   },[])
 
-const [cart, setCart] = useState()
 
 useEffect(()=>{
   const getCart = async () =>{
     try{
       const response = await api.get('/api/v1/cart')
-      dispatch(response.data)
+      // console.log('db fetched cart is', response.data)
+      if(response.status===200){
+      dispatch(userCart(response.data))
+      dispatch(setCartFromDB(response.data))
+      }
     }catch(err){
       console.log(err)
     }

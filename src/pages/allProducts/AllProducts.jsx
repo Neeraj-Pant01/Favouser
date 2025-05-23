@@ -12,6 +12,7 @@ import { makeApiRequest } from '../../utils/makeRequest'
 import { useSelector } from 'react-redux'
 import GlobalLoader from '../../components/GlobalLoader'
 import { BsCartXFill } from "react-icons/bs";
+import Navbar from '../../components/navbar/Navbar'
 
 
 const AllProducts = () => {
@@ -53,10 +54,8 @@ const AllProducts = () => {
         <GlobalLoader />
       ) :
         <div className='flex flex-col'>
-          <div className='flex sticky top-0 p-5 items-center justify-between bg-white HR border-b-2 mb-2 z-50'>
-            {/* <Link to={`/`}>
-        <AiOutlineLeft className='text-2xl cursor-pointer'/>
-        </Link> */}
+          <Navbar />
+          {/* <div className='flex sticky top-0 p-5 items-center justify-between bg-white HR border-b-2 mb-2 z-50'>
             <div className='hidden md:flex gap-8 items-center ml-16'>
               <h1 className='hidden text-2xl font-extrabold md:block mr-4 cursor-pointer text-[#444444]' onClick={() => navigate('/')}>FAVOUSER</h1>
               <span className='text-[black] font-thin cat' style={{ textDecoration: cat === "men" ? "underline orange" : "" }}>MEN</span>
@@ -87,9 +86,9 @@ const AllProducts = () => {
               <AiOutlineHeart className='text-2xl cursor-pointer' />
               <BsCart4 className='text-2xl cursor-pointer' onClick={() => navigate('/cart/123')} />
             </div>
-          </div>
+          </div> */}
+          
           <div className='main md:mx-4 md:justify-center'>
-
 
             <div className="left-side hidden sticky top-[10%] h-[90vh] overflow-y-auto mr-4 md:flex bg-white border border-gray-200 rounded-xl shadow-md flex-col p-5 space-y-4 custom-scrollbar">
               <h2 className="text-gray-600 text-sm font-semibold border-b pb-2">FILTER CATEGORIES</h2>
@@ -106,7 +105,7 @@ const AllProducts = () => {
                   ?
                   products.map((p, i) => <Tshirt p={p} key={i} />)
                   :
-                  <div className='flex flex-col h-[70vh] items-center justify-center'>
+                  <div className='flex w-full flex-col h-[70vh] items-center justify-center'>
                     <BsCartXFill className='text-8xl mb-2 text-blue-400 animate-pulse' />
                     <p>No products Found ! Try another category</p>
                     <Link to={'/'} className='text-[white] bg-[black] py-3 px-5 rounded-md mt-4 '>continue shopping</Link>
