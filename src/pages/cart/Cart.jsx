@@ -4,6 +4,7 @@ import Product from '../../components/product/Product'
 import { Link } from 'react-router-dom'
 import {makeApiRequest} from "../../utils/makeRequest"
 import { useSelector } from 'react-redux'
+import Navbar from '../../components/navbar/Navbar'
 
 const Cart = () => {
   const [cart, setCart] = useState([])
@@ -23,13 +24,15 @@ const Cart = () => {
     getUserCart()
   },[])
   return (
+    <>
+    <Navbar />
     <div className='px-2 md:px-0'>
-      <div className='sticky top-0 border items-center px-4 py-3 bg-[white] hidden md:flex'>
+      {/* <div className='sticky top-0 border items-center px-4 py-3 bg-[white] hidden md:flex'>
         <Link to={`/`}>
         <AiOutlineArrowLeft className='text-2xl cursor-pointer'/>
         </Link>
         <span className='ml-3 text-[grey] '>Cart</span>
-      </div>
+      </div> */}
       <div className='flex flex-col gap-2 px-5 mb-8'>
         <p className='mt-2 font-light text-[black] md:text-xl'>items (1)</p>
       </div>
@@ -75,6 +78,7 @@ const Cart = () => {
         </div>
       </div>
     </div>
+    </>
   )
 }
 

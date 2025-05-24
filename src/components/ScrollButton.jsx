@@ -29,7 +29,7 @@ const ScrollButton = () => {
       {visible && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-6 right-4 z-50 p-4 md:p-2 rounded-full bg-[#353935] text-white shadow-lg hover:bg-white hover:text-black border-2 border-white transition-all duration-300 md:h-20 ease-in-out"
+          className="fixed bottom-6 right-4 z-50 p-4 md:p-4 rounded-full bg-[#353935] text-white shadow-lg hover:bg-white hover:text-black border-2 border-white transition-all duration-300  ease-in-out"
           aria-label="Scroll to top"
         >
           <FaArrowUp className="text-xl animate-pulse" />

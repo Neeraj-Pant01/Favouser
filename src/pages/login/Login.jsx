@@ -58,7 +58,7 @@ const Login = () => {
                         <button className='border text-[lightgrey] px-5 py-2 rounded-md '>LOGIN</button>
                         <button className='border border-[pink] text-[PURPLE] px-5 py-2 rounded-md'>GOOGLE LOGIN</button>
                         <p className='flex text-[grey] items-center gap-2'>not registered ? <span className='text-white cursor-pointer' onClick={() => setSignUp(true)}>SIGN UP</span></p>
-                        <Link className='text-[lightgrey] underline text-sm' to={'/'}>Return to omepage</Link>
+                        <Link className='text-[lightgrey] underline text-sm' to={'/'}>Return to Homepage</Link>
                     </form>
             }
         </div>
