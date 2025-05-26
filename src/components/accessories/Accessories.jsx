@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Accessories = () => {
   const accessories = [
@@ -57,7 +58,7 @@ const Accessories = () => {
       <h1 className='text-center text-2xl md:text-3xl font-bold text-white mb-8'>ACCESSORIES</h1>
       <div className='grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 px-4 md:px-8'>
         {accessories.map((item) => (
-          <div key={item.id} className='group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300'>
+          <Link to={`/products?cat=${item?.name}`} key={item.id} className='group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300'>
             <div className='aspect-square overflow-hidden'>
               <img 
                 src={item.image} 
@@ -69,7 +70,7 @@ const Accessories = () => {
               <h3 className='text-white font-semibold text-lg'>{item.name}</h3>
               {/* <p className='text-amber-400 font-bold'>{item.price}</p> */}
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

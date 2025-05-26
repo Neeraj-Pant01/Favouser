@@ -89,14 +89,14 @@ const ShippingPolicy = () => {
                                 <li>No customs or extra charges for domestic orders.</li>
                                 <li>No extra fees on delayed deliveries.</li>
                                 <li>Shipping fees are non-refundable.</li>
-                                <li>Full refunds only if return is requested same day with:
-                                    <ul className="list-disc ml-6 space-y-1">
+                                <li className="">Full refunds only if return is requested same day with:
+                                    <ul className="list-decimal ml-6 space-y-1">
                                         <li>A time-stamped unboxing video showing the unopened product.</li>
                                         <li>Second video proving condition at return request.</li>
                                     </ul>
                                 </li>
                                 <li>Exchanges allowed within 3–4 days with:
-                                    <ul className="list-disc ml-6 space-y-1">
+                                    <ul className="list-decimal ml-6 space-y-1">
                                         <li>Unboxing video</li>
                                         <li>Original packaging, unused condition</li>
                                         <li>Return condition video</li>

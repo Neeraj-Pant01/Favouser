@@ -14,10 +14,9 @@ const SingleItem = ({ product }) => {
       <div className='flex justify-between px-5 items-center'>
         <div className='flex flex-col text-[#2d2d2d]'>
           <h1 className='text-lg'>{product.productName}</h1>
-          <p className='text-[grey] text-sm font-light'>{product.productDesc}.</p>
         </div>
         <div className="flex items-center">
-        <AiFillHeart className='text-green-500 text-3xl cursor-pointer' />
+        <AiFillHeart className='text-red-500 text-3xl cursor-pointer' />
         <GiShoppingCart className='text-[goldenrod] text-3xl cursor-pointer' />
         </div>
       </div>
@@ -34,6 +33,7 @@ const SingleItem = ({ product }) => {
           AllImages.map((i, index) => <img src={i} key={index} className={`w-[40px] h-[40px] shadow border ${currentImage === i ? 'border-red-500 border-2' : 'border-[black]'} rounded-md cursor-pointer`} onClick={()=>setCurrentImage(i)}/>)
         }
       </div>
+          <p className='text-[grey] px-4 text-sm font-light'>{product.productDesc}.</p>
     </div>
   )
 }

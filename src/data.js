@@ -13,14 +13,14 @@ export const slider = [
         trend: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS",
         img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         bg: "#cee2d6"
-    }   
+    }
 ]
 
 export const categories = [
     {
         title: "New Arrivals",
         // image: "/assets/Ab Aage kya Black front.png",
-        image:"https://images.bewakoof.com/t1080/spaced-nasa-half-sleeve-t-shirt-475126-1679049282-1.jpg"
+        image: "https://images.bewakoof.com/t1080/spaced-nasa-half-sleeve-t-shirt-475126-1679049282-1.jpg"
 
     },
     {
@@ -43,20 +43,20 @@ export const cat = [
     {
         title: "New Arrivals",
         // image: "/assets/d6f.png",
-        image:"https://img.freepik.com/premium-photo/fashion-model-wearing-white-tshirt-high-quality-mockup_662214-7979.jpg",
+        image: "https://img.freepik.com/premium-photo/fashion-model-wearing-white-tshirt-high-quality-mockup_662214-7979.jpg",
         desc: "BUY 3 AT 1999/"
 
     },
     {
         title: "BestSellers",
         // image: "/assets/d8white.png",
-        image:"https://img.freepik.com/free-photo/portrait-handsome-confident-stylish-hipster-lambersexual-modelsexy-man-dressed-size-tshirt-jeans-fashion-male-isolated-studio-posing-near-grey-wall_158538-26404.jpg?size=626&ext=jpg&ga=GA1.1.1803636316.1701302400&semt=ais",
+        image: "https://img.freepik.com/free-photo/portrait-handsome-confident-stylish-hipster-lambersexual-modelsexy-man-dressed-size-tshirt-jeans-fashion-male-isolated-studio-posing-near-grey-wall_158538-26404.jpg?size=626&ext=jpg&ga=GA1.1.1803636316.1701302400&semt=ais",
         desc: "MAD FESTIVE SALE"
     },
     {
         title: "Combos",
         image: "/assets/dd.png",
-        image:"https://assets.ajio.com/medias/sys_master/root/20230811/hNZe/64d53f42eebac147fcbe5ef1/-473Wx593H-466444878-red-MODEL.jpg",
+        image: "https://assets.ajio.com/medias/sys_master/root/20230811/hNZe/64d53f42eebac147fcbe5ef1/-473Wx593H-466444878-red-MODEL.jpg",
         desc: "COOL TRENDING STYLES FOR MALE & FEMALE"
     }
 ]
@@ -83,5 +83,52 @@ export const missed = [
         image: "/assets/d6f.png",
         desc: "BUY 3 AT 1999/"
 
+    }
+]
+
+export const allcats = [
+    {
+        img: "C1.png",
+        cat: 'T-shirts'
+    },
+    {
+        img: "JB1.png",
+        cat: 'Caps'
+    },
+    {
+        img: "M1.png",
+        cat: 'Bags'
+    },
+    {
+        img: "",
+        cat: 'Mugs'
+    },
+    {
+        img: "",
+        cat: 'Men'
+    },
+    {
+        img: "",
+        cat: 'Women'
+    },
+    {
+        img: "",
+        cat: 'Watches'
+    }, ,
+    {
+        img: "",
+        cat: 'Glasses'
+    },
+    {
+        img: "",
+        cat: ''
+    },
+    {
+        img: "",
+        cat: ''
+    },
+    {
+        img: "",
+        cat: ''
     }
 ]

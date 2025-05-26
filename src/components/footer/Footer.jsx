@@ -1,5 +1,5 @@
 import React from "react";
-import { FaAmazonPay, FaAppStore, FaCcVisa, FaGooglePay, FaGooglePlay } from "react-icons/fa";
+import { FaAmazonPay, FaAppStore, FaCcVisa, FaFacebook, FaGooglePay, FaGooglePlay, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { SiPaytm } from "react-icons/si";
 import { RiMastercardFill } from "react-icons/ri";
 import { AiOutlineArrowRight } from "react-icons/ai";
@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white py-10 px-4 md:px-16 md:pb-40">
+    <footer className="bg-black text-white py-10 px-4 md:px-16">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 text-sm">
 
         {/* CUSTOMER SERVICE */}
@@ -36,12 +36,10 @@ const Footer = () => {
         <div>
           <h2 className="font-bold uppercase mb-3 text-white">Connect With Us</h2>
           <div className="flex gap-4 text-white text-2xl">
-            <i className="fab fa-whatsapp"></i>
-            <i className="fab fa-instagram"></i>
-            <i className="fab fa-facebook-f"></i>
-            <i className="fab fa-x-twitter"></i>
-            <i className="fab fa-telegram"></i>
-            <i className="fab fa-snapchat"></i>
+            <a className="text-[#E1306C]" href="" target="blank"><FaInstagram /></a>
+            <a className="text-[#1DA1F2]" href=""><FaTwitter /></a>
+            <a className="text-[#1877F2]" href=""><FaFacebook /></a>
+            <a className="text-[#0A66C2]" href=""><FaLinkedin /></a>
           </div>
         </div>
 
@@ -71,10 +69,10 @@ const Footer = () => {
       <div className="flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Download Now */}
         <div>
-          <h2 className="uppercase font-bold mb-2 text-white text-sm">Download Now</h2>
+          {/* <h2 className="uppercase font-bold mb-2 text-white text-sm">Download Now</h2> */}
           <div className="flex text-xl md:text-3xl gap-3">
-            <span className="text-green-500 bg-[white] p-2 rounded-full"><FaGooglePlay /></span>
-            <span  className="bg-blue-700 p-2 rounded-full"><FaAppStore /></span>
+            {/* <span className="text-green-500 bg-[white] p-2 rounded-full"><FaGooglePlay /></span> */}
+            {/* <span  className="bg-blue-700 p-2 rounded-full"><FaAppStore /></span> */}
           </div>
         </div>
 
@@ -93,6 +91,8 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      <p className="md:mt-40 text-center text-[lightgrey]">© 2025 FavoUser. All rights reserved. Unauthorized reproduction or distribution is prohibited.
+</p>
     </footer>
   );
 };

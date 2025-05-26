@@ -2,52 +2,60 @@ import React, { useEffect, useState } from 'react'
 import { makeApiRequest } from '../../utils/makeRequest'
 import { useSelector } from 'react-redux'
 
-const Order = ({o}) => {
+const Order = ({ order }) => {
     const [item, setItem] = useState()
 
-    const token = useSelector((state)=>state.user?.currentUser.token)
+    const token = useSelector((state) => state.user?.currentUser.token)
 
     const api = makeApiRequest(token)
-    useEffect(()=>{
-        const getSingleOrder = async () =>{
-            try{
-                const response = await api.get(`/api/v1/products/${o.productId}`)
+    useEffect(() => {
+        const getSingleOrder = async () => {
+            try {
+                const response = await api.get(`/api/v1/products/${order?.productId}`)
                 // console.log(response)
                 setItem(response.data)
-            }catch(err){
+            } catch (err) {
                 console.log(err)
             }
         }
         getSingleOrder()
-    },[])
-  return (
-    <div className='flex flex-col md:flex-row md:justify-between md:px-5 md:border-2 py-4 items-center md:items-start'>
-      <img className='w-[150px] h-[150px]' src={o.productImage} alt='' />
-      <div className='flex flex-col'>
-        <b>{item?.productName}</b>
-        <div className='flex items-center gap-5 text-[grey]'>
-            {o?.color && <span>color: {o?.color}</span>}
-            <span>size: {o?.size}</span>
-        </div>
-      </div>
-        <span className='text-[grey]'>Amount : ₹{o.amount}</span>
-        <div className='flex flex-col'>
-            <div className="flex items-center gap-3">
-                {
-                    o?.status === ("completed" || "delivered") ?
-                    <div className='w-[10px] h-[10px] rounded-full bg-[green]'></div>
-                    :
-                    <div className='w-[10px] h-[10px] rounded-full bg-[orange]'></div>
-                }
-                <span className='text-[grey]'>status : {o.status}</span>
+    }, [])
+
+    const getStatusColor = (status) => {
+        switch (status) {
+            case "Delivered":
+                return "text-green-500 bg-green-100";
+            case "Shipped":
+                return "text-blue-500 bg-blue-100";
+            case "Pending":
+                return "text-yellow-500 bg-yellow-100";
+            default:
+                return "text-gray-500 bg-gray-100";
+        }
+    };
+    return (
+
+        <div
+            key={order?.id}
+            className="bg-white shadow-lg rounded-2xl p-6 hover:shadow-xl transition duration-300"
+        >
+            <div className="flex justify-between items-center mb-2">
+                <h2 className="text-lg font-semibold text-[#1E1E1E]">{order?.id}</h2>
+                <span
+                    className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(order?.status)}`}
+                >
+                    {order?.status}
+                </span>
             </div>
-            {
-                o?.status !== "delivered" &&
-                <span className='text-[grey]'>Ordered On : {new Date(o.createdAt).toLocaleDateString()}</span>
-            }
+            <p className="text-sm text-gray-600 mb-2">Date: {order?.date}</p>
+            <p className="text-sm text-gray-600 mb-2">Items: {order?.items}</p>
+            <p className="text-xl font-bold text-[#333]">{order?.total}</p>
+            <button className="mt-4 w-full bg-[#1E1E1E] text-white py-2 rounded-lg hover:bg-[#333] transition">
+                View Details
+            </button>
         </div>
-    </div>
-  )
+
+    )
 }
 
 export default Order

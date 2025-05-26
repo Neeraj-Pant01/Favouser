@@ -125,7 +125,7 @@ const Navbar = () => {
       </div>
       <div className="hidden md:flex items-center justify-between py-2 px-4 bg-[white]">
         {
-          subNavItems.map((item, i) => <Link className='hover:underline hover:text-yellow-500 underline-offset-4 decoration-orange-400 transition-all duration-300' key={i}>{item}</Link>)
+          subNavItems.map((item, i) => <Link to={`/products?cat=${item}`} className='hover:underline hover:text-yellow-500 underline-offset-4 decoration-orange-400 transition-all duration-300' key={i}>{item}</Link>)
         }
       </div>
     </div>

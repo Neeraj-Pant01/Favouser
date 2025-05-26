@@ -2,19 +2,19 @@ import React from "react";
 
 const promos = [
   {
-    image: "https://images.unsplash.com/photo-1525299374597-911581e1bdef?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHN0eWxlfGVufDB8fDB8fHww",
+    image: "/assets/C1.png",
     topText: "BUY NOW",
     bottomLeft: "SAVE BIG",
     bottomRight: "BUY 3 @999",
   },
   {
-    image: "https://media.istockphoto.com/id/2165616608/photo/kannada-music-maestro.webp?a=1&b=1&s=612x612&w=0&k=20&c=fy2RiAUTJO96ToNNqvrw9HrHzOlSiXhbr_noHGIPGW0=",
+    image: "/assets/JB1.png",
     topText: "BUY 3",
     topRight: "GET 1",
     bottomCenter: "FREE",
   },
   {
-    image: "https://media.istockphoto.com/id/1153381634/photo/a-confident-young-man-near-a-lake-in-the-autumn-forest.webp?a=1&b=1&s=612x612&w=0&k=20&c=iqg53XaBh_DHmigqQdz-aqvzU4UiWkep87hQjwmXcJc=",
+    image: "/assets/m12.png",
     topLeft: "LIMITED",
     topRight: "EDITION",
     bottomCenter: "BUY NOW @ 999",

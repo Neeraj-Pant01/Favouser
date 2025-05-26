@@ -18,13 +18,27 @@ const SaleTags = () => {
   return (
     <section className="w-full bg-white mb-10 mt-4">
       {/* SALE banner */}
-      <div className="bg-black text-white mb-4 text-sm font-bold uppercase tracking-widest text-center py-2">
+      {/* <div className="bg-black text-white mb-4 text-sm font-bold uppercase tracking-widest text-center py-2">
         <div className="flex overflow-hidden -auto justify-center gap-8">
           {Array(15)
             .fill("SALE")
             .map((text, index) => (
               <span className="w-12 md:w-[7vw]" key={index}>{text}</span>
             ))}
+        </div>
+      </div> */}
+      <div className="bg-black text-white mb-4 text-sm font-bold uppercase tracking-widest text-center py-2 overflow-hidden">
+        <div className="relative w-full h-6">
+          <div
+            className="absolute whitespace-nowrap animate-marquee flex gap-8"
+            style={{ willChange: 'transform' }}
+          >
+            {Array(30)
+              .fill("SALE")
+              .map((text, index) => (
+                <span className="w-12 md:w-[7vw]" key={index}>{text}</span>
+              ))}
+          </div>
         </div>
       </div>
 
