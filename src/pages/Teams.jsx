@@ -26,7 +26,7 @@ const Teams = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-[80vh] bg-[#f2ebd3] pt-10 text-black font-sans flex flex-col items-center  justify-center">
+      <div className="min-h-[100vh] bg-[#f2ebd3] pt-10 text-black font-sans flex flex-col items-center  justify-center">
         <div className="w-full px-5 md:px-[10%] flex flex-col md:flex-row items-center justify-between gap-8">
           {/* LEFT TEXT SECTION */}
           <div
@@ -60,7 +60,7 @@ const Teams = () => {
         </div>
 
         {/* TEAM CIRCLE CAROUSEL */}
-        <div className="flex mt-10 py-5 items-center justify-center bg-[rgba(0,0,0,0.6)] w-full ">
+        <div className="flex mt-auto py-5 items-center justify-center bg-[rgba(0,0,0,0.6)] w-full ">
           <div className="lex gap-6 flex justify-center px-2">
             {teamData.map((m, index) => (
               <div
