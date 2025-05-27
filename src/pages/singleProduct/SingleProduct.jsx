@@ -36,6 +36,8 @@ const SingleProduct = () => {
 
     const token = useSelector((state) => state.user?.currentUser?.token)
     const user = useSelector((state) => state.user?.currentUser)
+          const usercart = useSelector((state) => state.cart);
+    
 
 
     const api = makeApiRequest(token)
@@ -108,7 +110,7 @@ const SingleProduct = () => {
 
                         <Link to={`/cart/${user?._id}`} className='relative'>
                             <AiOutlineShoppingCart className='font-extrabold text-3xl text-[goldenrod] cursor-pointer' />
-                            <div className="flex absolute items-center justify-center text-xs w-[15px] h-[15px] bg-[red] text-[white] rounded-full top-0 right-1">2</div>
+                            <div className="flex absolute items-center justify-center text-xs w-[15px] h-[15px] bg-[red] text-[white] rounded-full top-0 right-1">{usercart?.quantity}</div>
                         </Link>
                     </div>
                     <div className='md:flex md:gap-10'>

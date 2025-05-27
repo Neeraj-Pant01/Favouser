@@ -16,6 +16,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy'
 import Teams from './pages/Teams'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ContactPage from './pages/Contact'
 
 
 function App() {
@@ -58,6 +59,10 @@ function App() {
       {
         path: '/product/:id',
         element: <SingleProduct />
+      },
+      {
+        path: '/favouser/contact',
+        element: <ContactPage />
       },
       {
         path: '/cart/:id',

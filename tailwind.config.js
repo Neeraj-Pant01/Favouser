@@ -9,6 +9,9 @@ export default {
       colors: {
         dark: "#0f0f0f",
       },
+      fontFamily: {
+        righteous: ['Righteous', 'cursive'],
+      },
       animation: {
         fadeIn: "fadeIn 0.3s ease-in-out",
       },

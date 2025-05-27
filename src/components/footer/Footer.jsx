@@ -1,5 +1,6 @@
 import React from "react";
-import { FaAmazonPay, FaAppStore, FaCcVisa, FaFacebook, FaGooglePay, FaGooglePlay, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaAmazonPay, FaAppStore, FaCcVisa, FaFacebook, FaGooglePay, FaGooglePlay, FaInstagram, FaLinkedin, FaTelegram } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import { SiPaytm } from "react-icons/si";
 import { RiMastercardFill } from "react-icons/ri";
 import { AiOutlineArrowRight } from "react-icons/ai";
@@ -14,7 +15,7 @@ const Footer = () => {
         <div>
           <h2 className="font-bold uppercase mb-3 text-white">Customer Service</h2>
           <ul className="space-y-1 flex flex-col gap-3 text-gray-300">
-            <Link>Contact Us</Link>
+            <Link to={'/favouser/contact'} className="hover:underline">Contact Us</Link>
             <Link>Track Order</Link>
             <Link>Return Order</Link>
             <Link>Cancel Order</Link>
@@ -36,10 +37,15 @@ const Footer = () => {
         <div>
           <h2 className="font-bold uppercase mb-3 text-white">Connect With Us</h2>
           <div className="flex gap-4 text-white text-2xl">
-            <a className="text-[#E1306C]" href="" target="blank"><FaInstagram /></a>
-            <a className="text-[#1DA1F2]" href=""><FaTwitter /></a>
-            <a className="text-[#1877F2]" href=""><FaFacebook /></a>
-            <a className="text-[#0A66C2]" href=""><FaLinkedin /></a>
+            <a className="text-[white]" href="https://www.instagram.com/favouseroffical?igsh=MTdxeHVnMG10OWJ4Zw==
+" target="blank"><FaInstagram /></a>
+            <a className="text-[white]" target="blank" href=" https://x.com/favouser?s=21
+"><FaXTwitter /></a>
+            <a className="text-[white]" href=""><FaFacebook /></a>
+            <a className="text-[white]" target="blank" href="https://www.linkedin.com/in/favouser-clothing-749a9b292?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app
+"><FaLinkedin /></a>
+            <a className="text-white" target="blank" href="https://t.me/favouserclothing
+"><FaTelegram /></a>
           </div>
         </div>
 
@@ -55,7 +61,7 @@ const Footer = () => {
             <button className="hidden md:block bg-yellow-400 md:w-auto  text-xs md:text-sm text-black px-4 rounded-r-md font-bold">
               SUBSCRIBE
             </button>
-             <button className=" md:hidden bg-yellow-400 md:w-auto  text-xs md:text-sm text-black px-4 rounded-r-md font-bold">
+            <button className=" md:hidden bg-yellow-400 md:w-auto  text-xs md:text-sm text-black px-4 rounded-r-md font-bold">
               <AiOutlineArrowRight />
             </button>
           </div>
@@ -92,7 +98,7 @@ const Footer = () => {
         </div>
       </div>
       <p className="md:mt-40 text-center text-[lightgrey]">© 2025 FavoUser. All rights reserved. Unauthorized reproduction or distribution is prohibited.
-</p>
+      </p>
     </footer>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { AiOutlineClose, AiOutlineHeart, AiOutlineMenuFold, AiOutlineSearch, AiOutlineShoppingCart, AiOutlineUser } from "react-icons/ai"
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useSelector } from "react-redux"
 import { toast } from 'react-toastify'
 
@@ -17,6 +17,7 @@ const Navbar = () => {
   }
 
   const usercart = useSelector((state) => state.cart);
+  const location = useLocation();
 
   const subNavItems = ['SALE', 'MEN', 'WOMEN', 'ACCESSORIES', 'PLUS SIZE', 'SUMMER SALE', 'NEW ARRIVALS', 'BUY 3 @999', '80 OFF']
   return (
@@ -123,11 +124,13 @@ const Navbar = () => {
           </div>
         }
       </div>
+      {!['/favouser/contact', '/favouser/teams'].includes(location.pathname) &&
       <div className="hidden md:flex items-center justify-between py-2 px-4 bg-[white]">
         {
           subNavItems.map((item, i) => <Link to={`/products?cat=${item}`} className='hover:underline hover:text-yellow-500 underline-offset-4 decoration-orange-400 transition-all duration-300' key={i}>{item}</Link>)
         }
       </div>
+}
     </div>
   )
 }

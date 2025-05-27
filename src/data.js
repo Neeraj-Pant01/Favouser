@@ -132,3 +132,50 @@ export const allcats = [
         cat: ''
     }
 ]
+
+
+const teamData = [
+  {
+    name: 'Alice',
+    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8fDB8fHww',
+    heading: 'Alice Smith',
+    position: 'Lead Designer',
+    description: 'Alice is a passionate interior designer with over 10 years of experience...',
+    link: 'https://favouser.com',
+  },
+  {
+    name: 'Bob',
+    image: 'https://plus.unsplash.com/premium_photo-1678197937465-bdbc4ed95815?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cGVyc29ufGVufDB8fDB8fHww',
+    heading: 'Bob Johnson',
+    position: 'Project Manager',
+    description: 'Bob leads our construction projects and ensures everything runs smoothly.',
+    link: 'https://favouser.com',
+  },
+    {
+    name: 'Alice',
+    image: 'https://media.istockphoto.com/id/1448317086/photo/woman-working-on-a-computer-in-an-office.webp?a=1&b=1&s=612x612&w=0&k=20&c=l0GHzxlPLgh81WP2fss3d31tZfIFZrUY2d0XcaPvri4=',
+    heading: 'Alice Smith',
+    position: 'Lead Designer',
+    description: 'Alice is a passionate interior designer with over 10 years of experience...',
+    link: 'https://favouser.com',
+  },
+  {
+    name: 'Bob',
+    image: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cGVyc29ufGVufDB8fDB8fHww',
+    heading: 'Bob Johnson',
+    position: 'Project Manager',
+    description: 'Bob leads our construction projects and ensures everything runs smoothly.',
+    link: 'https://favouser.com',
+  },
+    {
+    name: 'Alice',
+    image: 'https://media.istockphoto.com/id/1448317086/photo/woman-working-on-a-computer-in-an-office.webp?a=1&b=1&s=612x612&w=0&k=20&c=l0GHzxlPLgh81WP2fss3d31tZfIFZrUY2d0XcaPvri4=',
+    heading: 'Alice Smith',
+    position: 'Lead Designer',
+    description: 'Alice is a passionate interior designer with over 10 years of experience...',
+    link: 'https://favouser.com',
+  },
+
+];
+export default teamData;
+
