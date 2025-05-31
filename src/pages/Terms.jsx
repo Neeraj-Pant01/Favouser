@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Navbar from "../components/navbar/Navbar";
+import { Link } from "react-router-dom";
 
 const TermsAndConditions = () => {
     useEffect(()=>{
@@ -10,7 +11,7 @@ const TermsAndConditions = () => {
     <Navbar />
     <div className="bg-[#0f0f0f] text-gray-100 min-h-screen md:px-10 px-3 py-12">
       <div className=" mx-auto">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-yellow-400">Terms & Conditions</h1>
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-[#e2dcc8]">Terms & Conditions</h1>
         <p className="text-sm text-gray-400 mb-10">Effective Date: [Insert Date]</p>
 
         <p className="mb-6 text-gray-300">
@@ -39,7 +40,7 @@ const TermsAndConditions = () => {
 
         <Section title="5. Shipping Policy">
           <p className="mb-2 text-gray-300">
-            Refer to our <a href="/shipping-policy" className="text-blue-400 underline">Shipping Policy</a> for full details.
+            Refer to our <Link to="/favouser/privacy-policy" className="text-blue-400 underline">Shipping Policy</Link> for full details.
           </p>
           <ul className="list-disc ml-6 space-y-2 text-gray-300">
             <li>Orders are processed within 24–48 hours.</li>
@@ -74,7 +75,7 @@ const TermsAndConditions = () => {
         </Section>
 
         <Section title="10. Privacy Policy">
-          We are committed to protecting your privacy. Please review our <a href="/privacy-policy" className="text-blue-400 underline">Privacy Policy</a> to understand how we collect, use, and protect your information.
+          We are committed to protecting your privacy. Please review our <Link to="/favouser/privacy-policy" className="text-blue-400 underline">Privacy Policy</Link> to understand how we collect, use, and protect your information.
         </Section>
 
         <Section title="11. Governing Law">
@@ -96,7 +97,7 @@ const TermsAndConditions = () => {
 
 const Section = ({ title, children }) => (
   <div className="mb-10">
-    <h2 className="text-xl font-semibold mb-2 text-yellow-300">{title}</h2>
+    <h2 className="text-xl font-semibold mb-2 text-[#e2dcc8]">{title}</h2>
     <div>{children}</div>
   </div>
 );

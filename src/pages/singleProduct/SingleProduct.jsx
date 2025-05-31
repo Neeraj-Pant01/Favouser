@@ -36,8 +36,8 @@ const SingleProduct = () => {
 
     const token = useSelector((state) => state.user?.currentUser?.token)
     const user = useSelector((state) => state.user?.currentUser)
-          const usercart = useSelector((state) => state.cart);
-    
+    const usercart = useSelector((state) => state.cart);
+
 
 
     const api = makeApiRequest(token)
@@ -114,10 +114,29 @@ const SingleProduct = () => {
                         </Link>
                     </div>
                     <div className='md:flex md:gap-10'>
-                        <div className='md:sticky md:top-20 md:h-fit'>
+                        <div className='md:sticky md:w-[100%] md:top-20 md:h-fit '>
                             <SingleItem product={product} />
                         </div>
-                        <div className='md:flex md:flex-col'>
+                        <div className='md:flex md:w-[100%] md:flex-col '>
+                            <div className="flex md:px-5 px-5 flex-col">
+                                <b>{product?.productName}</b>
+                                <p className='text-[grey] text-sm'>{product?.productDesc}</p>
+
+                                <div className="flex items-center md:mt-6">
+                                    <div>
+                                    <div className="flex items-center gap-4">
+                                        <b className='md:text-2xl'>₹ {product.price}</b>
+                                        <div className='flex md:text-xl items-center'>
+                                            ₹
+                                            <span className='text-[maroon] line-through'>{product.price + Math.floor(product?.price * 0.40)}</span>
+                                        </div>
+                                        <h1 className='text-xl  text-[green]'>40% OFF</h1>
+
+                                    </div>
+                                    <p className='text-[grey]'>Inclusive of all taxes</p>
+                                    </div>
+                                </div>
+                            </div>
                             {
                                 product?.availableSizes &&
                                 <Size size={size} setSize={setSize} />

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Navbar from "../components/navbar/Navbar";
+import { Link } from "react-router-dom";
 
 const ShippingPolicy = () => {
     useEffect(() => {
@@ -12,7 +13,7 @@ const ShippingPolicy = () => {
                 <div className="mx-auto space-y-12">
                     {/* Page Heading */}
                     <div className="text-center">
-                        <h1 className="text-4xl md:text-5xl font-extrabold text-yellow-400 mb-4">Shipping Policy – Favouser</h1>
+                        <h1 className="text-4xl md:text-5xl font-extrabold text-[#e2dcc8] mb-4">Shipping Policy – Favouser</h1>
                         <p className="text-gray-300 text-lg max-w-2xl mx-auto">
                             Delivering your style with speed, care, and reliability.
                         </p>
@@ -22,7 +23,7 @@ const ShippingPolicy = () => {
                     <section className="space-y-8">
                         {/* 1. Shipping Origin */}
                         <div>
-                            <h2 className="text-2xl font-semibold text-yellow-300 mb-2">📦 1. Shipping Origin</h2>
+                            <h2 className="text-2xl font-semibold text-[e2dcc8] mb-2">📦 1. Shipping Origin</h2>
                             <p className="text-gray-300 leading-relaxed">
                                 All orders are shipped from various fulfillment centers across India, based on inventory availability and your location.
                             </p>
@@ -30,7 +31,7 @@ const ShippingPolicy = () => {
 
                         {/* 2. Shipping Coverage */}
                         <div>
-                            <h2 className="text-2xl font-semibold text-yellow-300 mb-2">🌍 2. Shipping Coverage</h2>
+                            <h2 className="text-2xl font-semibold text-[e2dcc8] mb-2">🌍 2. Shipping Coverage</h2>
                             <p className="text-gray-300 leading-relaxed">
                                 <strong>Domestic Shipping:</strong> We currently ship to all locations within India.
                                 <br />
@@ -40,7 +41,7 @@ const ShippingPolicy = () => {
 
                         {/* 3. Order Processing Time */}
                         <div>
-                            <h2 className="text-2xl font-semibold text-yellow-300 mb-2">⏱️ 3. Order Processing Time</h2>
+                            <h2 className="text-2xl font-semibold text-[e2dcc8] mb-2">⏱️ 3. Order Processing Time</h2>
                             <ul className="list-disc list-inside text-gray-300 space-y-1">
                                 <li>Standard orders are processed within 24 to 48 hours.</li>
                                 <li>During festivals or peak seasons, processing may take up to 48 hours.</li>
@@ -50,7 +51,7 @@ const ShippingPolicy = () => {
 
                         {/* 4. Delivery Methods */}
                         <div>
-                            <h2 className="text-2xl font-semibold text-yellow-300 mb-2">🚚 4. Delivery Methods & Timelines</h2>
+                            <h2 className="text-2xl font-semibold text-[e2dcc8] mb-2">🚚 4. Delivery Methods & Timelines</h2>
                             <ul className="list-disc list-inside text-gray-300 space-y-1">
                                 <li><strong>Standard Shipping:</strong> Delivery within 4–7 business days after dispatch.</li>
                                 <li><strong>Express Shipping:</strong> Available for bulk or urgent orders upon request.</li>
@@ -59,7 +60,7 @@ const ShippingPolicy = () => {
 
                         {/* 5. Shipping Charges */}
                         <div>
-                            <h2 className="text-2xl font-semibold text-yellow-300 mb-2">💰 5. Shipping Charges</h2>
+                            <h2 className="text-2xl font-semibold text-[e2dcc8] mb-2">💰 5. Shipping Charges</h2>
                             <ul className="list-disc list-inside text-gray-300 space-y-1">
                                 <li>Free shipping on all orders above ₹1,000.</li>
                                 <li>For orders below ₹1,000, charges are calculated at checkout.</li>
@@ -68,7 +69,7 @@ const ShippingPolicy = () => {
 
                         {/* 6. Shipping Partner */}
                         <div>
-                            <h2 className="text-2xl font-semibold text-yellow-300 mb-2">🤝 6. Shipping Partner</h2>
+                            <h2 className="text-2xl font-semibold text-[e2dcc8] mb-2">🤝 6. Shipping Partner</h2>
                             <p className="text-gray-300 leading-relaxed">
                                 We use <strong>Shiprocket</strong> to ensure safe and timely delivery across India.
                             </p>
@@ -76,7 +77,7 @@ const ShippingPolicy = () => {
 
                         {/* 7. Order Tracking */}
                         <div>
-                            <h2 className="text-2xl font-semibold text-yellow-300 mb-2">📲 7. Order Tracking</h2>
+                            <h2 className="text-2xl font-semibold text-[e2dcc8] mb-2">📲 7. Order Tracking</h2>
                             <p className="text-gray-300 leading-relaxed">
                                 You'll receive a tracking link via SMS or email as soon as your order is dispatched. Track your order in real time!
                             </p>
@@ -84,7 +85,7 @@ const ShippingPolicy = () => {
 
                         {/* 8. Important Information */}
                         <div>
-                            <h2 className="text-2xl font-semibold text-yellow-300 mb-2">⚠️ 8. Important Information</h2>
+                            <h2 className="text-2xl font-semibold text-[e2dcc8] mb-2">⚠️ 8. Important Information</h2>
                             <ul className="list-disc list-inside text-gray-300 space-y-1">
                                 <li>No customs or extra charges for domestic orders.</li>
                                 <li>No extra fees on delayed deliveries.</li>
@@ -110,9 +111,15 @@ const ShippingPolicy = () => {
 
                     {/* Contact Info */}
                     <div className="pt-10 text-center">
-                        <h3 className="text-2xl font-bold text-yellow-400 mb-2">Need Help?</h3>
+                        <h3 className="text-2xl font-bold text-[#e2dcc8] mb-2">Need Help?</h3>
                         <p className="text-gray-300">
-                            Our support team is here for you. Reach out via our <a href="/contact" className="text-yellow-300 underline">contact page</a> or email us directly.
+                            Our support team is here for you. Reach out via our <Link to="/favouser/contact" className="text-[e2dcc8] underline">contact page</Link> or <a
+                                href="mailto:support@example.com?subject=Support Request&body=Hi, I need help with..."
+                                className="text-[lightgrey] underline mr-1"
+                            >
+                                Email Us 
+                            </a>
+                            directly.
                         </p>
                     </div>
                 </div>

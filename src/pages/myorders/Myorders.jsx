@@ -37,6 +37,8 @@ const Myorders = () => {
 
 
   useEffect(() => {
+    window.scrollTo(0,0)
+    
     const getAllOrders = async () => {
       try {
         const response = await api.get('/api/v1/orders/myOrders')

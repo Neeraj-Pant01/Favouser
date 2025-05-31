@@ -6,14 +6,14 @@ import Navbar from '../components/navbar/Navbar'
 
 const ContactPage = () => {
     const user = useSelector((state) => state.user?.currentUser)
-      const usercart = useSelector((state) => state.cart);
-    
+    const usercart = useSelector((state) => state.cart);
+
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
     return (
         <>
-        <Navbar />
+            <Navbar />
             {/* <div className='bg-[white] p-3 sticky top-0 flex items-center justify-between z-50'>
                 <div className="flex items-center gap-4">
                     <Link to={`/products`}>
@@ -53,10 +53,14 @@ const ContactPage = () => {
                             key={index}
                             className="bg-[#dcd1b9] w-full md:w-80 rounded-lg py-6 px-4 flex flex-col justify-center items-start shadow-md"
                         >
-                            <div className="w-10 h-10 bg-black rounded-full mb-4"></div>
-                            <h4 className="text-black font-bold text-lg">{item.title}</h4>
-                            <p className="text-black text-sm opacity-60">{item.subtitle}</p>
-                            <p className="text-black font-medium text-md mt-2">{item.value}</p>
+                            <div className="flex justify-center w-[100%] items-center gap-5">
+                                <div className="w-10 h-10 bg-black rounded-full"></div>
+                                <div>
+                                    <h4 className="text-black font-bold text-lg">{item.title}</h4>
+                                    <p className="text-black text-sm opacity-60">{item.subtitle}</p>
+                                </div>
+                            </div>
+                            <p className="text-black text-center w-[100%] font-medium text-md mt-2">{item.value}</p>
                         </div>
                     ))}
                 </div>

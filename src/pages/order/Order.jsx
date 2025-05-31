@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import OrderSummary from '../../components/orderSummary/OrderSummary'
 import { useDispatch, useSelector } from 'react-redux'
 import { address } from '../../redux/DeliveryInfo'
@@ -8,6 +8,7 @@ import { loadRazorpayScript, makeApiRequest } from '../../utils/makeRequest'
 import { FaMoneyBillWave, FaCreditCard } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import GlobalLoader from '../../components/GlobalLoader'
+import { AiOutlineArrowLeft } from 'react-icons/ai'
 
 export const PaymentPopup = ({ open, onClose, total, onCOD, onOnlinePay }) => {
     if (!open) return null;
@@ -17,14 +18,14 @@ export const PaymentPopup = ({ open, onClose, total, onCOD, onOnlinePay }) => {
             <div className="relative w-full max-w-md bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 shadow-xl text-white p-6 animate-fadeIn">
                 {/* Close Button */}
                 <button
-                    className="absolute top-3 right-3 text-2xl text-yellow-400 hover:text-yellow-300 transition"
+                    className="absolute top-3 right-3 text-2xl text-[#e2dcc8] hover:text-yellow-300 transition"
                     onClick={onClose}
                 >
                     <IoClose />
                 </button>
 
                 {/* Heading */}
-                <h2 className="text-2xl font-bold text-yellow-400 text-center mb-6">
+                <h2 className="text-2xl font-bold text-[#e2dcc8] text-center mb-6">
                     Confirm Your Order
                 </h2>
 
@@ -185,7 +186,7 @@ const Order = () => {
                 contact: addressDetail?.mobileNumber,
             },
             theme: {
-                color: "#ff8000",
+                color: "#e2dcc8",
             },
         };
         const rzp = new window.Razorpay(options);
@@ -200,13 +201,15 @@ const Order = () => {
                 <GlobalLoader />
                 :
                 <div className='flex flex-col border bg-[#f6f4f4]'>
-                    <div className='flex items-center border-b-2 sticky top-0 bg-[white] z-50'>
-                        <h1 className='text-[grey] py-4 cursor-pointer md:text-2xl font-bold mx-10' onClick={() => navigate('/')}>FAVOUSER</h1>
+                    <div className='flex p-3 px-5 cursor-pointer items-center border-b-2 sticky top-0 bg-[white] z-50'>
+                        <Link>                                <AiOutlineArrowLeft className='font-extrabold text-2xl text-[black] cursor-pointer' />
+                        </Link>
+                        <img src='/lb.png' className='w-[150px] ml-3' onClick={() => navigate('/')} />
                     </div>
                     <div className='flex flex-wrap md:px-36 mt-8'>
                         <div className='flex-1 flex-col px-14'>
                             <div className='border-2 bg-[white] pb-4 flex flex-col gap-2'>
-                                <h1 className='bg-[#ff8000] text-[black] px-5 py-2'>DELIVERY ADDRESS</h1>
+                                <h1 className='bg-[#e2dcc8] text-[black] px-5 py-2'>DELIVERY ADDRESS</h1>
                                 <div className='flex flex-col px-4 gap-3'>
                                     <div className='flex items-center gap-5 justify-between text-[grey]'>
                                         <div className='flex md:items-center flex-col md:flex-row md:gap-4 text-[black]' >
@@ -215,7 +218,7 @@ const Order = () => {
                                         </div>
                                         {
                                             !editAddress &&
-                                            <button className='px-2 text-[black] border-b-2 border-[#ff8000]' onClick={() => setEditAddress(true)}>EDIT</button>
+                                            <button className='px-2 text-[#0f3d3e] border-b-2 border-[#0f3d3e]' onClick={() => setEditAddress(true)}>EDIT</button>
                                         }
                                     </div>
                                     {
@@ -250,14 +253,14 @@ const Order = () => {
                                                 value={orderDetails?.mobileNumber}
                                                 onChange={handleChange} />
 
-                                            <button className='text-[black] rounded-md w-fit py-2 px-2 bg-[#ff8000] mt-4' onClick={confirmAddress}>CONFIRM</button>
+                                            <button className='text-[black] rounded-md w-fit py-2 px-2 bg-[#e2dcc8] mt-4' onClick={confirmAddress}>CONFIRM</button>
                                         </div>
 
                                     }
                                 </div>
                             </div>
                             <div className='border-2 bg-[white] mb-5 flex flex-col mt-5'>
-                                <h1 className='bg-[#ff8000] text-[black] px-4 py-2'>ORDER SUMMARY</h1>
+                                <h1 className='bg-[#e2dcc8] text-[black] px-4 py-2'>ORDER SUMMARY</h1>
                                 <OrderSummary product={location.state} itemQuantity={itemQuantity} setItemQuantity={setItemQuantity} orderDetails={orderDetails} setOrderDetails={setOrderDetails} />
                             </div>
                         </div>
@@ -275,7 +278,7 @@ const Order = () => {
                                 <span>Total Payable</span>
                                 <span className='md:text-xl'>₹{itemQuantity * location.state?.product.price}</span>
                             </div>
-                            <button className='bg-[#ff8000] text-[black] cursor-pointer mt-9 py-2 rounded-md' onClick={openPopup}>{loading ? "Loading..." : "PLACE ORDER"}</button>
+                            <button className='bg-[#e2dcc8] text-[black] cursor-pointer mt-9 py-2 rounded-md' onClick={openPopup}>{loading ? "Loading..." : "PLACE ORDER"}</button>
                         </div>
                     </div>
                     {/* Payment Mode Popup */}

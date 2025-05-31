@@ -19,7 +19,7 @@ const Navbar = () => {
   const usercart = useSelector((state) => state.cart);
   const location = useLocation();
 
-  const subNavItems = ['SALE', 'MEN', 'WOMEN', 'ACCESSORIES', 'PLUS SIZE', 'SUMMER SALE', 'NEW ARRIVALS', 'BUY 3 @999', '80 OFF']
+  const subNavItems = ['SALE', 'MEN', 'WOMEN', 'ACCESSORIES', 'BEST SELL', 'SUMMER SALE', 'NEW ARRIVALS', 'BUY 3 @999', '80 OFF']
   return (
     <div className='sticky top-0 z-50'>
       <div className='flex items-center justify-between px-6 py-4 md:py-4 bg-[black] text-[white] relative overflow-visible'>
@@ -40,7 +40,11 @@ const Navbar = () => {
         </div>
 
         <div className='hidden md:flex items-center bg-[white] w-80 text-[black] rounded-md py-1 border border-[grey]'>
-          <input type='text' placeholder='search here..' className='px-4 w-full bg-[transparent] outline-none placeholder:text-black placeholder:font-light font-light text-[black]' onChange={(e) => setSearchQuerry(e.target.value)} />
+          <input type='text' placeholder='search here..' className='px-4 w-full bg-[transparent] outline-none placeholder:text-black placeholder:font-light font-light text-[black]' onChange={(e) => setSearchQuerry(e.target.value)} onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              navigate(`/products?search=${searchQuerry}`);
+            }
+          }} />
           <AiOutlineSearch className='text-xl mr-3 cursor-pointer' onClick={() => navigate(`/products?search=${searchQuerry}`)} />
         </div>
 
@@ -83,7 +87,8 @@ const Navbar = () => {
                     onClick={() => {
                       localStorage.clear();
                       window.location.reload();
-                      setUserMenuOpen(false)}}
+                      setUserMenuOpen(false)
+                    }}
                   >
                     Logout
                   </button>
@@ -95,13 +100,13 @@ const Navbar = () => {
             <span><AiOutlineHeart className='md:text-2xl text-[lightgrey]' /></span>
             <span to={`/cart/123`} className='text-white bg-red-600 absolute -right-1 md:right-0 text-xs rounded-full h-4 opacity-80 w-4 flex items-center justify-center'>2</span>
           </div>
-          <div className='flex items-center justify-center w-7 h-7 border-2 border-[lightgrey] relative rounded-full cursor-pointer' onClick={() =>{
-            if(user){
+          <div className='flex items-center justify-center w-7 h-7 border-2 border-[lightgrey] relative rounded-full cursor-pointer' onClick={() => {
+            if (user) {
               navigate(`/cart/${user._id}`)
-            }else{
+            } else {
               toast.warn('Login to view your cart !')
             }
-            }}>
+          }}>
             <span><AiOutlineShoppingCart className='md:text-2xl text-[lightgrey]' /></span>
             {user &&
               <span to={`/cart/123`} className='text-white bg-red-600 absolute -right-1 md:right-0 text-xs rounded-full h-4 opacity-80 w-4 flex items-center justify-center'>{usercart?.quantity}</span>
@@ -125,12 +130,12 @@ const Navbar = () => {
         }
       </div>
       {!['/favouser/contact', '/favouser/teams'].includes(location.pathname) &&
-      <div className="hidden md:flex items-center justify-between py-2 px-4 bg-[white]">
-        {
-          subNavItems.map((item, i) => <Link to={`/products?cat=${item}`} className='hover:underline hover:text-yellow-500 underline-offset-4 decoration-orange-400 transition-all duration-300' key={i}>{item}</Link>)
-        }
-      </div>
-}
+        <div className="hidden md:flex items-center justify-between py-2 px-4 bg-[white]">
+          {
+            subNavItems.map((item, i) => <Link to={`/products?cat=${item}`} className='hover:underline hover:text-yellow-500 underline-offset-4 decoration-orange-400 transition-all duration-300' key={i}>{item}</Link>)
+          }
+        </div>
+      }
     </div>
   )
 }
