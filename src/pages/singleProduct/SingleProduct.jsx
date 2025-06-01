@@ -11,6 +11,7 @@ import { makeApiRequest } from '../../utils/makeRequest'
 import axios from 'axios'
 import GlobalLoader from '../../components/GlobalLoader'
 import { toast } from 'react-toastify'
+import { items } from '../../redux/CartSlice'
 
 const SingleProduct = () => {
     const [show, setShow] = useState(false)
@@ -37,10 +38,42 @@ const SingleProduct = () => {
     const token = useSelector((state) => state.user?.currentUser?.token)
     const user = useSelector((state) => state.user?.currentUser)
     const usercart = useSelector((state) => state.cart);
-
+    const cart = useSelector((cart) => cart.currentCart.currentUserCart)
 
 
     const api = makeApiRequest(token)
+
+
+    const addToCart = async () => {
+        if (!token) {
+            toast.warn('login to add this item to your cart !')
+            return;
+        }
+        const isAlreadyInCart = usercart.cartItems.some(item => item._id === product._id);
+
+        if (isAlreadyInCart) {
+            toast.info("This product is already in your cart.");
+            return;
+        }
+        if (product) {
+            try {
+                const response = cart ? await api.put(`/api/v1/cart/add-product`, { productId: product._id, ...product }) : await api.post(`/api/v1/cart`, { productId: product._id, ...product })
+                if (response.status === 200) {
+                    dispatch(items(response.data))
+                    toast.success("Product added to the cart! ");
+                }
+            } catch (err) {
+                console.log(err)
+                toast.error("Something went wrong! try again");
+            }
+        } else {
+            toast.warn('product not found try again !')
+            return;
+        }
+    }
+
+
+
 
     useEffect(() => {
         setLoading(true)
@@ -91,6 +124,8 @@ const SingleProduct = () => {
         }
     }
 
+    const demorev = "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius sint ipsum et magni dignissimos, corporis doloribus quis eligendi consectetur, hic soluta, culpa veniam fuga quos ea animi deserunt laborum ullam. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae porro consequuntur, minima deserunt explicabo voluptatum excepturi modi reprehenderit ea distinctio! Rerum nam natus autem voluptate modi praesentium. Placeat, magnam odit."
+
 
     return (
         <>
@@ -119,21 +154,21 @@ const SingleProduct = () => {
                         </div>
                         <div className='md:flex md:w-[100%] md:flex-col '>
                             <div className="flex md:px-5 px-5 flex-col">
-                                <b>{product?.productName}</b>
-                                <p className='text-[grey] text-sm'>{product?.productDesc}</p>
+                                <b className='text-[#0f3d3e]'>{product?.productName}</b>
+                                <p className='text-[grey] text-sm md:pr-8 text-justify'>{product?.productDesc}</p>
 
                                 <div className="flex items-center md:mt-6">
                                     <div>
-                                    <div className="flex items-center gap-4">
-                                        <b className='md:text-2xl'>₹ {product.price}</b>
-                                        <div className='flex md:text-xl items-center'>
-                                            ₹
-                                            <span className='text-[maroon] line-through'>{product.price + Math.floor(product?.price * 0.40)}</span>
-                                        </div>
-                                        <h1 className='text-xl  text-[green]'>40% OFF</h1>
+                                        <div className="flex items-center gap-4">
+                                            <b className='md:text-2xl text-[#0f3d3e]'>₹ {product.price}</b>
+                                            <div className='flex md:text-xl items-center'>
+                                                ₹
+                                                <span className='text-[maroon] line-through'>{product.price + Math.floor(product?.price * 0.40)}</span>
+                                            </div>
+                                            <h1 className='text-xl  text-[green]'>40% OFF</h1>
 
-                                    </div>
-                                    <p className='text-[grey]'>Inclusive of all taxes</p>
+                                        </div>
+                                        <p className='text-[grey]'>Inclusive of all taxes</p>
                                     </div>
                                 </div>
                             </div>
@@ -141,37 +176,109 @@ const SingleProduct = () => {
                                 product?.availableSizes &&
                                 <Size size={size} setSize={setSize} />
                             }
-                            {Array.isArray(product?.avilableColors) && product.avilableColors.length > 0 && <b className='md:px-5 mt-4 text-sm mb-2'>Available Colors</b>}
-                            {Array.isArray(product?.avilableColors) && product.avilableColors.length > 0 &&
-                                <div className='flex md:px-5 gap-2'>
-                                    {product.avilableColors.map((c, i) => {
-                                        return (
-                                            <div key={i} style={{ backgroundColor: `${c}` }} className={`flex w-[20px] h-[20px] border ${c === color ? 'border-[red]' : 'border-[#0f3d3e]'}  cursor-pointer rounded-sm`} onClick={() => setColor(c)}></div>
-                                        )
-                                    })
-                                    }
+                            {Array.isArray(product?.avilableColors) && product.avilableColors.length > 0 && <b className='px-5 mt-20 md:mt-4 text-sm mb-2 text-[#0f3d3e]'>Available Colors</b>}
+                            {Array.isArray(product?.avilableColors) && product.avilableColors.length > 0 && (
+                                <div className="flex mt-5 md:mt-0 flex-wrap gap-3 px-5">
+                                    {product.avilableColors.map((c, i) => (
+                                        <div
+                                            key={i}
+                                            title={c}
+                                            onClick={() => setColor(c)}
+                                            className={`
+          w-7 h-7 md:w-8 md:h-8 rounded-full cursor-pointer 
+          shadow-md transition-transform duration-300 transform 
+          hover:scale-110 
+          ${color === c ? 'ring-2 ring-red-400 scale-110' : 'ring-1 ring-[#0f3d3e]/30'}
+        `}
+                                            style={{
+                                                backgroundColor: c,
+                                            }}
+                                        />
+                                    ))}
                                 </div>
-                            }
+                            )}
+
                             <div className='flex flex-col gap-2 px-5 mt-8'>
-                                <div className='flex flex-col gap-3'>
-                                    <b className='text-sm flex items-center text-[#51b4cb]'>Enter Delevery Details <MdLocationOn className='text-xl text-[red]' /> </b>
-                                    <select required className='outline-none bg-transparent border border-[#51b4cb] py-2 px-4 rounded-md text-sm md:w-96 text-[grey]' name='state' value={"Delhi"} onChange={handleChange}>
-                                        <option defaultValue={"select state"} disabled>select state</option>
+                                <div className="flex flex-col gap-5 p-6 bg-white/30 dark:bg-black/30 backdrop-blur-md border border-[#0f3d3e]/30 rounded-2xl shadow-2xl w-[100%] md:w-[80%] transition-all duration-300">
+                                    <b className="text-base font-semibold flex items-center text-[#0f3d3e] tracking-wide">
+                                        Enter Delivery Details <MdLocationOn className="text-xl text-red-500 ml-2" />
+                                    </b>
+
+                                    <select
+                                        required
+                                        className="input-genz text-[#0f3d3e] bg-white/70 dark:bg-black/30 backdrop-blur rounded-xl"
+                                        name="state"
+                                        value={"Delhi"}
+                                        onChange={handleChange}
+                                    >
+                                        <option disabled>select state</option>
                                         <option value={"Delhi"}>Delhi</option>
                                     </select>
-                                    <input required className='border text-sm border-[#51b4cb] outline-none rounded-md md:w-96 py-2 px-4' type='text' placeholder='enter Area' name='area' onChange={handleChange} />
 
-                                    <input required className='border text-sm border-[#51b4cb] outline-none rounded-md md:w-96 py-2 px-4' type='text' placeholder='enter Address line' name='address' onChange={handleChange} />
+                                    <input
+                                        required
+                                        className="input-genz"
+                                        type="text"
+                                        placeholder="Enter Area"
+                                        name="area"
+                                        onChange={handleChange}
+                                    />
 
-                                    <input required className='border text-sm border-[#51b4cb] outline-none rounded-md md:w-96 py-2 px-4' type='text' placeholder='enter pin code' onFocus={() => setShow(true)} onBlur={() => setShow(false)} name='pincode' onChange={handleChange} />
-                                    {show && <span className='text-sm text-red-600'>enter the valid pin code </span>}
-                                    <input required className='border text-sm border-[#51b4cb] outline-none rounded-md md:w-96 py-2 px-4' type='text' placeholder='enter nearest landmark' name='landmark' onChange={handleChange} />
+                                    <input
+                                        required
+                                        className="input-genz"
+                                        type="text"
+                                        placeholder="Enter Address Line"
+                                        name="address"
+                                        onChange={handleChange}
+                                    />
 
-                                    <input required className='border text-sm border-[#51b4cb] outline-none rounded-md md:w-96 py-2 px-4' type='text' placeholder='enter mobile Number' name='mobileNumber' onChange={handleChange} />
+                                    <input
+                                        required
+                                        className="input-genz"
+                                        type="text"
+                                        placeholder="Enter Pin Code"
+                                        name="pincode"
+                                        onFocus={() => setShow(true)}
+                                        onBlur={() => setShow(false)}
+                                        onChange={handleChange}
+                                    />
+                                    {show && <span className="text-sm text-red-600 ml-1">Enter a valid pin code</span>}
 
-                                    <button className='border border-[#51b4cb] w-fit rounded-lg text-[#51b4cb] py-1 px-4 md:py-2' onClick={handleOrder}>BUY NOW</button>
+                                    <input
+                                        required
+                                        className="input-genz"
+                                        type="text"
+                                        placeholder="Enter Nearest Landmark"
+                                        name="landmark"
+                                        onChange={handleChange}
+                                    />
 
+                                    <input
+                                        required
+                                        className="input-genz"
+                                        type="text"
+                                        placeholder="Enter Mobile Number"
+                                        name="mobileNumber"
+                                        onChange={handleChange}
+                                    />
+
+                                    <div className="flex items-center gap-4 mt-2">
+                                        <button
+                                            className="w-fit px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl hover:shadow-lg hover:scale-105 transition-transform"
+                                            onClick={handleOrder}
+                                        >
+                                            BUY NOW
+                                        </button>
+                                        <button onClick={addToCart}
+                                            className="hidden md:block w-fit px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-yellow-500 to-yellow-400 rounded-xl hover:shadow-lg hover:scale-105 transition-transform"
+                                        >
+                                            Add To Cart
+                                        </button>
+                                    </div>
                                 </div>
+
+
                                 <hr className='mt-4'></hr>
                                 <div className='flex items-center justify-between mt-4 mb-2'>
                                     <div className='flex items-center justify-center flex-col gap2'>
@@ -192,35 +299,67 @@ const SingleProduct = () => {
                             <div className='flex flex-col px-5 mt-2 mb-24 gap-3'>
                                 <b className='flex border-b-4 border-[gold] w-fit leading-8 px-2 md:text-2xl'>PRODUCT REVIEWS</b>
                                 <p className='flex items-center text-sm gap-2 md:text-lg'><MdVerifiedUser className='text-[green] text-lg' />77% of users vouch for this product</p>
-                                <div className='flex flex-col justify-center px-14 gap-2 w-fit self-center items-center'>
-                                    <h1 className='text-xl'>4.6/5</h1>
-                                    <div className='flex gap-2 md:text-xl'>
-                                        <AiFillStar className='text-[goldenrod]' />
-                                        <AiFillStar className='text-[goldenrod]' />
-                                        <AiFillStar className='text-[goldenrod]' />
-                                        <AiFillStar className='text-[goldenrod]' />
-                                        <AiFillStar className='text-[goldenrod]' />
+                                <div className='flex flex-col justify-center px-14 py-4 gap-3 w-fit  items-center rounded-2xl bg-white/60 dark:bg-black/40 backdrop-blur-md shadow-lg transition-all hover:scale-105 hover:shadow-2xl'>
+                                    <h1 className='text-3xl font-semibold text-[#1a1a1a] dark:text-white tracking-wide'>
+                                        4.6<span className='text-base text-gray-500'>/5</span>
+                                    </h1>
+
+                                    <div className='flex gap-1 md:text-2xl text-yellow-400'>
+                                        {[...Array(5)].map((_, i) => (
+                                            <AiFillStar key={i} className='drop-shadow-md' />
+                                        ))}
                                     </div>
+
+                                    <span className='text-xs text-gray-500 italic'>Based on 1,234 reviews</span>
                                 </div>
+
                                 <h1 className='text-[#212121] my-12'>Your experiences matter. Contribute by adding your review and helping users </h1>
-                                <div className=' flex items-center border-[grey] gap-5 mb-5'>
-                                    <img src="https://www.pngall.com/wp-content/uploads/12/Avatar-PNG-Image.png" className='border-2 border-[grey] w-7 h-7 md:w-12 md:h-12 rounded-full' alt="" />
-                                    <div className='flex flex-col gap-2'>
-                                        <div className='flex gap-4 items-center'>
-                                            {
-                                                Array(5).fill().map((_, i) => <AiFillStar className='md:text-2xl cursor-pointer' style={{ color: stars >= i ? "goldenrod" : "lightgrey" }} key={i} onClick={() => setStars(i)} />)
-                                            }
+                                <div className="flex items-start gap-4 md:gap-6 mb-8 p-5 md:p-6 rounded-2xl border border-gray-200 shadow-lg backdrop-blur-lg bg-white/60 dark:bg-black/30 max-w-xl w-full mx-auto">
+                                    {/* Avatar */}
+                                    <img
+                                        src="https://www.pngall.com/wp-content/uploads/12/Avatar-PNG-Image.png"
+                                        alt="User Avatar"
+                                        className="w-10 h-10 md:w-14 md:h-14 rounded-full object-cover border-2 border-white shadow-md"
+                                    />
+
+                                    {/* Review Body */}
+                                    <div className="flex flex-col w-full gap-4">
+                                        {/* Star Rating */}
+                                        <div className="flex gap-1">
+                                            {Array(5)
+                                                .fill()
+                                                .map((_, i) => (
+                                                    <AiFillStar
+                                                        key={i}
+                                                        onClick={() => setStars(i)}
+                                                        className="text-2xl transition duration-200 cursor-pointer hover:scale-125"
+                                                        style={{
+                                                            color: stars >= i ? '#facc15' : '#d1d5db',
+                                                            filter: stars >= i ? 'drop-shadow(0 0 4px #facc15)' : 'none',
+                                                        }}
+                                                    />
+                                                ))}
                                         </div>
-                                        <textarea type='text' placeholder='enter your review' className='border-2 outline-none w-48 h-28 resize-none rounded-lg my-2 px-5 py-4 text-sm md:text-md ' />
-                                        <button className='border py-2 rounded-md text-[#428fca] border-[#428fca]'>POST</button>
+
+                                        {/* Review Input */}
+                                        <textarea
+                                            placeholder="What's on your mind?"
+                                            className="w-full h-28 p-4 text-sm md:text-base bg-white/80 dark:bg-black/40 rounded-lg border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none transition-all"
+                                        />
+
+                                        {/* Post Button */}
+                                        <button className="w-fit px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:shadow-lg hover:scale-105 transition-transform">
+                                            Post Review
+                                        </button>
                                     </div>
                                 </div>
 
+
                                 <h1 className='text-[black] md:text-lg'>Explore the feedback from our community members.<span className='text-[black] text-xl'>(2)</span></h1>
-                                <Reviews />
-                                <Reviews />
-                                <Reviews />
-                                <Reviews />
+                                <Reviews reviewText={demorev} />
+                                <Reviews reviewText={demorev} />
+                                <Reviews reviewText={demorev} />
+                                <Reviews reviewText={demorev} />
 
                             </div>
 
@@ -230,7 +369,7 @@ const SingleProduct = () => {
 
 
                     <div className='flex md:hidden fixed bottom-0 w-screen items-center justify-center py-4'>
-                        {<button className='w-80 bg-[gold] py-2 rounded-md md:text-xl md:p-3'>ADD TO CART ₹{product?.price}</button>}
+                        {<button onClick={addToCart} className='w-80 bg-[gold] py-2 rounded-md md:text-xl md:p-3'>ADD TO CART ₹{product?.price}</button>}
                     </div>
                 </div>
             }

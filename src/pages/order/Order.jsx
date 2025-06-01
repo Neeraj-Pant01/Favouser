@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import OrderSummary from '../../components/orderSummary/OrderSummary'
 import { useDispatch, useSelector } from 'react-redux'
@@ -89,6 +89,10 @@ const Order = () => {
     })
 
     const location = useLocation()
+
+    useEffect(()=>{
+        window.scrollTo(0,0)
+    },[])
 
     const handleChange = (e) => {
         const { name, value } = e.target;
