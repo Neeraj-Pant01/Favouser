@@ -5,51 +5,51 @@ const Accessories = () => {
   const accessories = [
     {
       id: 1,
-      name: "Classic Watch",
+      name: "Mug",
       price: "Rs 999.99",
-      image: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?q=80&w=1932&auto=format&fit=crop"
+      image: "/acessories/3.png"
     },
     {
       id: 2,
-      name: "Leather Wallet",
+      name: "Water Bottles",
       price: "Rs 499.99",
-      image: "https://images.unsplash.com/photo-1627123424574-724758594e93?q=80&w=1887&auto=format&fit=crop"
+      image: "/acessories/4.png"
     },
     {
       id: 3,
-      name: "Sunglasses",
+      name: "",
       price: "Rs 799.99",
-      image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=1880&auto=format&fit=crop"
+      image: "/acessories/6.png"
     },
     {
       id: 4,
-      name: "Smart Band",
+      name: "Key Chain",
       price: "Rs 899.99",
-      image: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?q=80&w=1932&auto=format&fit=crop"
+      image: "/acessories/7.png"
     },
     {
       id: 5,
-      name: "Backpack",
+      name: "Cap",
       price: "Rs 1299.99",
-      image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=1887&auto=format&fit=crop"
+      image: "/acessories/8.png"
     },
     {
       id: 6,
-      name: "Cap",
+      name: "Hand Bags",
       price: "Rs 299.99",
-      image: "https://images.unsplash.com/photo-1521369909029-2afed882baee?q=80&w=2070&auto=format&fit=crop"
+      image: "/acessories/9.png"
     },
     {
       id: 7,
-      name: "Belt",
+      name: "",
       price: "Rs 399.99",
-      image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?q=80&w=1887&auto=format&fit=crop"
+      image: "/acessories/10.png"
     },
     {
       id: 8,
-      name: "Scarf",
+      name: "Mobile cover",
       price: "Rs 459.99",
-      image: "https://images.unsplash.com/photo-1614179689702-355944cd0918?q=80&w=1935&auto=format&fit=crop"
+      image: "/acessories/5.png"
     }
   ]
 

@@ -19,7 +19,7 @@ const Navbar = () => {
   const usercart = useSelector((state) => state.cart);
   const location = useLocation();
 
-  const subNavItems = ['SALE', 'MEN', 'WOMEN', 'ACCESSORIES', 'BEST SELL', 'SUMMER SALE', 'NEW ARRIVALS', 'BUY 3 @999', '80 OFF']
+  const subNavItems = ['SALE', 'MEN', 'WOMEN', 'ACCESSORIES', 'BEST SELL', 'SUMMER SALE', 'NEW ARRIVALS', 'BUY 3 @999', '80% OFF']
   return (
     <div className='sticky top-0 z-50'>
       <div className='flex items-center justify-between px-6 py-4 md:py-4 bg-[black] text-[white] relative overflow-visible'>

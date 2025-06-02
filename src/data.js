@@ -88,48 +88,62 @@ export const missed = [
 
 export const allcats = [
     {
-        img: "C1.png",
-        cat: 'T-shirts'
+        image: "/assets/C1.png",
+        name: 'T-shirts'
     },
     {
-        img: "JB1.png",
-        cat: 'Caps'
+        image: "",
+        name: 'Women'
+    } ,
+    
+    {
+        image: "/assets/C1.png",
+        name: 'Men'
     },
     {
-        img: "M1.png",
-        cat: 'Bags'
+      id: 1,
+      name: "Mug",
+      image: "/acessories/3.png"
     },
     {
-        img: "",
-        cat: 'Mugs'
+      id: 2,
+      name: "Water Bottles",
+      image: "/acessories/4.png"
     },
     {
-        img: "",
-        cat: 'Men'
+      id: 3,
+      name: "Covers",
+      image: "/acessories/6.png"
     },
     {
-        img: "",
-        cat: 'Women'
+      id: 4,
+      name: "Key Chain",
+      price: "Rs 899.99",
+      image: "/acessories/7.png"
     },
     {
-        img: "",
-        cat: 'Watches'
-    }, ,
-    {
-        img: "",
-        cat: 'Glasses'
+      id: 5,
+      name: "Cap",
+      price: "Rs 1299.99",
+      image: "/acessories/8.png"
     },
     {
-        img: "",
-        cat: ''
+      id: 6,
+      name: "Hand Bags",
+      price: "Rs 299.99",
+      image: "/acessories/9.png"
     },
     {
-        img: "",
-        cat: ''
+      id: 7,
+      name: "Wall Frames",
+      price: "Rs 399.99",
+      image: "/acessories/10.png"
     },
     {
-        img: "",
-        cat: ''
+      id: 8,
+      name: "Mobile cover",
+      price: "Rs 459.99",
+      image: "/acessories/5.png"
     }
 ]
 

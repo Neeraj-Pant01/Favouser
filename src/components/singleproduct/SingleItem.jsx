@@ -7,7 +7,7 @@ const SingleItem = ({ product }) => {
   const [currentImage, setCurrentImage] = useState(null)
 
   return (
-    <div className='flex flex-col-reverse md:flex-row md:w-[100%] md:border md:py-3 md:rounded-md md:border-[lightgrey]'>
+    <div className='flex mt-5 md:mt-0 flex-col-reverse md:flex-row md:w-[100%]  md:py-3 md:rounded-md md:border-[lightgrey]'>
       <div className='flex md:flex-col py-3 gap-2 px-4'>
         {
           AllImages.map((i, index) => <img src={i} key={index} className={`w-[40px] h-[40px] md:w-[90px] md:h-[80px] shadow border ${currentImage === i ? 'border-red-500 border-2' : 'border-[black]'} rounded-md cursor-pointer`} onClick={() => setCurrentImage(i)} />)

@@ -1,4 +1,5 @@
 import React from "react";
+import { allcats } from "../data";
 
 const saleItems = [
   "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZmFzaGlvbnxlbnwwfHwwfHx8MA%3D%3D",
@@ -44,16 +45,16 @@ const SaleTags = () => {
 
       {/* Product circles */}
       <div className=" flex px-4 flex-wrap justify-between md:gap-6 gap-3">
-        {saleItems.map((src, index) => (
+        {allcats.map((cat, index) => (
           <div key={index} className="flex flex-col items-center justify-between">
             <div className="w-[5vh] h-[5vh] sm:w-[6vw] sm:h-[6vw] rounded-full overflow-hidden shadow-md">
               <img
-                src={src}
+                src={cat?.image || saleItems[0]}
                 alt={`Sale Item ${index + 1}`}
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <span className="mt-2 text-xs md:text-sm font-semibold">New</span>
+            <span className="mt-2 text-xs md:text-sm font-semibold">{cat?.name}</span>
           </div>
         ))}
       </div>
