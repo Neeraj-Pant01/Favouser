@@ -37,7 +37,7 @@ const AllProducts = () => {
     const fetchProducts = async () => {
       setLoading(true)
       try {
-        const response = await api.get(`/api/v1/products?category=${!searchQuerry ? cat : ''}&&search=${searchQuerry ? cat : ''}`);
+        const response = await api.get(`/api/v1/products?cat=${!searchQuerry ? cat : ''}&&search=${searchQuerry ? cat : ''}`);
         setProducts(response.data)
         setLoading(false)
       } catch (err) {
