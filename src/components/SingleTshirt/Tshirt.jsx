@@ -45,13 +45,13 @@ const Tshirt = ({ p }) => {
 
     const addToWishlist = async () => {
     if(!token){
-       toast.warn('login to add this item to your cart !')
+       toast.warn('login to add this item to your wishlist !')
        return;
     }
     const isAlreadyInCart = wishlist.wishlistItems.some(item => item._id === p._id);
 
     if (isAlreadyInCart) {
-      toast.info("This product is already in your cart.");
+      toast.info("This product is already in your wishlist !");
       return;
     }
 

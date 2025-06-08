@@ -1,68 +1,109 @@
-import React, { useEffect, useState } from 'react'
-import { AiOutlineClose } from 'react-icons/ai'
-import { Link } from 'react-router-dom'
-import { makeApiRequest } from '../../utils/makeRequest'
-import { useDispatch, useSelector } from 'react-redux'
-import { removeFromCart } from '../../redux/CartSlice'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { makeApiRequest } from '../../utils/makeRequest';
+import { useDispatch, useSelector } from 'react-redux';
+import { FiTrash2, FiPlus, FiMinus } from 'react-icons/fi';
+import { removeFromCart } from '../../redux/CartSlice';
 
-const Product = ({ c, setCart, cart }) => {
-    const [item, setItem] = useState()
-    const token = useSelector((state) => state.user.currentUser.token)
-    const dispatch = useDispatch()
+const CartItem = ({ item, setCart, cart }) => {
+  const [quantity, setQuantity] = useState(item.quantity || 1);
+  const [isRemoving, setIsRemoving] = useState(false);
+  const token = useSelector((state) => state.user.currentUser.token);
+  const dispatch = useDispatch();
+  const api = makeApiRequest(token);
 
-    const api = makeApiRequest(token)
+  console.log('item', item)
 
-    useEffect(() => {
-        const fetchItem = async () => {
-            try {
-                const response = await api.get(`/api/v1/products/${c?._id}`)
-                setItem(response?.data)
-                // console.log(response)
-            } catch (err) {
-                console.log(err)
-            }
-        }
-        fetchItem()
-    }, [])
-
-
-    const removeCartItem = async () => {
-        try {
-            const response = await api.put(`/api/v1/cart/remove/${c?._id}`);
-            setCart(cart.filter((itm)=>itm?._id !== c?._id))
-            dispatch(removeFromCart({id:c?._id}))
-            console.log(response)
-        } catch (err) {
-            console.log(err)
-        }
+  const removeCartItem = async () => {
+    setIsRemoving(true);
+    try {
+      await api.put(`/api/v1/cart/remove/${item._id}`);
+      setCart(cart.filter((cartItem) => cartItem._id !== item._id));
+      dispatch(removeFromCart({ id: item._id }));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsRemoving(false);
     }
-    return (
-        <div className='flex flex-col gap-2 border mb-1'>
-            <div className='flex py-1 px-1'>
-                <div className='flex w-28'>
-                    <img src={item?.coverImage} className='w-full' />
-                </div>
-                <div className='flex flex-1 flex-col md:ml-2'>
-                    <Link className=' w-fit' to={`/`}>{item?.productName}</Link>
-                    <p className='text-[grey] font-light'>{item?.productDesc?.substring(0, 60)}...</p>
-                </div>
-                <AiOutlineClose className='text-xl cursor-pointer' onClick={removeCartItem} />
-            </div>
-            <div className='flex px-2 gap-5 items-center'>
-                {/* <span className='bg-[#d2e4eb] px-3 py-1 text-xs h-fit'>SIZE: XL</span> */}
-                <select className='bg-[#d2e4eb] px-3 py-1 text-xs outline-none h-fit'>
-                    <option>1</option>
-                </select>
-                <div className='flex flex-col items-end justify-end flex-1'>
-                    <div className='flex items-center gap-2'>
-                        <span className='text-lg'>₹ {item?.price}</span>
-                        <span className='text-[grey] line-through'>₹ {item?.price + (Math.round(item?.price * 0.30))}</span>
-                    </div>
-                    <p className='text-[green]'>you saved {Math.round(item?.price * 0.303)}</p>
-                </div>
-            </div>
-        </div>
-    )
-}
+  };
 
-export default Product
+//   const updateQuantity = async (newQuantity) => {
+//     if (newQuantity < 1) return;
+    
+//     try {
+//       setQuantity(newQuantity);
+//       const response = await api.put(`/api/v1/cart/update/${item._id}`, {
+//         quantity: newQuantity
+//       });
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   };
+
+  return (
+    <div className="bg-white rounded-xl shadow-sm overflow-hidden transition-all hover:shadow-md">
+      <div className="flex p-4">
+        {/* Product Image */}
+        <Link to={`/product/${item._id}`} className="flex-shrink-0">
+          <img 
+            src={item.coverImage} 
+            alt={item.productName} 
+            className="w-24 h-24 object-cover rounded-lg"
+          />
+        </Link>
+
+        {/* Product Info */}
+        <div className="ml-4 flex-1">
+          <div className="flex justify-between">
+            <Link to={`/product/${item._id}`} className="font-medium hover:text-blue-600">
+              {item.productName}
+            </Link>
+            <button 
+              onClick={removeCartItem}
+              disabled={isRemoving}
+              className="text-gray-400 hover:text-red-500 transition"
+            >
+              <FiTrash2 />
+            </button>
+          </div>
+          <p className="text-gray-600 text-sm mt-1 line-clamp-2">
+            {item.productDesc}
+          </p>
+
+          {/* Price and Quantity */}
+          <div className="flex items-center justify-between mt-4">
+            <div className="flex items-center space-x-2">
+              <button 
+                onClick={() => updateQuantity(quantity - 1)}
+                className="p-1 rounded-full bg-gray-100 hover:bg-gray-200"
+              >
+                <FiMinus size={14} />
+              </button>
+              <span className="w-8 text-center">{quantity}</span>
+              <button 
+                onClick={() => updateQuantity(quantity + 1)}
+                className="p-1 rounded-full bg-gray-100 hover:bg-gray-200"
+              >
+                <FiPlus size={14} />
+              </button>
+            </div>
+
+            <div className="text-right">
+              <div className="font-semibold">₹{(item.price * quantity).toFixed(2)}</div>
+              <div className="flex items-center justify-end space-x-2 text-sm">
+                <span className="text-gray-400 line-through">
+                  ₹{(item.price + Math.round(item.price * 0.30)) * quantity}
+                </span>
+                <span className="text-green-600">
+                  Save ₹{(Math.round(item.price * 0.30) * quantity)}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default CartItem;

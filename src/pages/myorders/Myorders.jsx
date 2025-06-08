@@ -3,55 +3,45 @@ import { makeApiRequest } from '../../utils/makeRequest'
 import { useSelector } from 'react-redux'
 import Navbar from '../../components/navbar/Navbar'
 import Order from '../../components/Order/Order'
+import GlobalLoader from '../../components/GlobalLoader'
 
 const Myorders = () => {
   // const [orders, setOrders] = useState([])
 
   const token = useSelector((state) => state.user?.currentUser.token)
+  const [orders, setOrders] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const api = makeApiRequest(token)
 
-  const orders = [
-    {
-      id: "#ORD-1001",
-      date: "May 22, 2025",
-      status: "Delivered",
-      total: "$129.99",
-      items: 3,
-    },
-    {
-      id: "#ORD-1002",
-      date: "May 20, 2025",
-      status: "Shipped",
-      total: "$79.49",
-      items: 2,
-    },
-    {
-      id: "#ORD-1003",
-      date: "May 18, 2025",
-      status: "Pending",
-      total: "$49.99",
-      items: 1,
-    },
-  ];
-
 
   useEffect(() => {
-    window.scrollTo(0,0)
-    
+    window.scrollTo(0, 0)
+
     const getAllOrders = async () => {
+      setLoading(true)
       try {
-        const response = await api.get('/api/v1/orders/myOrders')
-        console.log(response)
+        const response = await api.get('/api/v1/orders/')
+        // console.log(response)
+        let orders = response?.data || []
+        orders = orders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        setOrders(orders)
+        setLoading(false)
         // setOrders(response.data)
       } catch (err) {
         console.log(err)
+        setLoading(false)
+
       }
     }
     getAllOrders()
   }, [])
 
   return (
+    <>
+    {loading ?
+    <GlobalLoader />
+    :
     <div className='flex flex-col min-h-screen'>
       <Navbar />
       <div className="min-h-screen bg-[#F5F5F5] px-4 py-8 md:px-12 lg:px-24">
@@ -63,6 +53,8 @@ const Myorders = () => {
         </div>
       </div>
     </div>
+    }
+    </>
   )
 }
 

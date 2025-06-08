@@ -3,13 +3,17 @@ import { FaHeart, FaTrash, FaShoppingBag, FaMagic, FaRegHeart } from 'react-icon
 import Navbar from '../components/navbar/Navbar';
 import { makeApiRequest } from '../utils/makeRequest';
 import { useDispatch, useSelector } from 'react-redux';
-import { setWishlistFromDB } from '../redux/wishlistSlice';
+import { removeFromWishList, setWishlistFromDB } from '../redux/wishlistSlice';
+import { toast } from 'react-toastify';
+import { items } from '../redux/CartSlice';
 
 const wishlist = () => {
     const [wishlist, setWishlist] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const token = useSelector((state) => state.user?.currentUser?.token)
     const dispatch = useDispatch()
+    const wlist = useSelector((wish) => wish.wishlist)
+
 
 
     const api = makeApiRequest(token)
@@ -22,7 +26,7 @@ const wishlist = () => {
             setWishlist(response?.data?.products)
             setIsLoading(false)
             console.log(response.data)
-    } catch (err) {
+        } catch (err) {
             console.log(err)
             setIsLoading(false)
         }
@@ -30,19 +34,58 @@ const wishlist = () => {
 
     // Mock data (replace with your API call)
     useEffect(() => {
+        window.scrollTo(0, 0)
         fetchWishlist()
     }, []);
 
-    const removeFromWishlist = (id) => {
-        setWishlist(wishlist.filter(item => item.id !== id));
+    const removeFromWishlist = async (id) => {
+        try {
+            const response = await api.put(`/api/v1/wishlist/remove/${id}`)
+            if (response.status === 200) {
+                dispatch(removeFromWishList({ id: id }))
+                setWishlist((prev) => prev.filter(item => item?._id !== id))
+            }
+        } catch (err) {
+            console.log(err)
+            toast.warning('uable to remove item ! try again !')
+        }
     };
+
+    const cart = useSelector((cart) => cart.currentCart.currentUserCart)
+    const usercart = useSelector((state) => state.cart);
+
+    const addToCart = async (p) => {
+        if (!token) {
+            toast.warn('login to add this item to your cart !')
+            return;
+        }
+        const isAlreadyInCart = usercart.cartItems.some(item => item._id === p._id);
+
+        if (isAlreadyInCart) {
+            toast.info("This product is already in your cart.");
+            return;
+        }
+
+        try {
+            const response = cart ? await api.put(`/api/v1/cart/add-product`, { productId: p._id, ...p }) : await api.post(`/api/v1/cart`, { productId: p._id, ...p })
+            if (response.status === 200) {
+                dispatch(items(response.data))
+                toast.success("Product added to the cart! ");
+            }
+        } catch (err) {
+            console.log(err)
+            toast.error("Something went wrong! try again");
+        }
+    }
+
+
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50">
             <div className=" mx-auto">
                 <Navbar />
                 {/* Header */}
-                <div className="flex justify-between items-center mb-8 mt-3 px-6">
+                <div className="flex justify-between items-center mt-3 px-6">
                     <h1 className="text-3xl font-bold text-pink-600">
                         My Wishlist 💖
                     </h1>
@@ -92,13 +135,13 @@ const wishlist = () => {
                                 </div>
                                 <h3 className="text-lg font-semibold mb-1">{item?.productName}</h3>
                                 <p className="text-gray-600 mb-4">₹{item?.price?.toFixed(2)}</p>
-                                <div className="flex justify-between items-center">
-                                    <button className="flex items-center gap-2 bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 transition-colors">
+                                <div className="flex justify-between mr-auto items-center">
+                                    <button className="flex items-center gap-2 bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 transition-colors" onClick={() => addToCart(item)}>
                                         <FaShoppingBag />
                                         <span>Add to Cart</span>
                                     </button>
                                     <button className="p-2 text-pink-600 hover:text-pink-800 transition-colors">
-                                        {item.liked ? <FaHeart className="fill-current" /> : <FaRegHeart />}
+                                        {item.liked ? <FaHeart className="fill-current" /> : <FaRegHeart className='fill-current' />}
                                     </button>
                                 </div>
                             </div>
