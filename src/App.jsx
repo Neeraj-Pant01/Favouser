@@ -17,6 +17,7 @@ import Teams from './pages/Teams'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ContactPage from './pages/Contact'
+import Wishlist from './pages/Wishlist'
 
 
 function App() {
@@ -67,6 +68,10 @@ function App() {
       {
         path: '/cart/:id',
         element: user ? <Cart /> : <Navigate to={'/login'} />
+      },
+      {
+        path: '/wishlist/:id',
+        element: user ? <Wishlist /> : <Navigate to={'/login'} />
       },
       {
         path: '/order',

@@ -1,22 +1,22 @@
 import { Link, useNavigate } from 'react-router-dom'
 import './tshirt.css'
-import { BsCart4 } from "react-icons/bs";
+import { BsCart4, BsFillBagHeartFill } from "react-icons/bs";
 import { useDispatch, useSelector } from 'react-redux';
 import { items } from '../../redux/CartSlice';
 import { makeApiRequest } from '../../utils/makeRequest';
 import { toast } from 'react-toastify';
+import { wishlistItems } from '../../redux/wishlistSlice';
 
 const Tshirt = ({ p }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cart = useSelector((cart) => cart.currentCart.currentUserCart)
+  const wishlist = useSelector((wish)=>wish.wishlist)
   const token = useSelector((state) => state.user?.currentUser?.token)
 
   const api = makeApiRequest(token)
 
   const usercart = useSelector((state) => state.cart);
-
-  // console.log('usercart', usercart)
 
   const addToCart = async () => {
     if(!token){
@@ -35,6 +35,31 @@ const Tshirt = ({ p }) => {
       if (response.status === 200) {
         dispatch(items(response.data))
         toast.success("Product added to the cart! ");
+      }
+    } catch (err) {
+      console.log(err)
+      toast.error("Something went wrong! try again");
+    }
+  }
+
+
+    const addToWishlist = async () => {
+    if(!token){
+       toast.warn('login to add this item to your cart !')
+       return;
+    }
+    const isAlreadyInCart = wishlist.wishlistItems.some(item => item._id === p._id);
+
+    if (isAlreadyInCart) {
+      toast.info("This product is already in your cart.");
+      return;
+    }
+
+    try {
+      const response = await api.post(`/api/v1/wishlist/`, { productId: p._id, ...p })
+      if (response.status === 200) {
+        dispatch(wishlistItems(response.data))
+        toast.success("Product added to the wishlist! ");
       }
     } catch (err) {
       console.log(err)
@@ -89,7 +114,11 @@ const Tshirt = ({ p }) => {
         </div>
 
         {/* Cart Icon */}
-        <div className="absolute bottom-2 right-2">
+        <div className="absolute flex gap-1 bottom-2 right-2">
+          <BsFillBagHeartFill
+            className="text-red-500 text-xl hover:scale-110 transition-transform"
+            onClick={addToWishlist}
+          />
           <BsCart4
             className="text-yellow-500 text-xl hover:scale-110 transition-transform"
             onClick={addToCart}

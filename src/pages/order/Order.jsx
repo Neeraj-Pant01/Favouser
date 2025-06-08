@@ -90,9 +90,9 @@ const Order = () => {
 
     const location = useLocation()
 
-    useEffect(()=>{
-        window.scrollTo(0,0)
-    },[])
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -122,7 +122,7 @@ const Order = () => {
                 payload.razorpayPaymentId = razorpayResponse.razorpay_payment_id;
                 payload.razorpaySignature = razorpayResponse.razorpay_signature;
             }
-            const response = await api.post(`/api/v1/orders/order/${location.state.product._id}`, payload);
+            const response = await api.post(`/api/v1/orders/order/${location.state.product._id}`, { ...payload, userName: user?.username, email: user?.email });
             setLoading(false);
             navigate(`/order/successfull`);
         } catch (err) {
@@ -146,57 +146,87 @@ const Order = () => {
 
     const handleOnlinePay = async () => {
         closePopup();
+        setLoading(true);
 
-        // 1. Load Razorpay script
-        const res = await loadRazorpayScript("https://checkout.razorpay.com/v1/checkout.js");
-        if (!res) {
-            alert("Razorpay SDK failed to load. Are you online?");
-            return;
-        }
-
-        // 2. Create order on your backend (this will also create a Razorpay order)
-        let orderData, razorpayOrder;
         try {
-            const payload = {
+            // 1. First create the order in your system (status: pending)
+            const orderPayload = {
                 quantity: itemQuantity,
                 paymentMode: "Razorpay",
                 size: location.state[0] || 'NA',
                 ...del,
+                userName: user?.username,
+                email: user?.email
             };
-            const response = await api.post(`/api/v1/orders/order/${location.state.product._id}`, payload);
-            orderData = response.data.order;
-            razorpayOrder = response.data.razorpayOrder;
+
+            const orderResponse = await api.post(
+                `/api/v1/orders/order/${location.state.product._id}`,
+                orderPayload
+            );
+
+            const { order } = orderResponse.data;
+
+            // 2. Load Razorpay script
+            const res = await loadRazorpayScript("https://checkout.razorpay.com/v1/checkout.js");
+            if (!res) {
+                alert("Razorpay SDK failed to load. Are you online?");
+                setLoading(false);
+                return;
+            }
+
+            // 3. Open Razorpay checkout
+            const options = {
+                key: import.meta.env.VITE_APP_RZRPAYKEY,
+                amount: order.amount * 100, // Convert to paise
+                currency: "INR",
+                name: "FAVOUSER",
+                description: "Order Payment",
+                order_id: order.razorpayOrderId,
+                handler: async function (razorpayResponse) {
+                    setLoading(true);
+                    try {
+                        // 4. Verify payment and update order
+                        const verificationResponse = await api.post('/api/v1/orders/verify-payment', {
+                            order_id: order._id,
+                            payment_id: razorpayResponse.razorpay_payment_id,
+                            signature: razorpayResponse.razorpay_signature,
+                            user
+                        });
+
+                        // 5. On successful verification, navigate to success page
+                        navigate('/order/successfull', {
+                            state: {
+                                fromPayment: true,
+                                orderId: order._id
+                            }
+                        });
+                    } catch (error) {
+                        console.error("Payment verification failed:", error);
+                        alert("Payment verification failed. Please contact support.");
+                    } finally {
+                        setLoading(false);
+                    }
+                },
+                prefill: {
+                    name: user.username,
+                    email: user.email,
+                    contact: addressDetail?.mobileNumber,
+                },
+                theme: {
+                    color: "#e2dcc8",
+                },
+            };
+
+            const rzp = new window.Razorpay(options);
+            rzp.open();
+
         } catch (err) {
-            alert("Failed to create order. Try again.");
-            return;
+            console.error("Order creation failed:", err);
+            alert("Failed to create order. Please try again.");
+        } finally {
+            setLoading(false);
         }
-
-        // 3. Open Razorpay checkout
-        const options = {
-            key: import.meta.env.VITE_APP_RZRPAYKEY,
-            // key:' rzp_test_r4dPSKs9zdx3UV',
-            amount: razorpayOrder.amount,
-            currency: razorpayOrder.currency,
-            name: "FAVOUSER",
-            description: "Order Payment",
-            order_id: razorpayOrder.id,
-            handler: function (response) {
-                // Call your backend to verify payment and update order
-                placeOrder("Razorpay", response);
-            },
-            prefill: {
-                name: user.username,
-                email: user.email,
-                contact: addressDetail?.mobileNumber,
-            },
-            theme: {
-                color: "#e2dcc8",
-            },
-        };
-        const rzp = new window.Razorpay(options);
-        rzp.open();
     };
-
 
 
     return (
@@ -240,8 +270,9 @@ const Order = () => {
                                             <select className='outline-none bg-transparent border border-[#51b4cb] py-2 px-4 rounded-md text-sm md:w-96 text-[grey]' name='state' value={orderDetails.state} onChange={handleChange}>
                                                 <option defaultValue={"select state"} disabled>select state</option>
                                                 <option value={"Delhi"}>Delhi</option>
+                                                <option value={"uttarakhand"}>uttarakhand</option>
                                             </select>
-                                            <input className='border text-sm border-[#51b4cb] outline-none rounded-md md:w-96 py-2 px-4' type='text' placeholder='enter Area' value={orderDetails.area} name='area' onChange={handleChange} />
+                                            <input className='border text-sm border-[#51b4cb] outline-none rounded-md md:w-96 py-2 px-4' type='text' placeholder='enter city/Area' value={orderDetails.area} name='area' onChange={handleChange} />
 
                                             <input className='border text-sm border-[#51b4cb] outline-none rounded-md md:w-96 py-2 px-4' type='text' placeholder='enter Address line' value={orderDetails.address} name='address' onChange={handleChange} />
 

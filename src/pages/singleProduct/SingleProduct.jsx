@@ -221,7 +221,7 @@ const SingleProduct = () => {
                                         required
                                         className="input-genz"
                                         type="text"
-                                        placeholder="Enter Area"
+                                        placeholder="Enter City/Area"
                                         name="area"
                                         onChange={handleChange}
                                     />

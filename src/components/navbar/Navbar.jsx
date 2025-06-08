@@ -18,6 +18,8 @@ const Navbar = () => {
 
   const usercart = useSelector((state) => state.cart);
   const location = useLocation();
+  const wishlist = useSelector((wish) => wish.wishlist)
+
 
   const subNavItems = ['SALE', 'MEN', 'WOMEN', 'ACCESSORIES', 'BEST SELL', 'SUMMER SALE', 'NEW ARRIVALS', 'BUY 3 @999', '80% OFF']
   return (
@@ -96,9 +98,17 @@ const Navbar = () => {
               )}
             </div>
           </div>
-          <div className='flex items-center justify-center w-7 h-7 border-2 border-[lightgrey] relative rounded-full cursor-pointer' >
+          <div className='flex items-center justify-center w-7 h-7 border-2 border-[lightgrey] relative rounded-full cursor-pointer' onClick={() => {
+            if (user) {
+              navigate(`/wishlist/${user._id}`)
+            } else {
+              toast.warn('Login to view your wishlist !')
+            }
+          }}>
             <span><AiOutlineHeart className='md:text-2xl text-[lightgrey]' /></span>
-            <span to={`/cart/123`} className='text-white bg-red-600 absolute -right-1 md:right-0 text-xs rounded-full h-4 opacity-80 w-4 flex items-center justify-center'>2</span>
+            <span className='text-white bg-red-600 absolute -right-1 md:right-0 text-xs rounded-full h-4 opacity-80 w-4 flex items-center justify-center'>{
+              user ? wishlist?.quantity : 0
+            }</span>
           </div>
           <div className='flex items-center justify-center w-7 h-7 border-2 border-[lightgrey] relative rounded-full cursor-pointer' onClick={() => {
             if (user) {
@@ -109,7 +119,7 @@ const Navbar = () => {
           }}>
             <span><AiOutlineShoppingCart className='md:text-2xl text-[lightgrey]' /></span>
             {user &&
-              <span to={`/cart/123`} className='text-white bg-red-600 absolute -right-1 md:right-0 text-xs rounded-full h-4 opacity-80 w-4 flex items-center justify-center'>{usercart?.quantity}</span>
+              <span className='text-white bg-red-600 absolute -right-1 md:right-0 text-xs rounded-full h-4 opacity-80 w-4 flex items-center justify-center'>{usercart?.quantity}</span>
             }
           </div>
         </div>
