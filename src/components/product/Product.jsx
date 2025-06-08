@@ -4,18 +4,33 @@ import { makeApiRequest } from '../../utils/makeRequest';
 import { useDispatch, useSelector } from 'react-redux';
 import { FiTrash2, FiPlus, FiMinus } from 'react-icons/fi';
 import { removeFromCart } from '../../redux/CartSlice';
+import { useEffect } from 'react';
 
-const CartItem = ({ item, setCart, cart }) => {
+const CartItem = ({ item, setCart, cart, setCartTotal }) => {
   const [quantity, setQuantity] = useState(item.quantity || 1);
   const [isRemoving, setIsRemoving] = useState(false);
   const token = useSelector((state) => state.user.currentUser.token);
   const dispatch = useDispatch();
   const api = makeApiRequest(token);
+  const [product, setProduct] = useState()
 
-  console.log('item', item)
+  useEffect(()=>{
+    const getSingleProduct = async () =>{
+        try{
+            const response = await api.get(`/api/v1/products/${item?._id}`)
+            setProduct(response?.data)
+        }catch(err){
+            console.log(err)
+        }
+    }
+    getSingleProduct()
+  },[])
+
+//   console.log('item', item)
 
   const removeCartItem = async () => {
     setIsRemoving(true);
+    // console.log(item?._id)
     try {
       await api.put(`/api/v1/cart/remove/${item._id}`);
       setCart(cart.filter((cartItem) => cartItem._id !== item._id));
@@ -27,18 +42,18 @@ const CartItem = ({ item, setCart, cart }) => {
     }
   };
 
-//   const updateQuantity = async (newQuantity) => {
-//     if (newQuantity < 1) return;
+  const updateQuantity = async (newQuantity) => {
+    if (newQuantity < 1) return;
     
-//     try {
-//       setQuantity(newQuantity);
-//       const response = await api.put(`/api/v1/cart/update/${item._id}`, {
-//         quantity: newQuantity
-//       });
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
+    try {
+      setQuantity(newQuantity);
+    //   const response = await api.put(`/api/v1/cart/update/${item._id}`, {
+    //     quantity: newQuantity
+    //   });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="bg-white rounded-xl shadow-sm overflow-hidden transition-all hover:shadow-md">
@@ -46,8 +61,8 @@ const CartItem = ({ item, setCart, cart }) => {
         {/* Product Image */}
         <Link to={`/product/${item._id}`} className="flex-shrink-0">
           <img 
-            src={item.coverImage} 
-            alt={item.productName} 
+            src={product?.coverImage} 
+            alt={product?.productName} 
             className="w-24 h-24 object-cover rounded-lg"
           />
         </Link>
@@ -56,7 +71,7 @@ const CartItem = ({ item, setCart, cart }) => {
         <div className="ml-4 flex-1">
           <div className="flex justify-between">
             <Link to={`/product/${item._id}`} className="font-medium hover:text-blue-600">
-              {item.productName}
+              {product?.productName}
             </Link>
             <button 
               onClick={removeCartItem}
@@ -67,7 +82,7 @@ const CartItem = ({ item, setCart, cart }) => {
             </button>
           </div>
           <p className="text-gray-600 text-sm mt-1 line-clamp-2">
-            {item.productDesc}
+            {product?.productDesc}
           </p>
 
           {/* Price and Quantity */}
@@ -89,13 +104,13 @@ const CartItem = ({ item, setCart, cart }) => {
             </div>
 
             <div className="text-right">
-              <div className="font-semibold">₹{(item.price * quantity).toFixed(2)}</div>
+              <div className="font-semibold">₹{(product?.price * quantity).toFixed(2)}</div>
               <div className="flex items-center justify-end space-x-2 text-sm">
                 <span className="text-gray-400 line-through">
-                  ₹{(item.price + Math.round(item.price * 0.30)) * quantity}
+                  ₹{(product?.price + Math.round(product?.price * 0.30)) * quantity}
                 </span>
                 <span className="text-green-600">
-                  Save ₹{(Math.round(item.price * 0.30) * quantity)}
+                  Save ₹{(Math.round(product?.price * 0.30) * quantity)}
                 </span>
               </div>
             </div>

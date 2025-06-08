@@ -13,6 +13,7 @@ const Cart = () => {
   const [loading, setLoading] = useState(false);
   const token = useSelector((state) => state.user.currentUser.token);
   const api = makeApiRequest(token);
+  const [cartTotal, setCartTotal] = useState(0)
 
   useEffect(() => {
     setLoading(true);
@@ -20,6 +21,7 @@ const Cart = () => {
       try {
         const response = await api.get("/api/v1/cart");
         setCart(response.data.products);
+        console.log(response.data.products);
         setLoading(false);
       } catch (err) {
         console.log(err);
@@ -50,12 +52,13 @@ const Cart = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Cart Items */}
               <div className="lg:col-span-2 space-y-4">
-                {cart.map((item) => (
+                {cart.map((item,i) => (
                   <CartItem
-                    key={item._id} 
+                    key={item._id+i} 
                     item={item} 
                     setCart={setCart} 
                     cart={cart} 
+                    setCartTotal
                   />
                 ))}
               </div>

@@ -22,10 +22,10 @@ export const cartSlice = createSlice({
         },
         removeFromCart: (state, action) => {
             const idToRemove = action.payload.id;
-            const itemToRemove = state.cartItems.find(item => item.id === idToRemove);
+            const itemToRemove = state.cartItems.find(item => item._id === idToRemove);
             
             if (itemToRemove) {
-                state.cartItems = state.cartItems.filter(item => item.id !== idToRemove);
+                state.cartItems = state.cartItems.filter(item => item._id !== idToRemove);
                 state.quantity -= 1;
                 state.total -= itemToRemove.price;
             }

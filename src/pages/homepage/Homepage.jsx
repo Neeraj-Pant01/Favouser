@@ -67,7 +67,7 @@ const Homepage = () => {
     const getproducts = async () => {
       try {
         // const response = await api.get('/api/v1/products?show=true')
-        setShowProducts(response.data)
+        // setShowProducts(response.data)
         // console.log("tshirts",response)
       } catch (err) {
         console.log(err)
