@@ -13,6 +13,10 @@ import { useSelector } from 'react-redux'
 import GlobalLoader from '../../components/GlobalLoader'
 import { BsCartXFill } from "react-icons/bs";
 import Navbar from '../../components/navbar/Navbar'
+import FilterSidebar from '../../components/FilterSidebar'
+import { FiFilter } from 'react-icons/fi'
+import { GiCrossMark } from 'react-icons/gi'
+import { MdClose } from 'react-icons/md'
 
 
 const AllProducts = () => {
@@ -22,6 +26,7 @@ const AllProducts = () => {
   const cat = search && search?.split("=")[1];
   const [loading, setLoading] = useState(false)
   const [products, setProducts] = useState([]);
+  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
   let searchQuerry = search && (search?.split('?')[1].split('=')[0] == 'search')
   const token = useSelector((state) => state.user?.currentUser?.token)
@@ -55,47 +60,41 @@ const AllProducts = () => {
       ) :
         <div className='flex flex-col'>
           <Navbar />
-          {/* <div className='flex sticky top-0 p-5 items-center justify-between bg-white HR border-b-2 mb-2 z-50'>
-            <div className='hidden md:flex gap-8 items-center ml-16'>
-              <h1 className='hidden text-2xl font-extrabold md:block mr-4 cursor-pointer text-[#444444]' onClick={() => navigate('/')}>FAVOUSER</h1>
-              <span className='text-[black] font-thin cat' style={{ textDecoration: cat === "men" ? "underline orange" : "" }}>MEN</span>
-              <span className='text-[black] font-thin cat' style={{ textDecoration: cat === "women" ? "underline orange" : "" }}>WOMEN</span>
-              <span className='text-[black] font-thin cat' style={{ textDecoration: cat === "trending" ? "underline orange" : "" }}>TENDINGS</span>
+          {!mobileFilterOpen &&
+          <div className="flex sticky top-20 z-[70] md:hidden items-center justify-end px-4 mt-2">
+            <button
+              className="flex items-center gap-2 bg-white border border-gray-300 px-4 py-2 rounded shadow"
+              onClick={() => setMobileFilterOpen(true)}
+            >
+              <FiFilter className="text-xl" />
+              <span className="font-semibold">Filters</span>
+            </button>
+          </div>
+      }
+          {/* Mobile Filter Drawer */}
+          {mobileFilterOpen && (
+            <div className="fixed overflow-y-auto inset-0 z-50 flex">
+              {/* Overlay */}
+              <div
+                className="fixed inset-0 bg-black bg-opacity-40"
+                onClick={() => setMobileFilterOpen(false)}
+              />
+              {/* Sidebar */}
+              <div className="relative bg-white w-4/5 max-w-xs min-h-full h-max shadow-lg animate-slideInLeft z-50">
+                <div className="flex justify-between items-center p-4 border-b">
+                  <span className="font-bold text-lg">Filters</span>
+                  <button onClick={() => setMobileFilterOpen(false)}>
+                    <MdClose className="text-2xl" />
+                  </button>
+                </div>
+                <FilterSidebar />
+              </div>
             </div>
-
-            <AiOutlineArrowLeft className='md:hidden' onClick={() => navigate('/')} />
-
-            <div className='flex flex-col lg:hidden'>
-              <b className='text-xs'>CATEGORIES NAME</b>
-              <span className='text-xs text-[grey]'>82 items</span>
-            </div>
-
-            <div className='flex border items-center p-1 border-[lightgrey] rounded-md md:w-72 lg:w-96  md:justify-between lg:justify-between'>
-              <input type='text' placeholder='search here !' className='outline-none w-32 md:w-72 border-0 text-sm text-[grey]' />
-              <AiOutlineSearch className='md:text-xl lg:text-2xl' />
-            </div>
-            <div className='md:flex items-center hidden w-52  gap-5 text-[#242323]'>
-              <button className='cursor:pointer'>
-                {
-                  user ?
-                    "LogOut"
-                    :
-                    "Login"
-                }
-              </button>
-              <AiOutlineHeart className='text-2xl cursor-pointer' />
-              <BsCart4 className='text-2xl cursor-pointer' onClick={() => navigate('/cart/123')} />
-            </div>
-          </div> */}
-          
+          )}
           <div className='main md:mx-4 md:justify-center'>
 
             <div className="left-side hidden sticky top-[10%] h-[90vh] overflow-y-auto mr-4 md:flex bg-white border border-gray-200 rounded-xl shadow-md flex-col p-5 space-y-4 custom-scrollbar">
-              <h2 className="text-gray-600 text-sm font-semibold border-b pb-2">FILTER CATEGORIES</h2>
-
-              {accordionData.map((c, i) => (
-                <Accordion c={c} key={i} />
-              ))}
+              <FilterSidebar />
             </div>
 
 
@@ -113,7 +112,7 @@ const AllProducts = () => {
               }
             </div>
           </div>
-          <div className='flex items-center justify-center p-3 sticky bottom-0 md:hidden'>
+          <div className='flex z-[992] items-center justify-center p-3 sticky bottom-0 md:hidden'>
             <div className='flex bg-[gold] rounded-md p-2 w-full justify-between items-center'>
               <b className='text-[#228B22] text-sm flex items-center'>DAILY MEGA SALE <BsFillBookmarkFill className='text-[#228B22] text-xl' />
               </b>
