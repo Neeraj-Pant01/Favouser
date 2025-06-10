@@ -144,7 +144,7 @@ const Footer = () => {
           {/* SECURE PAYMENT */}
           <div>
             <h2 className="font-bold text-lg mb-4 uppercase">100% Secure Payment</h2>
-            <div className="flex text-xl md:text-2xl flex-wrap justify-center md:justify-start gap-3">
+            <div className="flex text-xl md:text-2xl flex-wrap md:justify-start gap-3">
               <span className="bg-[lightgrey] p-2 rounded-md text-[black]"><FaGooglePay /></span>
               <span className="bg-[lightgrey] p-2 rounded-md text-[black]"><SiPaytm /></span>
               <span className="bg-[lightgrey] p-2 rounded-md text-[black]"><FaAmazonPay /></span>
@@ -156,8 +156,8 @@ const Footer = () => {
 
           {/* NEWSLETTER */}
           <div>
-            <h2 className="font-bold text-lg mb-4 uppercase">Keep Up To Date</h2>
-            <div className="flex">
+            <h2 className="font-bold mb-4 text-sm uppercase">Thanks For Visiting Favouser ❤</h2>
+            {/* <div className="flex">
               <input
                 type="email"
                 placeholder="Enter Mail ID"
@@ -166,7 +166,7 @@ const Footer = () => {
               <button className="bg-yellow-500 text-black px-4 py-2 rounded-r-md font-bold text-sm uppercase">
                 Subscribe
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
 

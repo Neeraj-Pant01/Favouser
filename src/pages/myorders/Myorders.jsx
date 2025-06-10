@@ -21,7 +21,7 @@ const Myorders = () => {
     const getAllOrders = async () => {
       setLoading(true)
       try {
-        const response = await api.get('/api/v1/orders/')
+        const response = await api.get('/api/v1/orders/myOrders/')
         // console.log(response)
         let orders = response?.data || []
         orders = orders.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))

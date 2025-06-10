@@ -61,7 +61,7 @@ const AllProducts = () => {
         <div className='flex flex-col'>
           <Navbar />
           {!mobileFilterOpen &&
-          <div className="flex sticky top-20 z-[70] md:hidden items-center justify-end px-4 mt-2">
+          <div className="flex sticky top-20 z-[30] md:hidden items-center justify-end px-4 mt-2">
             <button
               className="flex items-center gap-2 bg-white border border-gray-300 px-4 py-2 rounded shadow"
               onClick={() => setMobileFilterOpen(true)}
@@ -112,13 +112,13 @@ const AllProducts = () => {
               }
             </div>
           </div>
-          <div className='flex z-[992] items-center justify-center p-3 sticky bottom-0 md:hidden'>
+          {/* <div className='flex z-[992] items-center justify-center p-3 sticky bottom-0 md:hidden'>
             <div className='flex bg-[gold] rounded-md p-2 w-full justify-between items-center'>
               <b className='text-[#228B22] text-sm flex items-center'>DAILY MEGA SALE <BsFillBookmarkFill className='text-[#228B22] text-xl' />
               </b>
               <b className='bg-[#85c085] p-2 rounded-md text-[white]'>FLAT UP TO 30% OFF</b>
             </div>
-          </div>
+          </div> */}
         </div>
       }
     </>

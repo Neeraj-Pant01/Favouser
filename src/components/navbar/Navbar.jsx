@@ -59,7 +59,6 @@ const Navbar = () => {
       {!mobileSearchOpen && (
         <div className='flex items-center justify-between px-6 py-4 md:py-4 bg-[black] text-[white] relative overflow-visible'>
           <AiOutlineMenuFold className='cursor-pointer text-lg md:hidden' onClick={() => setOpen(!open)} />
-
           <img src="/finalLogo.png" alt="" className='cursor-pointer w-28 md:w-36' onClick={() => navigate("/")} />
 
           <div className='hidden md:flex text-[lightgrey] items-center gap-10'>
@@ -158,8 +157,8 @@ const Navbar = () => {
             </div>
           </div>
           {open &&
-            <div className={`absolute w-72 left-0 top-0 h-screen bg-black transition-all duration-300 ease-linear`}>
-              <div className='border-2 border-white flex items-center justify-between bg-white text-black px-4'>
+            <div className={`absolute w-72 z-[999] left-0 top-0 h-screen bg-black transition-all duration-300 ease-linear`}>
+              <div className='border-2  border-white flex items-center justify-between bg-white text-black px-4'>
                 <b>FAVOUSER</b>
                 <AiOutlineClose className='cursor-pointer mx-5 my-5 text-2xl font-extrabold border border-black rounded-sm self-end' onClick={() => setOpen(false)} />
               </div>
@@ -177,7 +176,7 @@ const Navbar = () => {
         </div>
       )}
       {!['/favouser/contact', '/favouser/teams'].includes(location.pathname) &&
-        <div className="hidden md:flex items-center justify-between py-2 px-4 bg-[white]">
+        <div className="hidden md:flex items-center justify-between border-b border-[#e2dcc8] py-2 px-4 bg-[white]">
           {
             subNavItems.map((item, i) => <Link to={`/products?cat=${item}`} className='hover:underline hover:text-yellow-500 underline-offset-4 decoration-orange-400 transition-all duration-300' key={i}>{item}</Link>)
           }
