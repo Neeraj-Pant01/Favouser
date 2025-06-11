@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeFromWishList, setWishlistFromDB } from '../redux/wishlistSlice';
 import { toast } from 'react-toastify';
 import { items } from '../redux/CartSlice';
+import { useNavigate } from 'react-router-dom';
 
 const wishlist = () => {
     const [wishlist, setWishlist] = useState([]);
@@ -53,6 +54,7 @@ const wishlist = () => {
 
     const cart = useSelector((cart) => cart.currentCart.currentUserCart)
     const usercart = useSelector((state) => state.cart);
+    const navigate = useNavigate()
 
     const addToCart = async (p) => {
         if (!token) {
@@ -81,12 +83,12 @@ const wishlist = () => {
 
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50">
+        <div className="min-h-screen bg-gradient-to-br">
             <div className=" mx-auto">
                 <Navbar />
                 {/* Header */}
                 <div className="flex justify-between items-center mt-3 px-6">
-                    <h1 className="text-3xl font-bold text-pink-600">
+                    <h1 className="text-2xl font-bold text-black">
                         My Wishlist 💖
                     </h1>
                     <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm">
@@ -118,9 +120,9 @@ const wishlist = () => {
                         {Array.isArray(wishlist) && wishlist?.map((item) => (
                             <div
                                 key={item._id}
-                                className="bg-white rounded-xl p-4 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+                                className="bg-white rounded-xl  p-4 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
                             >
-                                <div className="relative">
+                                <div className="relative cursor-pointer" onClick={()=>navigate(`/product/${item?._id}`)}>
                                     <img
                                         src={item?.coverImage}
                                         alt={item?.productName}
@@ -136,7 +138,7 @@ const wishlist = () => {
                                 <h3 className="text-lg font-semibold mb-1">{item?.productName}</h3>
                                 <p className="text-gray-600 mb-4">₹{item?.price?.toFixed(2)}</p>
                                 <div className="flex justify-between mr-auto items-center">
-                                    <button className="flex items-center gap-2 bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700 transition-colors" onClick={() => addToCart(item)}>
+                                    <button className="flex items-center gap-2 bg-black text-white px-4 py-2 rounded-lg hover:bg-black transition-colors" onClick={() => addToCart(item)}>
                                         <FaShoppingBag />
                                         <span>Add to Cart</span>
                                     </button>

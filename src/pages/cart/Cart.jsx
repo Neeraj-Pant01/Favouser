@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { AiOutlineArrowLeft, AiOutlineGlobal, AiOutlineShoppingCart, AiOutlineVerified } from 'react-icons/ai';
 import { FiTrash2, FiPlus, FiMinus } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
@@ -13,7 +13,8 @@ const Cart = () => {
   const [loading, setLoading] = useState(false);
   const token = useSelector((state) => state.user.currentUser.token);
   const api = makeApiRequest(token);
-  const [cartTotal, setCartTotal] = useState(0)
+  const [cartTotal, setCartTotal] = useState(0);
+  const [itemTotals, setItemTotals] = useState({});
 
   useEffect(() => {
     setLoading(true);
@@ -31,9 +32,16 @@ const Cart = () => {
     getUserCart();
   }, []);
 
-  // Calculate total price
-  const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  const totalDiscount = cart.reduce((sum, item) => sum + (Math.round(item.price * 0.30) * item.quantity), 0);
+  const handleItemTotal = useCallback((id, total) => {
+    setItemTotals(prev => ({ ...prev, [id]: total }));
+  }, []);
+
+  // Update cartTotal whenever itemTotals changes
+  React.useEffect(() => {
+    const total = Object.values(itemTotals).reduce((sum, val) => sum + val, 0);
+    setCartTotal(total);
+  }, [itemTotals]);
+
 
   return (
     <>
@@ -52,13 +60,13 @@ const Cart = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* Cart Items */}
               <div className="lg:col-span-2 space-y-4">
-                {cart.map((item,i) => (
+                {cart.map((item, i) => (
                   <CartItem
-                    key={item._id+i} 
-                    item={item} 
-                    setCart={setCart} 
-                    cart={cart} 
-                    setCartTotal
+                    key={item._id + i}
+                    item={item}
+                    setCart={setCart}
+                    cart={cart}
+                    onTotalChange={handleItemTotal}
                   />
                 ))}
               </div>
@@ -69,19 +77,19 @@ const Cart = () => {
                 <div className="space-y-3">
                   <div className="flex justify-between">
                     <span className="text-gray-600">Subtotal</span>
-                    <span>₹{totalPrice.toFixed(2)}</span>
+                    <span>₹{cartTotal.toFixed(2)}</span>
                   </div>
-                  <div className="flex justify-between">
+                  {/* <div className="flex justify-between">
                     <span className="text-gray-600">Discount</span>
-                    <span className="text-green-600">-₹{totalDiscount.toFixed(2)}</span>
-                  </div>
+                    <span className="text-green-600">-₹{cartTotal.toFixed(2)}</span>
+                  </div> */}
                   <div className="flex justify-between">
                     <span className="text-gray-600">Shipping</span>
-                    <span className="text-green-600">Free</span>
+                    <span className="text-green-600">₹70</span>
                   </div>
                   <div className="border-t pt-3 mt-2 flex justify-between font-bold text-lg">
                     <span>Total</span>
-                    <span>₹{(totalPrice - totalDiscount).toFixed(2)}</span>
+                    <span>₹{(cartTotal + 70).toFixed(2)}</span>
                   </div>
                 </div>
                 <button className="w-full bg-black text-white py-3 rounded-lg mt-6 hover:bg-gray-800 transition">
@@ -96,8 +104,8 @@ const Cart = () => {
               </div>
               <h2 className="text-2xl font-bold mb-2">Your Cart is Empty</h2>
               <p className="text-gray-600 mb-6">Looks like you haven't added anything to your cart yet</p>
-              <Link 
-                to="/products" 
+              <Link
+                to="/products"
                 className="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition"
               >
                 Continue Shopping

@@ -13,6 +13,8 @@ import GlobalLoader from '../../components/GlobalLoader'
 import { toast } from 'react-toastify'
 import { items } from '../../redux/CartSlice'
 import Navbar from "../../components/navbar/Navbar"
+import { wishlistItems } from '../../redux/wishlistSlice'
+import { BsBoxSeam } from 'react-icons/bs'
 
 const SingleProduct = () => {
     const [show, setShow] = useState(false)
@@ -86,6 +88,7 @@ const SingleProduct = () => {
             } catch (err) {
                 console.log(err)
                 setLoading(false)
+                setProduct(null)
             }
         }
         loadProduct()
@@ -127,6 +130,54 @@ const SingleProduct = () => {
 
     const demorev = "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius sint ipsum et magni dignissimos, corporis doloribus quis eligendi consectetur, hic soluta, culpa veniam fuga quos ea animi deserunt laborum ullam. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae porro consequuntur, minima deserunt explicabo voluptatum excepturi modi reprehenderit ea distinctio! Rerum nam natus autem voluptate modi praesentium. Placeat, magnam odit."
 
+    const wishlist = useSelector((wish) => wish.wishlist)
+
+    const addToWishlist = async (p) => {
+        if (!token) {
+            toast.warn('login to add this item to your wishlist !')
+            return;
+        }
+        const isAlreadyInCart = wishlist.wishlistItems.some(item => item._id === p._id);
+
+        if (isAlreadyInCart) {
+            toast.info("This product is already in your wishlist !");
+            return;
+        }
+
+        try {
+            const response = await api.post(`/api/v1/wishlist/`, { productId: p._id, ...p })
+            if (response.status === 200) {
+                dispatch(wishlistItems(response.data))
+                toast.success("Product added to the wishlist! ");
+            }
+        } catch (err) {
+            console.log(err)
+            toast.error("Something went wrong! try again");
+        }
+    }
+
+    if (product === null) {
+        return (
+            <>
+            <Navbar />
+            <div className="bg-white rounded-xl min-h-[80vh] shadow-sm overflow-hidden flex flex-col items-center justify-center p-8 my-4">
+                <BsBoxSeam className="text-6xl text-[#e2dcc8] mb-4 animate-bounce" />
+                <h2 className="text-2xl font-bold text-[#0f3d3e] mb-2">Product Unavailable</h2>
+                <p className="text-gray-500 mb-4 text-center">
+                    Sorry, this product is not available right now.<br />
+                    Try exploring other amazing products!
+                </p>
+                <Link
+                    to="/"
+                    className="bg-[#e2dcc8] text-[#0f3d3e] px-6 py-2 rounded-full font-semibold shadow hover:bg-[#0f3d3e] hover:text-[#e2dcc8] transition"
+                >
+                    Go to Homepage
+                </Link>
+            </div>
+            </>
+        );
+    }
+
 
     return (
         <>
@@ -165,9 +216,9 @@ const SingleProduct = () => {
                                             <b className='md:text-2xl text-[#0f3d3e]'>₹ {product.price}</b>
                                             <div className='flex md:text-xl items-center'>
                                                 ₹
-                                                <span className='text-[maroon] line-through'>{product.price + Math.floor(product?.price * 0.40)}</span>
+                                                <span className='text-[maroon] line-through'>{product?.maxPrice || Math.floor(product?.offer ? (product?.price * product?.offer) : (product?.price + (0.20 * product?.price)))}</span>
                                             </div>
-                                            <h1 className='text-xl  text-[green]'>40% OFF</h1>
+                                            <h1 className='text-xl  text-[green]'>{product?.offer || "20%OFF"}</h1>
 
                                         </div>
                                         <p className='text-[grey]'>Inclusive of all taxes</p>
@@ -277,8 +328,8 @@ const SingleProduct = () => {
                                         >
                                             Add To Cart
                                         </button>
-                                         <button className=" w-fit font-semibolds text-red-500 text-4xl">
-                                             <AiFillHeart className='text-red-500 hover:scale-110 transition-transform' />
+                                        <button className=" w-fit font-semibolds text-red-500 text-4xl" onClick={() => addToWishlist(product)}>
+                                            <AiFillHeart className='text-red-500 hover:scale-110 transition-transform' />
                                         </button>
                                     </div>
                                 </div>
@@ -357,7 +408,7 @@ const SingleProduct = () => {
                                             Post Review
                                         </button>
 
-                                       
+
                                     </div>
                                 </div>
 

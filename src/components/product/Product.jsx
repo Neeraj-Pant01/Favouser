@@ -6,7 +6,7 @@ import { FiTrash2, FiPlus, FiMinus } from 'react-icons/fi';
 import { removeFromCart } from '../../redux/CartSlice';
 import { useEffect } from 'react';
 
-const CartItem = ({ item, setCart, cart, setCartTotal }) => {
+const CartItem = ({ item, setCart, cart, onTotalChange }) => {
   const [quantity, setQuantity] = useState(item.quantity || 1);
   const [isRemoving, setIsRemoving] = useState(false);
   const token = useSelector((state) => state.user.currentUser.token);
@@ -14,19 +14,30 @@ const CartItem = ({ item, setCart, cart, setCartTotal }) => {
   const api = makeApiRequest(token);
   const [product, setProduct] = useState()
 
-  useEffect(()=>{
-    const getSingleProduct = async () =>{
-        try{
-            const response = await api.get(`/api/v1/products/${item?._id}`)
-            setProduct(response?.data)
-        }catch(err){
-            console.log(err)
-        }
+
+  useEffect(() => {
+    const getSingleProduct = async () => {
+      try {
+        const response = await api.get(`/api/v1/products/${item?._id}`)
+        setProduct(response?.data)
+      } catch (err) {
+        console.log(err)
+      }
     }
     getSingleProduct()
-  },[])
+  }, [])
 
-//   console.log('item', item)
+
+    useEffect(() => {
+    if (product && product.price) {
+      onTotalChange(item._id, product.price * quantity);
+    } else {
+      onTotalChange(item._id, 0);
+    }
+  }, [product, quantity, item._id, onTotalChange]);
+
+
+  //   console.log('item', item)
 
   const removeCartItem = async () => {
     setIsRemoving(true);
@@ -44,12 +55,12 @@ const CartItem = ({ item, setCart, cart, setCartTotal }) => {
 
   const updateQuantity = async (newQuantity) => {
     if (newQuantity < 1) return;
-    
+
     try {
       setQuantity(newQuantity);
-    //   const response = await api.put(`/api/v1/cart/update/${item._id}`, {
-    //     quantity: newQuantity
-    //   });
+      //   const response = await api.put(`/api/v1/cart/update/${item._id}`, {
+      //     quantity: newQuantity
+      //   });
     } catch (err) {
       console.log(err);
     }
@@ -60,9 +71,9 @@ const CartItem = ({ item, setCart, cart, setCartTotal }) => {
       <div className="flex p-4">
         {/* Product Image */}
         <Link to={`/product/${item._id}`} className="flex-shrink-0">
-          <img 
-            src={product?.coverImage} 
-            alt={product?.productName} 
+          <img
+            src={product?.coverImage}
+            alt={product?.productName}
             className="w-24 h-24 object-cover rounded-lg"
           />
         </Link>
@@ -73,7 +84,7 @@ const CartItem = ({ item, setCart, cart, setCartTotal }) => {
             <Link to={`/product/${item._id}`} className="font-medium hover:text-blue-600">
               {product?.productName}
             </Link>
-            <button 
+            <button
               onClick={removeCartItem}
               disabled={isRemoving}
               className="text-gray-400 hover:text-red-500 transition"
@@ -88,14 +99,14 @@ const CartItem = ({ item, setCart, cart, setCartTotal }) => {
           {/* Price and Quantity */}
           <div className="flex items-center justify-between mt-4">
             <div className="flex items-center space-x-2">
-              <button 
+              <button
                 onClick={() => updateQuantity(quantity - 1)}
                 className="p-1 rounded-full bg-gray-100 hover:bg-gray-200"
               >
                 <FiMinus size={14} />
               </button>
               <span className="w-8 text-center">{quantity}</span>
-              <button 
+              <button
                 onClick={() => updateQuantity(quantity + 1)}
                 className="p-1 rounded-full bg-gray-100 hover:bg-gray-200"
               >
@@ -107,10 +118,10 @@ const CartItem = ({ item, setCart, cart, setCartTotal }) => {
               <div className="font-semibold">₹{(product?.price * quantity).toFixed(2)}</div>
               <div className="flex items-center justify-end space-x-2 text-sm">
                 <span className="text-gray-400 line-through">
-                  ₹{(product?.price + Math.round(product?.price * 0.30)) * quantity}
+                  ₹{(product?.maxPrice * quantity) ||  ((product?.price + Math.round(product?.price * 0.20)) * quantity)}
                 </span>
                 <span className="text-green-600">
-                  Save ₹{(Math.round(product?.price * 0.30) * quantity)}
+                  Save ₹{product?.offer ? (Math.round(isNaN(product?.price * product?.offer) ? (product?.price * ((product?.offer).substring(0,2)/100)) : (product?.price * product?.offer)) * quantity) :  (Math.round(product?.price * 0.20) * quantity)}
                 </span>
               </div>
             </div>

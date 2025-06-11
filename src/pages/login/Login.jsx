@@ -40,16 +40,18 @@ const AuthPage = () => {
     const username = e.target[0].value
     const email = e.target[1].value
     const password = e.target[2].value
+    const city = e.target[3].value
+    const pincode = e.target[4].value
 
-    if (!username || !email || !password)
+    if (!username || !email || !password || !city || !pincode)
       return toast.warn('Please fill all fields!')
 
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_APP_URI}/api/v1/auth/register`,
-        { username, email, password }
+        { username, email, password, city, pincode }
       )
-      if (res.status === 201) {
+      if (res.status === 200) {
         toast.success('Signup successful! You can now log in.')
         setSignUp(false)
       }
@@ -61,13 +63,13 @@ const AuthPage = () => {
   return (
     <>
       <div
-        className="flex h-screen bg-cover bg-center"
-        style={{ backgroundImage: `url(/assets/LoginBG.png)` }}
+        className="flex md:bg-[url(/assets/LoginBG.png)] bg-[url(/flb.png)] min-h-screen bg-cover bg-center"
+        style={{ backgroundImage: `` }}
       >
         <ToastContainer theme="colored" />
 
         {/* Left Brand Panel */}
-        <div className="w-[25%] bg-white/80 backdrop-blur-sm flex flex-col justify-center items-center text-black font-bold text-5xl tracking-widest">
+        <div className="w-[25%] hidden md:flex bg-white/80 backdrop-blur-sm flex-col justify-center items-center text-black font-bold text-5xl tracking-widest">
           {/* {['F', 'A', 'V', <span key="o" className="text-6xl">👕</span>, 'U', 'S', 'E', 'R'].map((char, i) => (
           <span key={i} className="py-1">{char}</span>
         ))} */}
@@ -75,10 +77,10 @@ const AuthPage = () => {
         </div>
 
         {/* Form Panel */}
-        <div className="w-[75%] bg-[#08373a]/90 flex items-center justify-center text-white">
+        <div className="w-[100%] md:w-[75%] bg-[#08373a]/90 flex items-center justify-center text-white">
           <form
             onSubmit={signUp ? handleSignup : handleLogin}
-            className="flex flex-col gap-1 w-full max-w-md px-8"
+            className="flex flex-col bg-transparent gap-1 w-full max-w-md px-8"
           >
             <h2 className="text-3xl font-bold text-center">
               {signUp ? 'SIGN UP' : 'LOGIN'}
@@ -109,6 +111,23 @@ const AuthPage = () => {
               className="bg-white text-black rounded-md px-4 py-2 outline-none"
             />
 
+            {signUp && (
+              <>
+                <label className="text-lg mt-5">City</label>
+                <input
+                  type="text"
+                  placeholder="Enter your city"
+                  className="bg-white text-black rounded-md px-4 py-2 outline-none"
+                />
+                <label className="text-lg mt-5">Pincode</label>
+                <input
+                  type="text"
+                  placeholder="Enter your pincode"
+                  className="bg-white text-black rounded-md px-4 py-2 outline-none"
+                />
+              </>
+            )}
+
             <div className="flex items-center justify-center">
               <button
                 type="submit"
@@ -129,7 +148,7 @@ const AuthPage = () => {
               </button>
             </p>
             <Link to={'/'} className="text-center underline text-sm mt-2">
-            Continue Homepage
+              Continue Homepage
             </Link>
           </form>
         </div>

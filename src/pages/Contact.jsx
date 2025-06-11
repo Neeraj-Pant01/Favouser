@@ -128,7 +128,7 @@ const ContactPage = () => {
                     </div>
 
                     <div className="md:col-span-2">
-                        <label className="block text-sm mb-1">Message</label>
+                        <label className="block text-sm mb-1">Message/Feedback</label>
                         <textarea
                             rows={5}
                             placeholder="Enter Message"

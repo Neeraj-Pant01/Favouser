@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/navbar/Navbar';
 import teamData from '../data';
+import { BsEmojiFrown } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 
 const Teams = () => {
   const [current, setCurrent] = useState(0);
@@ -21,7 +23,31 @@ const Teams = () => {
     return () => clearInterval(interval);
   }, []);
 
+  let showTeam = false;
+
   const member = teamData[current];
+
+  if (!showTeam) {
+    return (
+      <>
+        <Navbar />
+        <div className="bg-white rounded-xl min-h-[80vh] shadow-sm overflow-hidden flex flex-col items-center justify-center p-8 my-4">
+          <BsEmojiFrown className="text-6xl text-[#e2dcc8] mb-4 animate-bounce" />
+          <h2 className="text-2xl font-bold text-[#0f3d3e] mb-2">Team Data Not Unavailable</h2>
+          <p className="text-gray-500 mb-4 text-center">
+            Sorry, our team details are not available right now.<br />
+            We’ll be back soon!
+          </p>
+          <Link
+            to="/"
+            className="bg-[#e2dcc8] text-[#0f3d3e] px-6 py-2 rounded-full font-semibold shadow hover:bg-[#0f3d3e] hover:text-[#e2dcc8] transition"
+          >
+            Go to Homepage
+          </Link>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
