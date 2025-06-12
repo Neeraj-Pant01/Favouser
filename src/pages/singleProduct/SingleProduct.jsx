@@ -220,7 +220,7 @@ const SingleProduct = () => {
                                             <b className='md:text-2xl text-[#0f3d3e]'>₹ {product.price}</b>
                                             <div className='flex md:text-xl items-center'>
                                                 ₹
-                                                <span className='text-[maroon] line-through'>{product?.maxPrice || Math.floor(product?.offer ? (product?.price * product?.offer) : (product?.price + (0.20 * product?.price)))}</span>
+                                                <span className='text-[maroon] line-through'>{product?.maxPrice || (Math.round(isNaN(product?.price * product?.offer) ? (product?.price * ((product?.offer)?.substring(0,2)/100)) : (product?.price * product?.offer)))}</span>
                                             </div>
                                             <h1 className='text-xl  text-[green]'>{product?.offer || "20%OFF"}</h1>
 
@@ -322,20 +322,21 @@ const SingleProduct = () => {
 
                                     <div className="flex items-center gap-4 mt-2">
                                         {
-                                            product?.inStocks < 0 ?
-                                                <button
-                                                    className="w-fit px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl hover:shadow-lg hover:scale-105 transition-transform"
-                                                    onClick={handleOrder}
-                                                >
-                                                    BUY NOW
-                                                </button>
-                                                :
+                                            product?.inStocks < 1 ?
                                                 <button
                                                 disabled={true}
                                                     className="w-fit cursor-not-allowed px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-red-100 to-purple-200 rounded-xl hover:shadow-lg hover:scale-105 transition-transform"
                                                 >
                                                     OUT OF STOCK
                                                 </button>
+                                                :
+                                                <button
+                                                    className="w-fit px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl hover:shadow-lg hover:scale-105 transition-transform"
+                                                    onClick={handleOrder}
+                                                >
+                                                    BUY NOW
+                                                </button>
+                                                
                                         }
                                         <button onClick={addToCart}
                                             className="hidden md:block w-fit px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-yellow-500 to-yellow-400 rounded-xl hover:shadow-lg hover:scale-105 transition-transform"

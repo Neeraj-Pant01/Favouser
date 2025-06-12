@@ -7,6 +7,9 @@ import { useSelector } from 'react-redux';
 import Navbar from '../../components/navbar/Navbar';
 import GlobalLoader from '../../components/GlobalLoader';
 import CartItem from "../../components/product/Product"
+import { BsEmojiSmile } from 'react-icons/bs';
+import { Helmet } from 'react-helmet';
+
 
 const Cart = () => {
   const [cart, setCart] = useState([]);
@@ -15,6 +18,7 @@ const Cart = () => {
   const api = makeApiRequest(token);
   const [cartTotal, setCartTotal] = useState(0);
   const [itemTotals, setItemTotals] = useState({});
+  const [showCheckoutModal, setShowCheckoutModal] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -45,6 +49,12 @@ const Cart = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Shopping Cart - Favouser</title>
+        <meta name="description" content="Review and manage your selected products in the Favouser shopping cart. Secure checkout and trusted quality guaranteed." />
+        <meta name="keywords" content="favouser cart, shopping cart, checkout, t-shirts, fashion, secure payment" />
+        <link rel="canonical" href="https://favouser.com/cart" />
+      </Helmet>
       <Navbar />
       {loading ? (
         <GlobalLoader />
@@ -92,7 +102,7 @@ const Cart = () => {
                     <span>₹{(cartTotal + 70).toFixed(2)}</span>
                   </div>
                 </div>
-                <button className="w-full bg-black text-white py-3 rounded-lg mt-6 hover:bg-gray-800 transition">
+                <button onClick={() => setShowCheckoutModal(true)} className="w-full bg-black text-white py-3 rounded-lg mt-6 hover:bg-gray-800 transition">
                   PROCEED TO CHECKOUT
                 </button>
               </div>
@@ -128,6 +138,43 @@ const Cart = () => {
               <span className="text-sm text-gray-700">Global Delivery</span>
             </div>
           </div>
+
+          {showCheckoutModal && (
+            <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40 backdrop-blur-sm">
+              <div className="relative bg-white/30 border border-[#e2dcc8] rounded-2xl shadow-2xl p-8 max-w-sm w-full flex flex-col items-center glassy-modal">
+                <button
+                  className="absolute top-3 right-3 text-2xl text-[#0f3d3e] hover:text-[#e2dcc8] transition"
+                  onClick={() => setShowCheckoutModal(false)}
+                  aria-label="Close"
+                >×
+                </button>
+                <BsEmojiSmile className="text-6xl text-[#e2dcc8] mb-4 drop-shadow-lg" />
+                <h2 className="text-2xl font-bold text-[#0f3d3e] mb-2 text-center">Checkout Under Maintenance</h2>
+                <p className="text-gray-800 text-center mb-4">
+                  We're making your checkout experience even better!<br />
+                  <span className="text-[#0f3d3e] font-semibold">You can still order your favorite products</span> by clicking on the product and using the "Buy Now" option.<br />
+                  Thank you for your patience and style! 💛
+                </p>
+                <Link
+                  to="/products"
+                  className="bg-[#e2dcc8] text-[#0f3d3e] px-6 py-2 rounded-full font-semibold shadow hover:bg-[#0f3d3e] hover:text-[#e2dcc8] transition"
+                  onClick={() => setShowCheckoutModal(false)}
+                >
+                  Explore Products
+                </Link>
+              </div>
+              <style>{`
+                .glassy-modal {
+                  background: rgba(255,255,255, 0.7);
+                  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+                  backdrop-filter: blur(8px);
+                  -webkit-backdrop-filter: blur(8px);
+                  border-radius: 20px;
+                  border: 1px solid rgba(226, 220, 200, 0.18);
+                }
+              `}</style>
+            </div>
+          )}
         </div>
       )}
     </>

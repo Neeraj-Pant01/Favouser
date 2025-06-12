@@ -17,6 +17,8 @@ import FilterSidebar from '../../components/FilterSidebar'
 import { FiFilter } from 'react-icons/fi'
 import { GiCrossMark } from 'react-icons/gi'
 import { MdClose } from 'react-icons/md'
+import { Helmet } from 'react-helmet';
+
 
 
 const AllProducts = () => {
@@ -74,6 +76,13 @@ const AllProducts = () => {
 
   return (
     <>
+    <Helmet>
+      <title>All Products - Favouser</title>
+      <meta name="description" content="Browse our wide range of handpicked fashion and lifestyle products on Favouser. Filter by category, price, and more." />
+      <meta name="keywords" content="favouser, all products, fashion, t-shirts, online shopping, buy clothes, lifestyle" />
+      <link rel="canonical" href={`https://favouser.com${window.location.pathname}`} />
+    </Helmet>
+
       {loading ? (
         <GlobalLoader />
       ) :

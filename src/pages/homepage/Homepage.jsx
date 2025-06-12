@@ -24,6 +24,7 @@ import { userCart } from '../../redux/CurrentUserCart'
 import { setCartFromDB } from '../../redux/CartSlice'
 import { setWishlistFromDB } from '../../redux/wishlistSlice'
 import { toast } from 'react-toastify'
+import { Helmet } from "react-helmet";
 
 const images = [
   {
@@ -56,7 +57,7 @@ const Homepage = () => {
 
 
   const fetchWishlist = async () => {
-    if(!token){
+    if (!token) {
       return
     }
     try {
@@ -103,20 +104,28 @@ const Homepage = () => {
   })
 
   return (
-    < div>
-      <Navbar />
-      {/* <Slider /> */}
-      <ScrollButton />
-      <FavoUser />
-      <SaleTags />
-      <ShowSale />
-      <BestSelling />
-      <BestProduct />
-      <Accessories />
-      <div className='mt-2'>
-        <PromoGrid />
+    <>
+      <Helmet>
+        <title>Favouser - Handpicked Fashion & Lifestyle</title>
+        <meta name="description" content="Discover the best in fashion and lifestyle with Favouser. Shop trending t-shirts, accessories, and more. Curated for your unique style." />
+        <meta name="keywords" content="favouser, fashion, t-shirts, accessories, online shopping, lifestyle, trending, best products" />
+        <link rel="canonical" href="https://favouser.com/" />
+      </Helmet>
+      < div>
+        <Navbar />
+        {/* <Slider /> */}
+        <ScrollButton />
+        <FavoUser />
+        <SaleTags />
+        <ShowSale />
+        <BestSelling />
+        <BestProduct />
+        <Accessories />
+        <div className='mt-2'>
+          <PromoGrid />
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
