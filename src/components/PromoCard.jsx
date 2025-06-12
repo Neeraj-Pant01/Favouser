@@ -17,7 +17,7 @@ const promos = [
     image: "/Offers/3.png",
     topLeft: "",
     topRight: "",
-    bottomCenter: "9",
+    bottomCenter: "",
   },
   {
     image: "/Offers/4.png",
