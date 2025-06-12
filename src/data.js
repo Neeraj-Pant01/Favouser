@@ -231,7 +231,7 @@ export const bestSellings = [
   },
   {
     id: "",
-    image: "/bestSelling/8.png"
+    image: "/bestSelling/9.png"
 
   }
 ]

@@ -3,9 +3,9 @@ import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 
 const images = [
-  "/b1.png",
-  "/b2.png",
-  "/b1.png",
+  "/banner/b1.png",
+  "/banner/b2.png",
+  "/banner/b3.png",
   // Add more image paths as needed
 ]
 

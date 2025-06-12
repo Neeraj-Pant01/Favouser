@@ -114,10 +114,13 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white py-12 px-4 md:px-8 pt-20">
+    <footer className="bg-black text-white py-12 px-4 md:px-8 pt-14">
       <div className="max-w-6xl mx-auto">
+        <div className="mb-5 md:mb-16 md:text-xl">
+          <h2 className="font-light md:text-2xl mb-4 md:text-center uppercase">Thanks For Visiting Favouser ❤</h2>
+        </div>
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
 
           {/* CUSTOMER SERVICE */}
           <div>
@@ -155,19 +158,6 @@ const Footer = () => {
           </div>
 
           {/* NEWSLETTER */}
-          <div>
-            <h2 className="font-bold mb-4 text-sm uppercase">Thanks For Visiting Favouser ❤</h2>
-            {/* <div className="flex">
-              <input
-                type="email"
-                placeholder="Enter Mail ID"
-                className="p-2 text-black md:w-[20%] flex-grow rounded-l-md focus:outline-none"
-              />
-              <button className="bg-yellow-500 text-black px-4 py-2 rounded-r-md font-bold text-sm uppercase">
-                Subscribe
-              </button>
-            </div> */}
-          </div>
         </div>
 
         {/* Brand Name */}

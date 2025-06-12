@@ -17,7 +17,7 @@ const Accessories = () => {
     },
     {
       id: 3,
-      name: "",
+      name: "Mouse pad",
       price: "Rs 799.99",
       image: "/acessories/6.png"
     },
@@ -41,15 +41,15 @@ const Accessories = () => {
     },
     {
       id: 7,
-      name: "",
+      name: "metal sheet",
       price: "Rs 399.99",
       image: "/acessories/10.png"
     },
     {
       id: 8,
-      name: "Mobile cover",
+      name: "Keyboard Pad",
       price: "Rs 459.99",
-      image: "/acessories/5.png"
+      image: "/bestSelling/3.png"
     }
   ]
 

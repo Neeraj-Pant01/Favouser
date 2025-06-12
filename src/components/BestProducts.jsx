@@ -1,20 +1,21 @@
 import React from "react";
+import { Carousel } from "react-responsive-carousel";
 
 const bestProducts = [
   {
-    title: "TITLE",
-    image: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3R5bGV8ZW58MHx8MHx8fDA%3D",
-    offer: "30% OFF",
+    title: "",
+    image: "/bestProducts/1.png",
+    offer: "",
   },
   {
-    title: "TITLE",
-    image: "https://images.unsplash.com/photo-1608748010899-18f300247112?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c3R5bGV8ZW58MHx8MHx8fDA%3D",
-    offer: "30% OFF",
+    title: "",
+    image: "/bestProducts/2.png",
+    offer: "",
   },
   {
-    title: "TITLE",
-    image: "https://plus.unsplash.com/premium_photo-1672907031715-fa4214fc3803?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fHN0eWxlfGVufDB8fDB8fHww",
-    offer: "30% OFF",
+    title: "",
+    image: "/bestProducts/3.png",
+    offer: "",
   },
 ];
 
@@ -25,7 +26,29 @@ const BestProduct = () => {
         BEST PRODUCT
       </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8  mx-auto">
+          <div className='md:hidden bg-white pb-2 mt-2'>
+      <Carousel
+        autoPlay
+        infiniteLoop
+        showThumbs={false}
+        showStatus={false}
+        interval={3000}
+        showArrows
+        swipeable
+        emulateTouch
+        className="rounded-3xl"
+      >
+        {bestProducts.map((item, idx) => (
+          <div  key={idx} className="rounded-2xl border-4 border-white p-4 flex flex-col items-center justify-between bg-black">
+            <h3 className="font-bold text-lg sm:text-xl mb-4">{item?.title}</h3>
+            <img src={item?.image} alt={`slide-${idx}`} className='w-full md:h-72 object-cover md:rounded-3xl' />
+            <p className="text-lg font-extrabold">{item?.offer}</p>
+          </div>
+        ))}
+      </Carousel>
+      </div>
+
+      <div className="hidden md:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8  mx-auto">
         {bestProducts.map((product, index) => (
           <div
             key={index}
