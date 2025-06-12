@@ -61,6 +61,10 @@ const wishlist = () => {
             toast.warn('login to add this item to your cart !')
             return;
         }
+        if (p?.inStocks < 1) {
+            toast.warn('This product is out of stock!');
+            return;
+        }
         const isAlreadyInCart = usercart.cartItems.some(item => item._id === p._id);
 
         if (isAlreadyInCart) {
@@ -122,7 +126,7 @@ const wishlist = () => {
                                 key={item._id}
                                 className="bg-white rounded-xl  p-4 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
                             >
-                                <div className="relative cursor-pointer" onClick={()=>navigate(`/product/${item?._id}`)}>
+                                <div className="relative cursor-pointer" onClick={() => navigate(`/product/${item?._id}`)}>
                                     <img
                                         src={item?.coverImage}
                                         alt={item?.productName}

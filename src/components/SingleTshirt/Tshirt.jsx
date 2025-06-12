@@ -25,6 +25,11 @@ const Tshirt = ({ p }) => {
     }
     const isAlreadyInCart = usercart.cartItems.some(item => item._id === p._id);
 
+    if(p?.inStocks < 1){
+      toast.warn('This product is out of stock!');
+      return;
+    }
+
     if (isAlreadyInCart) {
       toast.info("This product is already in your cart.");
       return;

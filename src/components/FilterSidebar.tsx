@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FiChevronDown, FiChevronUp, FiX } from "react-icons/fi";
 
-const FilterSidebar = () => {
+const FilterSidebar = ({ category, setCategory, min, setMin, max, setMax }) => {
     const [openSections, setOpenSections] = useState({
         categories: true,
         price: true,
@@ -10,7 +10,7 @@ const FilterSidebar = () => {
         discounts: false
     });
 
-    const [priceRange, setPriceRange] = useState([0, 50000]);
+    const [priceRange, setPriceRange] = useState([0, 2000]);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
     const [selectedRatings, setSelectedRatings] = useState<number[]>([]);
     const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
@@ -23,25 +23,36 @@ const FilterSidebar = () => {
         }));
     };
 
-    const categories = ["Men", "Women", "LGBTQ+", "tshirt", "accesories"];
+    const categories = ["Men", "Women", "LGBTQ+", "tshirt", "accessories"];
     const brands = ["Samsung", "Apple", "Nike", "Adidas", "Sony"];
     const ratings = [4, 3, 2, 1];
     const discounts = ["10% or more", "20% or more", "30% or more", "50% or more"];
+
+    React.useEffect(() => {
+        setPriceRange([min, max]);
+    }, [min, max]);
 
     const handlePriceChange = (e: any, index: any) => {
         const newPriceRange = [...priceRange];
         newPriceRange[index] = parseInt(e.target.value);
         setPriceRange(newPriceRange);
+        if (index === 0) setMin(newPriceRange[0]);
+        if (index === 1) setMax(newPriceRange[1]);
     };
 
     const toggleSelection = (item: any, type: any) => {
         switch (type) {
             case 'category':
-                setSelectedCategories(prev =>
-                    prev.includes(item)
-                        ? prev.filter(cat => cat !== item)
-                        : [...prev, item]
-                );
+                // setSelectedCategories(prev =>
+                //     prev.includes(item)
+                //         ? prev.filter(cat => cat !== item)
+                //         : [...prev, item]
+                // );
+                if (category !== item) {
+                    setCategory(item)
+                } else {
+                    setCategory(null)
+                }
                 break;
             case 'brand':
                 setSelectedBrands(prev =>
@@ -73,22 +84,22 @@ const FilterSidebar = () => {
         <div className="w-64 bg-white shadow-lg rounded-lg  overflow-y-scroll sticky top-4 h-fit">
             <div className="p-4 border-b border-gray-200 flex justify-between items-center">
                 <h2 className="text-lg font-bold text-gray-800">Filters</h2>
-                <button className="text-sm text-blue-600 hover:text-blue-800">Clear All</button>
+                {/* <button className="text-sm text-blue-600 hover:text-blue-800">Clear All</button> */}
             </div>
 
             {/* Selected Filters */}
-            {selectedCategories.length > 0 || selectedBrands.length > 0 || selectedRatings.length > 0 || selectedDiscounts.length > 0 ? (
+            {category || selectedBrands.length > 0 || selectedRatings.length > 0 || selectedDiscounts.length > 0 ? (
                 <div className="p-4">
                     <h3 className="text-sm font-medium text-gray-700 mb-2">Selected Filters</h3>
                     <div className="flex flex-wrap gap-2">
-                        {selectedCategories.map((cat) => (
-                            <span key={cat} className="bg-blue-50 text-blue-700 px-2 py-1 rounded-full text-xs flex items-center">
-                                {cat}
-                                <button onClick={() => toggleSelection(cat, 'category')} className="ml-1">
-                                    <FiX size={12} />
-                                </button>
-                            </span>
-                        ))}
+                        {/* {selectedCategories.map((cat) => ( */}
+                        <span className="bg-blue-50 text-blue-700 px-2 py-1 rounded-full text-xs flex items-center">
+                            {category}
+                            <button onClick={() => toggleSelection(category, 'category')} className="ml-1">
+                                <FiX size={12} />
+                            </button>
+                        </span>
+                        {/* ))} */}
                         {selectedBrands.map((brand) => (
                             <span key={brand} className="bg-blue-50 text-blue-700 px-2 py-1 rounded-full text-xs flex items-center">
                                 {brand}
@@ -128,17 +139,17 @@ const FilterSidebar = () => {
                 </div>
                 {openSections.categories && (
                     <div className="px-4 pb-4 space-y-2">
-                        {categories.map((category: any) => (
-                            <div key={category} className="flex items-center">
+                        {categories.map((cat: any) => (
+                            <div key={cat} className="flex items-center">
                                 <input
                                     type="checkbox"
-                                    id={`cat-${category}`}
-                                    checked={selectedCategories.includes(category)}
-                                    onChange={() => toggleSelection(category, 'category')}
+                                    id={`cat-${cat}`}
+                                    checked={cat === category}
+                                    onChange={() => toggleSelection(cat, 'category')}
                                     className="h-4 w-4 text-blue-600 rounded focus:ring-blue-500"
                                 />
-                                <label htmlFor={`cat-${category}`} className="ml-2 text-sm text-gray-700">
-                                    {category}
+                                <label htmlFor={`cat-${cat}`} className="ml-2 text-sm text-gray-700">
+                                    {cat}
                                 </label>
                             </div>
                         ))}
@@ -165,7 +176,7 @@ const FilterSidebar = () => {
                             <input
                                 type="range"
                                 min="0"
-                                max="50000"
+                                max="2000"
                                 value={priceRange[0]}
                                 onChange={(e) => handlePriceChange(e, 0)}
                                 className="w-full"
@@ -173,7 +184,7 @@ const FilterSidebar = () => {
                             <input
                                 type="range"
                                 min="0"
-                                max="50000"
+                                max="2000"
                                 value={priceRange[1]}
                                 onChange={(e) => handlePriceChange(e, 1)}
                                 className="w-full"

@@ -52,6 +52,10 @@ const SingleProduct = () => {
             toast.warn('login to add this item to your cart !')
             return;
         }
+        if(product?.inStocks < 1){
+            toast.warn('this product is out of stock !')
+            return;
+        }
         const isAlreadyInCart = usercart.cartItems.some(item => item._id === product._id);
 
         if (isAlreadyInCart) {
@@ -159,21 +163,21 @@ const SingleProduct = () => {
     if (product === null) {
         return (
             <>
-            <Navbar />
-            <div className="bg-white rounded-xl min-h-[80vh] shadow-sm overflow-hidden flex flex-col items-center justify-center p-8 my-4">
-                <BsBoxSeam className="text-6xl text-[#e2dcc8] mb-4 animate-bounce" />
-                <h2 className="text-2xl font-bold text-[#0f3d3e] mb-2">Product Unavailable</h2>
-                <p className="text-gray-500 mb-4 text-center">
-                    Sorry, this product is not available right now.<br />
-                    Try exploring other amazing products!
-                </p>
-                <Link
-                    to="/"
-                    className="bg-[#e2dcc8] text-[#0f3d3e] px-6 py-2 rounded-full font-semibold shadow hover:bg-[#0f3d3e] hover:text-[#e2dcc8] transition"
-                >
-                    Go to Homepage
-                </Link>
-            </div>
+                <Navbar />
+                <div className="bg-white rounded-xl min-h-[80vh] shadow-sm overflow-hidden flex flex-col items-center justify-center p-8 my-4">
+                    <BsBoxSeam className="text-6xl text-[#e2dcc8] mb-4 animate-bounce" />
+                    <h2 className="text-2xl font-bold text-[#0f3d3e] mb-2">Product Unavailable</h2>
+                    <p className="text-gray-500 mb-4 text-center">
+                        Sorry, this product is not available right now.<br />
+                        Try exploring other amazing products!
+                    </p>
+                    <Link
+                        to="/"
+                        className="bg-[#e2dcc8] text-[#0f3d3e] px-6 py-2 rounded-full font-semibold shadow hover:bg-[#0f3d3e] hover:text-[#e2dcc8] transition"
+                    >
+                        Go to Homepage
+                    </Link>
+                </div>
             </>
         );
     }
@@ -317,12 +321,22 @@ const SingleProduct = () => {
                                     />
 
                                     <div className="flex items-center gap-4 mt-2">
-                                        <button
-                                            className="w-fit px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl hover:shadow-lg hover:scale-105 transition-transform"
-                                            onClick={handleOrder}
-                                        >
-                                            BUY NOW
-                                        </button>
+                                        {
+                                            product?.inStocks < 0 ?
+                                                <button
+                                                    className="w-fit px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl hover:shadow-lg hover:scale-105 transition-transform"
+                                                    onClick={handleOrder}
+                                                >
+                                                    BUY NOW
+                                                </button>
+                                                :
+                                                <button
+                                                disabled={true}
+                                                    className="w-fit cursor-not-allowed px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-red-100 to-purple-200 rounded-xl hover:shadow-lg hover:scale-105 transition-transform"
+                                                >
+                                                    OUT OF STOCK
+                                                </button>
+                                        }
                                         <button onClick={addToCart}
                                             className="hidden md:block w-fit px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-yellow-500 to-yellow-400 rounded-xl hover:shadow-lg hover:scale-105 transition-transform"
                                         >

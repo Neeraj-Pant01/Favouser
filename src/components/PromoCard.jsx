@@ -34,7 +34,7 @@ const PromoGrid = () => {
         {promos.map((promo, index) => (
           <div
             key={index}
-            className="relative rounded-xl overflow-hidden h-36 md:h-72 w-full shadow-lg"
+            className="relative rounded-xl overflow-hidden h-full w-full shadow-lg"
           >
             <img
               src={promo.image}

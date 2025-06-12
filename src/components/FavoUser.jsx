@@ -25,7 +25,7 @@ const FavoUser = () => {
       >
         {images.map((img, idx) => (
           <div key={idx}>
-            <img src={img} alt={`slide-${idx}`} className='w-full md:h-72 object-cover md:rounded-3xl' />
+            <img src={img} alt={`slide-${idx}`} className='w-full h-full object-cover md:rounded-3xl' />
           </div>
         ))}
       </Carousel>

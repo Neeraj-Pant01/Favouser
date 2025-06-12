@@ -23,6 +23,7 @@ import ScrollButton from '../../components/ScrollButton'
 import { userCart } from '../../redux/CurrentUserCart'
 import { setCartFromDB } from '../../redux/CartSlice'
 import { setWishlistFromDB } from '../../redux/wishlistSlice'
+import { toast } from 'react-toastify'
 
 const images = [
   {
@@ -55,6 +56,9 @@ const Homepage = () => {
 
 
   const fetchWishlist = async () => {
+    if(!token){
+      return
+    }
     try {
       const response = await api.get(`/api/v1/wishlist`)
       dispatch(setWishlistFromDB(response.data))

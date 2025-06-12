@@ -18,7 +18,7 @@ const ShowSale = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-black px-4 py-8 flex flex-col items-center justify-center gap-8">
+    <div className=" bg-black px-4 py-8 flex flex-col items-center justify-center gap-8">
       {/* Top Row - T-shirts */}
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full">
         {topImages.map((src, index) => (
@@ -26,7 +26,7 @@ const ShowSale = () => {
             <img
               src={src}
               alt={`T-shirt ${index + 1}`}
-              className="rounded-2xl object-cover w-full h-64 sm:h-72 md:h-72 shadow-md"
+              className="rounded-2xl object-cover w-full h-full sm:h-72 md:h-full shadow-md"
             />
           </div>
         ))}
@@ -34,9 +34,9 @@ const ShowSale = () => {
 
           <div className="w-full">
             <img
-              src='/banner/sale/s2.png'
+              src='/banner/sale/s1.png'
               alt={`Banner image`}
-              className="rounded-2xl object-cover w-full h-60 sm:h-64 md:h-72 shadow-md"
+              className="rounded-2xl object-cover w-full h-full shadow-md"
             />
           </div>
     </div>

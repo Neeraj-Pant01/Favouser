@@ -27,6 +27,9 @@ const AllProducts = () => {
   const [loading, setLoading] = useState(false)
   const [products, setProducts] = useState([]);
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+  const [min, setMin] = useState(0)
+  const [max, setMax] = useState(2000)
+  const [category, setCategory] = useState(null)
 
   let searchQuerry = search && (search?.split('?')[1].split('=')[0] == 'search')
   const token = useSelector((state) => state.user?.currentUser?.token)
@@ -38,11 +41,12 @@ const AllProducts = () => {
     window.scrollTo(0, 0)
   }, [])
 
+
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true)
       try {
-        const response = await api.get(`/api/v1/products?category=${!searchQuerry ? cat : ''}&&search=${searchQuerry ? cat : ''}`);
+        const response = await api.get(`/api/v1/products?category=${category ? category : (!searchQuerry ? cat : '')}&search=${searchQuerry ? cat : ''}&min=${min} &max=${max}`);
         setProducts(response.data)
         setLoading(false)
       } catch (err) {
@@ -51,7 +55,22 @@ const AllProducts = () => {
       }
     }
     fetchProducts();
-  }, [cat, searchQuerry])
+  }, [cat, searchQuerry, category, min, max])
+
+  // useEffect(() => {
+  //   const fetchProducts = async () => {
+  //     setLoading(true)
+  //     try {
+  //       const response = await api.get(`/api/v1/products?category=${!searchQuerry ? cat : ''}&search=${searchQuerry ? cat : ''}&min=${min} &max=${max}`);
+  //       setProducts(response.data)
+  //       setLoading(false)
+  //     } catch (err) {
+  //       console.log(err)
+  //       setLoading(false)
+  //     }
+  //   }
+  //   fetchProducts();
+  // }, [cat, searchQuerry, category, min, max])
 
   return (
     <>
@@ -61,16 +80,16 @@ const AllProducts = () => {
         <div className='flex flex-col'>
           <Navbar />
           {!mobileFilterOpen &&
-          <div className="flex sticky top-20 z-[30] md:hidden items-center justify-end px-4 mt-2">
-            <button
-              className="flex items-center gap-2 bg-white border border-gray-300 px-4 py-2 rounded shadow"
-              onClick={() => setMobileFilterOpen(true)}
-            >
-              <FiFilter className="text-xl" />
-              <span className="font-semibold">Filters</span>
-            </button>
-          </div>
-      }
+            <div className="flex sticky top-20 z-[30] md:hidden items-center justify-end px-4 mt-2">
+              <button
+                className="flex items-center gap-2 bg-white border border-gray-300 px-4 py-2 rounded shadow"
+                onClick={() => setMobileFilterOpen(true)}
+              >
+                <FiFilter className="text-xl" />
+                <span className="font-semibold">Filters</span>
+              </button>
+            </div>
+          }
           {/* Mobile Filter Drawer */}
           {mobileFilterOpen && (
             <div className="fixed overflow-y-auto inset-0 z-50 flex">
@@ -87,14 +106,14 @@ const AllProducts = () => {
                     <MdClose className="text-2xl" />
                   </button>
                 </div>
-                <FilterSidebar />
+                <FilterSidebar category={category} setCategory={setCategory} min={min} setMin={setMin} max={max} setMax={setMax} />
               </div>
             </div>
           )}
           <div className='main md:mx-4 md:justify-center'>
 
             <div className="left-side hidden sticky top-[10%] h-[90vh] overflow-y-auto mr-4 md:flex bg-white border border-gray-200 rounded-xl shadow-md flex-col p-5 space-y-4 custom-scrollbar">
-              <FilterSidebar />
+              <FilterSidebar category={category} setCategory={setCategory} min={min} setMin={setMin} max={max} setMax={setMax} />
             </div>
 
 
