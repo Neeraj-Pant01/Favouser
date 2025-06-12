@@ -100,7 +100,7 @@ const Tshirt = ({ p }) => {
 
           {/* Description */}
           <p className="text-xs text-gray-500 font-light h-[35px] line-clamp-2">
-            {p?.productDesc?.substring(0, 50)}...
+            {p?.productDesc?.substring(0, 45)}...
           </p>
 
           {/* Pricing */}
@@ -114,7 +114,7 @@ const Tshirt = ({ p }) => {
         </div>
 
         {/* Cart Icon */}
-        <div className="absolute flex gap-1 bottom-2 right-2">
+        <div className="absolute flex flex-col md:flex-row gap-1 bottom-2 right-2">
           <BsFillBagHeartFill
             className="text-red-500 text-xl hover:scale-110 transition-transform"
             onClick={addToWishlist}
