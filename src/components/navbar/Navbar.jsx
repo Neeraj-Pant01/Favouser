@@ -11,10 +11,10 @@ const Navbar = () => {
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
 
   const navigate = useNavigate()
-  const user = useSelector((state) => state.user.currentUser)
-  const usercart = useSelector((state) => state.cart);
+  const user = useSelector((state) => state?.user?.currentUser)
+  const usercart = useSelector((state) => state?.cart);
   const location = useLocation();
-  const wishlist = useSelector((wish) => wish.wishlist)
+  const wishlist = useSelector((wish) => wish?.wishlist)
 
   const subNavItems = ['SALE', 'MEN', 'WOMEN', 'ACCESSORIES', 'BEST SELL', 'SUMMER SALE', 'NEW ARRIVALS', 'BUY 3 @999', '80% OFF']
 
@@ -22,7 +22,7 @@ const Navbar = () => {
     <div className='sticky top-0 z-50'>
       {/* Mobile Search Overlay */}
       {mobileSearchOpen && (
-        <div className="flex items-center px-4 py-2 bg-[black] md:hidden">
+        <div className="flex max-w-[100vw] overflow-hidden items-center px-4 py-2 bg-[black] md:hidden">
           <input
             type="text"
             autoFocus
@@ -35,10 +35,10 @@ const Navbar = () => {
               }
             }}
             placeholder="Search here..."
-            className="flex-1 px-4 py-2 rounded-l-md outline-none text-black"
+            className="flex-1 w-[70%] mr-2 px-4 py-2 rounded-md outline-none text-black"
           />
           <button
-            className="bg-white px-3 py-2 rounded-r-md flex items-center"
+            className="bg-white px-3 py-2 rounded-md flex items-center"
             onClick={() => setMobileSearchOpen(false)}
           >
             <AiOutlineClose className="text-black text-xl" />

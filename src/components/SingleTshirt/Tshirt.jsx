@@ -74,7 +74,7 @@ const Tshirt = ({ p }) => {
 
   return (
     <>
-      <div className="w-[180px] md:w-[24%] lg:w-[24%] bg-white border rounded-md shadow hover:shadow-lg transition-all mt-2 h-max duration-300 cursor-pointer relative overflow-hidden">
+      <div className="w-[46%] md:w-[24%] lg:w-[24%] bg-white border rounded-md shadow hover:shadow-lg transition-all mt-2 h-max duration-300 cursor-pointer relative overflow-hidden">
         {/* Top Badge */}
         <div className="absolute top-2 left-2 bg-green-500 text-white text-xs font-semibold px-2 py-0.5 rounded z-10">
           BUY 2 FOR {Math.floor(p?.price + p?.price)}

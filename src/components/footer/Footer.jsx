@@ -117,15 +117,15 @@ const Footer = () => {
     <footer className="bg-black text-white py-12 px-4 md:px-8 pt-14">
       <div className="max-w-6xl mx-auto">
         <div className="mb-5 md:mb-16 md:text-xl">
-          <h2 className="font-light md:text-2xl mb-4 md:text-center uppercase">Thanks For Visiting Favouser ❤</h2>
+          <h2 className="font-light text-sm md:text-2xl mb-4 md:text-center uppercase">Thanks For Visiting Favouser ❤</h2>
         </div>
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
 
           {/* CUSTOMER SERVICE */}
           <div>
-            <h2 className="font-bold text-lg mb-4 uppercase">Customer Service</h2>
-            <ul className="space-y-1 flex flex-col gap-3 text-gray-300">
+            <h2 className="font-bold text-sm md:text-lg mb-4 uppercase">Customer Service</h2>
+            <ul className="space-y-1 text-sm md:text-base flex flex-col gap-3 text-gray-300">
               <Link to={'/favouser/contact'} className="hover:underline">Contact Us</Link>
               <Link>Track Order</Link>
               <Link>Return Order</Link>
@@ -135,8 +135,8 @@ const Footer = () => {
 
           {/* COMPANY */}
           <div>
-            <h2 className="font-bold text-lg mb-4 uppercase">Company</h2>
-            <ul className="space-y-1 flex flex-col text-gray-300 gap-3">
+            <h2 className="font-bold text-sm md:text-lg mb-4 uppercase">Company</h2>
+            <ul className="space-y-1 text-sm md:text-base flex flex-col text-gray-300 gap-3">
               <Link className="hover:underline transition-all" to={'/favouser/about'}>About Us</Link>
               <Link className="hover:underline transition-all" to={'/favouser/teams'}>About Team</Link>
               <Link className="hover:underline transition-all" to={'/favouser/terms&conditions'}>Terms & Conditions</Link>
@@ -146,7 +146,7 @@ const Footer = () => {
 
           {/* SECURE PAYMENT */}
           <div>
-            <h2 className="font-bold text-lg mb-4 uppercase">100% Secure Payment</h2>
+            <h2 className="font-bold text-sm md:text-lg mb-4 uppercase">100% Secure Payment</h2>
             <div className="flex text-xl md:text-2xl flex-wrap md:justify-start gap-3">
               <span className="bg-[lightgrey] p-2 rounded-md text-[black]"><FaGooglePay /></span>
               <span className="bg-[lightgrey] p-2 rounded-md text-[black]"><SiPaytm /></span>

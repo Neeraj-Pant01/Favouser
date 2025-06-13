@@ -15,6 +15,7 @@ import { items } from '../../redux/CartSlice'
 import Navbar from "../../components/navbar/Navbar"
 import { wishlistItems } from '../../redux/wishlistSlice'
 import { BsBoxSeam } from 'react-icons/bs'
+import { reviewsData } from '../../data'
 
 const SingleProduct = () => {
     const [show, setShow] = useState(false)
@@ -132,8 +133,6 @@ const SingleProduct = () => {
         }
     }
 
-    const demorev = "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius sint ipsum et magni dignissimos, corporis doloribus quis eligendi consectetur, hic soluta, culpa veniam fuga quos ea animi deserunt laborum ullam. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Beatae porro consequuntur, minima deserunt explicabo voluptatum excepturi modi reprehenderit ea distinctio! Rerum nam natus autem voluptate modi praesentium. Placeat, magnam odit."
-
     const wishlist = useSelector((wish) => wish.wishlist)
 
     const addToWishlist = async (p) => {
@@ -220,7 +219,7 @@ const SingleProduct = () => {
                                             <b className='md:text-2xl text-[#0f3d3e]'>₹ {product.price}</b>
                                             <div className='flex md:text-xl items-center'>
                                                 ₹
-                                                <span className='text-[maroon] line-through'>{product?.maxPrice || (Math.round(isNaN(product?.price * product?.offer) ? (product?.price * ((product?.offer)?.substring(0,2)/100)) : (product?.price * product?.offer)))}</span>
+                                                <span className='text-[maroon] line-through'>{product?.offer ? (Math.round(isNaN(product?.price + (product?.offer * product?.price)) ? (product?.price * ((product?.offer).substring(0,2)/100) + product?.price) : (product?.price + (product?.offer * product?.price )))) :  (Math.round(product?.price + (product?.price * 0.20)))}</span>
                                             </div>
                                             <h1 className='text-xl  text-[green]'>{product?.offer || "20%OFF"}</h1>
 
@@ -429,10 +428,9 @@ const SingleProduct = () => {
 
 
                                 <h1 className='text-[black] md:text-lg'>Explore the feedback from our community members.<span className='text-[black] text-xl'>(2)</span></h1>
-                                <Reviews reviewText={demorev} />
-                                <Reviews reviewText={demorev} />
-                                <Reviews reviewText={demorev} />
-                                <Reviews reviewText={demorev} />
+                                {
+                                    reviewsData.map((rev, index)=><Reviews rev={rev} />)
+                                }
 
                             </div>
 

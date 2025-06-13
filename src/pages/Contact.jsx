@@ -8,7 +8,7 @@ import {makeApiRequest } from '../utils/makeRequest'
 import { toast } from 'react-toastify'
 
 const ContactPage = () => {
-    const token = useSelector((state) => state.user.currentUser.token)
+    const token = useSelector((state) => state?.user?.currentUser?.token)
     const [loading, setLoading] = useState(false)
     const api = makeApiRequest(token)
 

@@ -235,3 +235,20 @@ export const bestSellings = [
 
   }
 ]
+
+
+export const reviewsData = [
+  {
+    username: "sameer singh",
+    review: "Really happy with this purchase. The quality exceeded my expectations, and it arrived quickly. It works just as described, and I have no complaints at all. Would definitely recommend to anyone looking for something reliable.",
+    stars: 5,
+    date: "2025-06-12"
+  },
+  {
+    username: "kiara patel",
+    review: "Good value for the price. It does the job well, and I'm pleased with how it performs. The only thing I’d say is that it could be a bit better in terms of durability. But overall, I’m satisfied with my order.",
+    stars: 4,
+    date: "2025-06-10"
+  },
+];
+;
