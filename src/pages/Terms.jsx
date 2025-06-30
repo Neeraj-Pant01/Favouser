@@ -52,7 +52,7 @@ const TermsAndConditions = () => {
 
         <Section title="6. Returns & Exchanges">
           <p className="mb-2 text-gray-300">
-            Refer to our <a href="/return-policy" className="text-blue-400 underline">Return & Exchange Policy</a> for full details.
+            Refer to our <Link to="/favouser/privacy-policy" className="text-blue-400 underline">Return & Exchange Policy</Link> for full details.
           </p>
           <ul className="list-disc ml-6 space-y-2 text-gray-300">
             <li>Return requests must be submitted on the same day of delivery and include a clear unpacking video.</li>

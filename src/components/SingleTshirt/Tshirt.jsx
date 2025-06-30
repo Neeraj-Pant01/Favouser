@@ -111,10 +111,10 @@ const Tshirt = ({ p }) => {
           {/* Pricing */}
           <div className="flex items-center gap-2 mt-1">
             <span className="line-through text-xs text-gray-400">
-              ₹{p?.maxPrice || Math.floor(p?.price + (p?.price * 0.4))}
+              ₹{p?.offer ? Math.floor(((parseInt(p?.offer)/100)*p?.price) + p?.price) : Math.floor(p?.price + (p?.price * 0.40))}
             </span>
             <span className="text-sm font-semibold text-black">₹{p?.price}</span>
-            <span className="text-green-600 text-xs font-semibold">{p?.offer || "40% OFF"}</span>
+            <span className="text-green-600 text-xs font-semibold">{p?.offer ? `${p?.offer}% OFF` : "40% OFF"}</span>
           </div>
         </div>
 

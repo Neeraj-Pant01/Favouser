@@ -219,9 +219,9 @@ const SingleProduct = () => {
                                             <b className='md:text-2xl text-[#0f3d3e]'>₹ {product.price}</b>
                                             <div className='flex md:text-xl items-center'>
                                                 ₹
-                                                <span className='text-[maroon] line-through'>{product?.offer ? (Math.round(isNaN(product?.price + (product?.offer * product?.price)) ? (product?.price * ((product?.offer).substring(0,2)/100) + product?.price) : (product?.price + (product?.offer * product?.price )))) :  (Math.round(product?.price + (product?.price * 0.20)))}</span>
+                                                <span className='text-[maroon] line-through'>{product?.offer ? (Math.round(isNaN(product?.price + ((product?.offer/100) * product?.price)) ? (product?.price * ((product?.offer).substring(0,2)/100) + product?.price) : (product?.price + ((product?.offer/100) * product?.price )))) :  (Math.round(product?.price + (product?.price * 0.40)))}</span>
                                             </div>
-                                            <h1 className='text-xl  text-[green]'>{product?.offer || "20%OFF"}</h1>
+                                            <h1 className='text-xl  text-[green]'>{product?.offer ? `${product?.offer}% OFF` : "40% OFF"}</h1>
 
                                         </div>
                                         <p className='text-[grey]'>Inclusive of all taxes</p>
