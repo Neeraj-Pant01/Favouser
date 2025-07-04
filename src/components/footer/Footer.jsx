@@ -127,8 +127,8 @@ const Footer = () => {
             <h2 className="font-bold text-sm md:text-lg mb-4 uppercase">Customer Service</h2>
             <ul className="space-y-1 text-sm md:text-base flex flex-col gap-3 text-gray-300">
               <Link to={'/favouser/contact'} className="hover:underline">Contact Us</Link>
-              <Link>Track Order</Link>
-              <Link>Return Order</Link>
+              <Link className="hover:underline transition-all" to={'/favouser/about'}>About Us</Link>
+              <Link className="hover:underline transition-all" to={'/favouser/teams'}>About Team</Link>
               <Link>Cancel Order</Link>
             </ul>
           </div>
@@ -137,10 +137,11 @@ const Footer = () => {
           <div>
             <h2 className="font-bold text-sm md:text-lg mb-4 uppercase">Company</h2>
             <ul className="space-y-1 text-sm md:text-base flex flex-col text-gray-300 gap-3">
-              <Link className="hover:underline transition-all" to={'/favouser/about'}>About Us</Link>
-              <Link className="hover:underline transition-all" to={'/favouser/teams'}>About Team</Link>
+              
               <Link className="hover:underline transition-all" to={'/favouser/terms&conditions'}>Terms & Conditions</Link>
               <Link className="hover:underline transition-all" to={'/favouser/privacy-policy'}>Privacy Policy</Link>
+              <Link className="hover:underline transition-all" to={'/favouser/shipping-policy'}>Shipping Policy</Link>
+              <Link className="hover:underline transition-all" to={'/favouser/return-exchange-policy'}>Return & Exchange Policy</Link>
             </ul>
           </div>
 

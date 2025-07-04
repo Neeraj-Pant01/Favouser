@@ -18,6 +18,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ContactPage from './pages/Contact'
 import Wishlist from './pages/Wishlist'
+import NewShippingPolicy from './pages/ShippingPolicy'
+import ReturnExchangePolicy from './pages/ReturnAndExchange'
 
 
 function App() {
@@ -100,6 +102,14 @@ function App() {
       {
         path: '/favouser/teams',
         element: <Teams />
+      },
+      {
+        path: '/favouser/shipping-policy',
+        element: <NewShippingPolicy />
+      },
+      {
+        path: '/favouser/return-exchange-policy',
+        element: <ReturnExchangePolicy />
       }
     ]
   }, {

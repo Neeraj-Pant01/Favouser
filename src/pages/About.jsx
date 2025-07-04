@@ -5,6 +5,7 @@ const AboutUs = () => {
   useEffect(()=>{
     window.scrollTo(0,0)
   },[])
+
   return (
     <>
     <Navbar />
@@ -14,7 +15,7 @@ const AboutUs = () => {
         <div className="text-center">
           <h1 className="text-4xl md:text-5xl font-extrabold text-[#e2dcc8] mb-4">About Us – Favouser</h1>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-            Where fashion meets comfort and everyday style gets a bold, expressive edge.
+            Fit checks? Passed. Vibe check? Always.
           </p>
         </div>
 
@@ -24,7 +25,7 @@ const AboutUs = () => {
           <section>
             <h2 className="text-2xl font-semibold text-[#e2dcc8] mb-2">🌟 Our Story</h2>
             <p className="text-gray-300 leading-relaxed">
-              Founded with a passion for self-expression and street-smart fashion, Favouser was born to make everyday wear anything but ordinary. From graphic tees that speak your vibe to accessories that complete your look, we create pieces that help you show up as your true self — effortlessly stylish, unapologetically bold.
+              Welcome to Favouser — where your everyday isn’t just an outfit, it’s a whole mood. We’re an Indian-born clothing brand made for the bold, the expressive, and the ones who don’t try — they just are.
             </p>
           </section>
 
@@ -32,7 +33,7 @@ const AboutUs = () => {
           <section>
             <h2 className="text-2xl font-semibold text-[#e2dcc8] mb-2">👕 What We Do</h2>
             <p className="text-gray-300 leading-relaxed">
-              We design high-quality, comfortable, and stylish t-shirts and fashion accessories that cater to the modern Indian lifestyle. Every product at Favouser is crafted with care — using premium fabrics, unique designs, and reliable delivery — because we believe you deserve more than just "another tee."
+              Right now, we’re all about T-shirts — but not the plain, forgettable kind. Think premium fabrics, standout designs, and fits that move with you. Whether you’re showing up to class, heading out with the crew, or just vibing solo — we’ve got the tee that matches your energy.
             </p>
           </section>
 
@@ -40,15 +41,15 @@ const AboutUs = () => {
           <section>
             <h2 className="text-2xl font-semibold text-[#e2dcc8] mb-2">🌏 Made in India, Made for Everyone</h2>
             <p className="text-gray-300 leading-relaxed">
-              Proudly made in India, Favouser supports local talent, ethical sourcing, and sustainable practices wherever possible. Whether you're dressing up for a weekend hangout or keeping it casual on the daily, Favouser helps you do it with confidence.
+              Every Favouser is: Soft, breathable, and built for Indian weather. Designed with meaning — from chill to chaotic energy. Affordable, but never basic. Made locally, supporting Indian creators and ethical production.
             </p>
           </section>
 
           {/* Our Mission */}
           <section>
-            <h2 className="text-2xl font-semibold text-[#e2dcc8] mb-2">💡 Our Mission</h2>
+            <h2 className="text-2xl font-semibold text-[#e2dcc8] mb-2">🎯 Our Mission</h2>
             <p className="text-gray-300 leading-relaxed">
-              To empower self-expression through accessible fashion that’s stylish, comfortable, and real. We believe fashion should make you feel good — inside and out.
+              We’re here to turn everyday wear into personal expression. No rules, no filters — just real fashion that helps you show up as you.
             </p>
           </section>
 
@@ -56,14 +57,13 @@ const AboutUs = () => {
           <section>
             <h2 className="text-2xl font-semibold text-[#e2dcc8] mb-2">❤️ Why You'll Love Us</h2>
             <ul className="list-disc list-inside text-gray-300 leading-relaxed space-y-1">
-              <li>Trend-driven designs, updated regularly</li>
-              <li>Soft, breathable fabrics perfect for Indian weather</li>
-              <li>Affordable pricing without compromising on quality</li>
-              <li>Fast, reliable shipping across India</li>
-              <li>Real customer care that listens and responds</li>
+              <li>New drops that actually get your vibe</li>
+              <li>Quality you’ll feel in every thread</li>
+              <li>Fast shipping across India</li>
+              <li>Customer care that actually cares</li>
             </ul>
             <p className="mt-4 text-gray-300">
-              Favouser isn’t just a brand — it’s your go-to style partner. Join our growing community and wear what makes you feel like *you*.
+              Favouser isn’t just a brand — it’s your style partner in crime. So go ahead. Be loud. Be real. Wear your vibe. Favouser’s got your back — and your drip.
             </p>
           </section>
 
