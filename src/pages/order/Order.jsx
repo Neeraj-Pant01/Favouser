@@ -77,6 +77,7 @@ const Order = () => {
     const navigate = useNavigate()
 
     const addressDetail = useSelector((state) => state.delivery.userAddress)
+    console.log(addressDetail)
     const dispatch = useDispatch()
 
     const [orderDetails, setOrderDetails] = useState({

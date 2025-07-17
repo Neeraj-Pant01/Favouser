@@ -93,7 +93,12 @@ const Homepage = () => {
             dispatch(setCartFromDB(response.data))
           }
         } catch (err) {
-          console.log(err)
+          console.log(err.response.status)
+          if(err.response.status === 403){
+            localStorage.clear();
+            toast.warn("Session expired, please login again !")
+            window.location.reload();
+          }
         }
       } else {
         return
