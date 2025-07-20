@@ -22,7 +22,7 @@ const SingleProduct = () => {
     const [stars, setStars] = useState(0)
     const [orderDetails, setOrderDetails] = useState({
         area: "",
-        state: "Delhi",
+        state: "",
         address: "",
         pincode: "",
         landmark: "",
@@ -53,7 +53,7 @@ const SingleProduct = () => {
             toast.warn('login to add this item to your cart !')
             return;
         }
-        if(product?.inStocks < 1){
+        if (product?.inStocks < 1) {
             toast.warn('this product is out of stock !')
             return;
         }
@@ -103,6 +103,39 @@ const SingleProduct = () => {
         window.scrollTo(0, 0)
     }, [])
 
+    const getLocationByPinCode = async () => {
+        try {
+            // setOrderDetails({ ...orderDetails, pincode: e.target.value });
+            const response = await fetch(`https://api.postalpincode.in/pincode/${orderDetails.pincode}`);
+            console.log(orderDetails.pincode)
+            const data = await response.json();
+
+            if (data[0].Status === "Success") {
+                const po = data[0].PostOffice[0];
+                // console.log("District:", po.District);
+                // console.log("State:", po.State);
+                // console.log("city", po.Block);
+                setShow(false)
+                setOrderDetails({ ...orderDetails, area: po.Block || po.Name, state: po.State, district: po.District });
+
+                return {
+                    status: data[0].Status,
+                    district: po.District,
+                    state: po.State,
+                    city: po.Block || po.Name, // fallback if Block is null
+                };
+            } else {
+                console.error("Invalid pincode");
+                setShow(true)
+                return null;
+            }
+        } catch (error) {
+            console.error("Error fetching location by pincode:", error);
+            setShow(true)
+            return null;
+        }
+    };
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setOrderDetails((pre) => {
@@ -118,7 +151,7 @@ const SingleProduct = () => {
                 toast.warn("please select size first")
             }
         } else {
-            if ((orderDetails?.area && orderDetails?.address && orderDetails?.pincode && orderDetails?.landmark && orderDetails?.mobileNumber)) {
+            if ((orderDetails?.area && orderDetails?.address && orderDetails?.pincode && orderDetails?.landmark && orderDetails?.mobileNumber.length === 10)) {
                 dispatch(address(orderDetails))
                 navigate('/order', {
                     state: {
@@ -128,7 +161,7 @@ const SingleProduct = () => {
                     }
                 });
             } else {
-                toast.warn('all feilds are compulsory !')
+                toast.warn('all feilds are compulsory and mobile number should be valid !')
             }
         }
     }
@@ -219,7 +252,7 @@ const SingleProduct = () => {
                                             <b className='md:text-2xl text-[#0f3d3e]'>₹ {product.price}</b>
                                             <div className='flex md:text-xl items-center'>
                                                 ₹
-                                                <span className='text-[maroon] line-through'>{product?.offer ? (Math.round(isNaN(product?.price + ((product?.offer/100) * product?.price)) ? (product?.price * ((product?.offer).substring(0,2)/100) + product?.price) : (product?.price + ((product?.offer/100) * product?.price )))) :  (Math.round(product?.price + (product?.price * 0.40)))}</span>
+                                                <span className='text-[maroon] line-through'>{product?.offer ? (Math.round(isNaN(product?.price + ((product?.offer / 100) * product?.price)) ? (product?.price * ((product?.offer).substring(0, 2) / 100) + product?.price) : (product?.price + ((product?.offer / 100) * product?.price)))) : (Math.round(product?.price + (product?.price * 0.40)))}</span>
                                             </div>
                                             <h1 className='text-xl  text-[green]'>{product?.offer ? `${product?.offer}% OFF` : "40% OFF"}</h1>
 
@@ -260,16 +293,27 @@ const SingleProduct = () => {
                                         Enter Delivery Details <MdLocationOn className="text-xl text-red-500 ml-2" />
                                     </b>
 
-                                    <select
+                                    <div className="flex items-center gap-3">
+                                        <input
+                                            required
+                                            className="input-genz"
+                                            type="text"
+                                            placeholder="Enter Pin Code"
+                                            name="pincode"
+                                            onChange={handleChange}
+                                        />
+                                        <button className='text-[white] bg-blue-400 px-2 py-1 rounded-md' onClick={getLocationByPinCode}>check</button>
+                                    </div>
+                                    {show && <span className="text-sm text-red-600 ml-1">Enter a valid pin code</span>}
+
+                                    <input
                                         required
-                                        className="input-genz text-[#0f3d3e] bg-white/70 rounded-xl"
+                                        className="input-genz"
                                         name="state"
-                                        value={"Delhi"}
-                                        onChange={handleChange}
-                                    >
-                                        <option disabled>select state</option>
-                                        <option value={"Delhi"}>Delhi</option>
-                                    </select>
+                                        type='text'
+                                        onFocus={() => toast.info("Enter pincode to check delivery in your state !")}
+                                        value={orderDetails.state}
+                                    />
 
                                     <input
                                         required
@@ -277,7 +321,8 @@ const SingleProduct = () => {
                                         type="text"
                                         placeholder="Enter City/Area"
                                         name="area"
-                                        onChange={handleChange}
+                                        onFocus={() => toast.info("Enter pincode to check delivery in your city !")}
+                                        value={orderDetails.area}
                                     />
 
                                     <input
@@ -288,18 +333,6 @@ const SingleProduct = () => {
                                         name="address"
                                         onChange={handleChange}
                                     />
-
-                                    <input
-                                        required
-                                        className="input-genz"
-                                        type="text"
-                                        placeholder="Enter Pin Code"
-                                        name="pincode"
-                                        onFocus={() => setShow(true)}
-                                        onBlur={() => setShow(false)}
-                                        onChange={handleChange}
-                                    />
-                                    {show && <span className="text-sm text-red-600 ml-1">Enter a valid pin code</span>}
 
                                     <input
                                         required
@@ -316,6 +349,9 @@ const SingleProduct = () => {
                                         type="text"
                                         placeholder="Enter Mobile Number"
                                         name="mobileNumber"
+                                        maxLength={10}
+                                        minLength={10}
+                                        pattern="\d{10}"
                                         onChange={handleChange}
                                     />
 
@@ -323,7 +359,7 @@ const SingleProduct = () => {
                                         {
                                             product?.inStocks < 1 ?
                                                 <button
-                                                disabled={true}
+                                                    disabled={true}
                                                     className="w-fit cursor-not-allowed px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-red-100 to-purple-200 rounded-xl hover:shadow-lg hover:scale-105 transition-transform"
                                                 >
                                                     OUT OF STOCK
@@ -335,7 +371,7 @@ const SingleProduct = () => {
                                                 >
                                                     BUY NOW
                                                 </button>
-                                                
+
                                         }
                                         <button onClick={addToCart}
                                             className="hidden md:block w-fit px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-yellow-500 to-yellow-400 rounded-xl hover:shadow-lg hover:scale-105 transition-transform"
@@ -429,7 +465,7 @@ const SingleProduct = () => {
 
                                 <h1 className='text-[black] md:text-lg'>Explore the feedback from our community members.<span className='text-[black] text-xl'>(2)</span></h1>
                                 {
-                                    reviewsData.map((rev, index)=><Reviews rev={rev} />)
+                                    reviewsData.map((rev, index) => <Reviews rev={rev} />)
                                 }
 
                             </div>

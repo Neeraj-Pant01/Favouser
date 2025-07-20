@@ -9,6 +9,7 @@ import { FaMoneyBillWave, FaCreditCard } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import GlobalLoader from '../../components/GlobalLoader'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
+import { toast } from 'react-toastify'
 
 export const PaymentPopup = ({ open, onClose, total, onCOD, onOnlinePay }) => {
     if (!open) return null;
@@ -105,8 +106,13 @@ const Order = () => {
     }
 
     const confirmAddress = () => {
+        if (orderDetails.pincode.length !== 6 || orderDetails.mobileNumber.length !== 10 || !orderDetails.area || !orderDetails.state || !orderDetails.address || !orderDetails.landmark) {
+            toast.warn("Please enter all details mobile number should be valid containing exactly 10 digits !");
+            return;
+        }else{
         dispatch(address(orderDetails))
         setEditAddress(false)
+        }
     }
 
     const placeOrder = async (mode, razorpayResponse = null) => {
@@ -229,6 +235,41 @@ const Order = () => {
         }
     };
 
+    const [show, setShow] = useState(false)
+
+    const getLocationByPinCode = async () => {
+        try {
+            // setOrderDetails({ ...orderDetails, pincode: e.target.value });
+            const response = await fetch(`https://api.postalpincode.in/pincode/${orderDetails.pincode}`);
+            console.log(orderDetails.pincode)
+            const data = await response.json();
+
+            if (data[0].Status === "Success") {
+                const po = data[0].PostOffice[0];
+                // console.log("District:", po.District);
+                // console.log("State:", po.State);
+                // console.log("city", po.Block);
+                setShow(false)
+                setOrderDetails({ ...orderDetails, area: po.Block || po.Name, state: po.State, district: po.District });
+
+                return {
+                    status: data[0].Status,
+                    district: po.District,
+                    state: po.State,
+                    city: po.Block || po.Name, // fallback if Block is null
+                };
+            } else {
+                console.error("Invalid pincode");
+                setShow(true)
+                return null;
+            }
+        } catch (error) {
+            console.error("Error fetching location by pincode:", error);
+            setShow(true)
+            return null;
+        }
+    };
+
 
     return (
         <>
@@ -268,18 +309,21 @@ const Order = () => {
                                     {
                                         editAddress &&
                                         <div className='flex flex-col gap-3'>
-                                            <select className='outline-none bg-transparent border border-[#51b4cb] py-2 px-4 rounded-md text-sm md:w-96 text-[grey]' name='state' value={orderDetails.state} onChange={handleChange}>
-                                                <option defaultValue={"select state"} disabled>select state</option>
-                                                <option value={"Delhi"}>Delhi</option>
-                                                <option value={"uttarakhand"}>uttarakhand</option>
-                                            </select>
-                                            <input className='border text-sm border-[#51b4cb] outline-none rounded-md md:w-96 py-2 px-4' type='text' placeholder='enter city/Area' value={orderDetails.area} name='area' onChange={handleChange} />
+                                            <div className="flex items-center gap-3">
+                                                <input className='border text-sm border-[#51b4cb] outline-none rounded-md md:w-96 py-2 px-4' type='text' placeholder='enter pin code'
+                                                    value={orderDetails?.pincode}
+                                                    name='pincode' onChange={handleChange} />
+                                                <button className='text-[white] bg-blue-400 px-2 py-1 rounded-md' onClick={getLocationByPinCode}>check</button>
+                                            </div>
+                                            {
+                                                show && <span className="text-sm text-red-600 ml-1">Enter a valid pin code</span>
+                                            }
+                                            <input className='outline-none bg-transparent border border-[#51b4cb] py-2 px-4 rounded-md text-sm md:w-96 text-[grey]' name='state' value={orderDetails.state} />
+                                            <input className='border text-sm border-[#51b4cb] outline-none rounded-md md:w-96 py-2 px-4' type='text' placeholder='enter city/Area' value={orderDetails.area} name='area' />
 
                                             <input className='border text-sm border-[#51b4cb] outline-none rounded-md md:w-96 py-2 px-4' type='text' placeholder='enter Address line' value={orderDetails.address} name='address' onChange={handleChange} />
 
-                                            <input className='border text-sm border-[#51b4cb] outline-none rounded-md md:w-96 py-2 px-4' type='text' placeholder='enter pin code'
-                                                value={orderDetails?.pincode}
-                                                name='pincode' onChange={handleChange} />
+
 
                                             <input className='border text-sm border-[#51b4cb] outline-none rounded-md md:w-96 py-2 px-4' type='text' placeholder='enter nearest landmark' name='landmark'
                                                 value={orderDetails?.landmark}
@@ -287,7 +331,11 @@ const Order = () => {
 
                                             <input className='border text-sm border-[#51b4cb] outline-none rounded-md md:w-96 py-2 px-4' type='text' placeholder='enter mobile Number' name='mobileNumber'
                                                 value={orderDetails?.mobileNumber}
+                                                maxLength={10}
+                                                minLength={10}
+                                                pattern="\d{10}"
                                                 onChange={handleChange} />
+
 
                                             <button className='text-[black] rounded-md w-fit py-2 px-2 bg-[#e2dcc8] mt-4' onClick={confirmAddress}>CONFIRM</button>
                                         </div>
