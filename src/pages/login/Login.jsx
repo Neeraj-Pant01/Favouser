@@ -38,18 +38,19 @@ const AuthPage = () => {
   const handleSignup = async (e) => {
     e.preventDefault()
     const username = e.target[0].value
-    const email = e.target[1].value
-    const password = e.target[2].value
-    const city = e.target[3].value
-    const pincode = e.target[4].value
+    const mobile = e.target[1].value
+    const email = e.target[2].value
+    const password = e.target[3].value
+    const city = e.target[4].value
+    const pincode = e.target[5].value
 
-    if (!username || !email || !password || !city || !pincode)
+    if (!username || !email || !password || !city || !pincode || !mobile)
       return toast.warn('Please fill all fields!')
 
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_APP_URI}/api/v1/auth/register`,
-        { username, email, password, city, pincode }
+        { username, mobile, email, password, city, pincode }
       )
       if (res.status === 200) {
         toast.success('Signup successful! You can now log in.')
@@ -80,7 +81,7 @@ const AuthPage = () => {
         <div className="w-[100%] md:w-[75%] bg-[#08373a]/90 flex items-center justify-center text-white">
           <form
             onSubmit={signUp ? handleSignup : handleLogin}
-            className="flex flex-col bg-transparent gap-1 w-full max-w-md px-8"
+            className="flex flex-col bg-transparent gap-4 w-full max-w-md px-8"
           >
             <h2 className="text-3xl font-bold text-center">
               {signUp ? 'SIGN UP' : 'LOGIN'}
@@ -88,23 +89,30 @@ const AuthPage = () => {
 
             {signUp && (
               <>
-                <label className="text-lg">Username</label>
+                {/* <label className="text-lg">Username</label> */}
                 <input
                   type="text"
                   placeholder="Enter your username"
                   className="bg-white text-black rounded-md px-4 py-2 outline-none"
                 />
+                {/* <label className="text-lg mt-5">Mobile</label> */}
+                <input
+                  type="string"
+                  maxLength={10}
+                  placeholder="Enter your mobile number !"
+                  className="bg-white text-black rounded-md px-4 py-2 outline-none"
+                />
               </>
             )}
 
-            <label className="text-lg mt-5">Email</label>
+            {/* <label className="text-lg mt-5">Email</label> */}
             <input
               type="email"
               placeholder="Enter your email"
               className="bg-white text-black rounded-md px-4 py-2 outline-none"
             />
 
-            <label className="text-lg mt-5">Password</label>
+            {/* <label className="text-lg mt-5">Password</label> */}
             <input
               type="password"
               placeholder="Enter your password"
@@ -113,13 +121,13 @@ const AuthPage = () => {
 
             {signUp && (
               <>
-                <label className="text-lg mt-5">City</label>
+                {/* <label className="text-lg mt-5">City</label> */}
                 <input
                   type="text"
                   placeholder="Enter your city"
                   className="bg-white text-black rounded-md px-4 py-2 outline-none"
                 />
-                <label className="text-lg mt-5">Pincode</label>
+                {/* <label className="text-lg mt-5">Pincode</label> */}
                 <input
                   type="text"
                   placeholder="Enter your pincode"
