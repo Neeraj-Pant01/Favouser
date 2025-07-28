@@ -97,7 +97,7 @@ const Homepage = () => {
           if(err.response.status === 403){
             localStorage.clear();
             toast.warn("Session expired, please login again !")
-            window.location.reload();
+            // window.location.reload();
           }
         }
       } else {

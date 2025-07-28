@@ -15,7 +15,7 @@ import { items } from '../../redux/CartSlice'
 import Navbar from "../../components/navbar/Navbar"
 import { wishlistItems } from '../../redux/wishlistSlice'
 import { BsBoxSeam } from 'react-icons/bs'
-import { reviewsData } from '../../data'
+import { cat, reviewsData } from '../../data'
 
 const SingleProduct = () => {
     const [show, setShow] = useState(false)
@@ -102,6 +102,21 @@ const SingleProduct = () => {
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
+
+    const changeColor = async (c) =>{
+        try{
+            const response =  await api.get(`/api/v1/products/?productName=${product?.productName}&color=${c}`)
+            // console.log(response.data)
+            if(response.data.length === 0){
+                toast.info("Product not available !")
+                return;
+            }
+            setProduct(response.data[0])
+        }catch(err){
+            console.log(err)
+            toast.info("unable to fetch product right now !")
+        }
+    }
 
     const getLocationByPinCode = async () => {
         try {
@@ -272,7 +287,9 @@ const SingleProduct = () => {
                                         <div
                                             key={i}
                                             title={c}
-                                            onClick={() => setColor(c)}
+                                            onClick={() =>{setColor(c)
+                                                changeColor(c)
+                                            }}
                                             className={`
           w-7 h-7 md:w-8 md:h-8 rounded-full cursor-pointer 
           shadow-md transition-transform duration-300 transform 
