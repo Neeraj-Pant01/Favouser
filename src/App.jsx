@@ -20,6 +20,7 @@ import ContactPage from './pages/Contact'
 import Wishlist from './pages/Wishlist'
 import NewShippingPolicy from './pages/ShippingPolicy'
 import ReturnExchangePolicy from './pages/ReturnAndExchange'
+import ScrollButton from './components/ScrollButton'
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
           theme="colored"
         />
         <Outlet />
+        <ScrollButton />
         <Footer />
       </>
     )

@@ -43,6 +43,7 @@ const SingleProduct = () => {
     const user = useSelector((state) => state.user?.currentUser)
     const usercart = useSelector((state) => state.cart);
     const cart = useSelector((cart) => cart.currentCart.currentUserCart)
+    const [newRev, setNewRev] = useState("");
 
 
     const api = makeApiRequest(token)
@@ -204,6 +205,17 @@ const SingleProduct = () => {
         } catch (err) {
             console.log(err)
             toast.error("Something went wrong! try again");
+        }
+    }
+
+    const handleNewrev = () =>{
+        if(!newRev || newRev.length < 10){
+            toast.warn("Please write a review of at least 10 characters.")
+            return;
+        }else{
+            toast.success("review added successfully !")
+            setNewRev("")
+            setStars(0)
         }
     }
 
@@ -466,12 +478,14 @@ const SingleProduct = () => {
 
                                         {/* Review Input */}
                                         <textarea
+                                        value={newRev}
+                                        onChange={(e)=>setNewRev(e.target.value)}
                                             placeholder="What's on your mind?"
                                             className="w-full h-28 p-4 text-sm md:text-base bg-white/80 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none transition-all"
                                         />
 
                                         {/* Post Button */}
-                                        <button className="w-fit px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:shadow-lg hover:scale-105 transition-transform">
+                                        <button onClick={handleNewrev} className="w-fit px-6 py-2 text-sm font-semibold text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:shadow-lg hover:scale-105 transition-transform">
                                             Post Review
                                         </button>
 
