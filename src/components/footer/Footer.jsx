@@ -171,7 +171,7 @@ const Footer = () => {
           <a href="https://www.instagram.com/favouserofficial/profilecard/?igsh=ZXFhYWRoOWVtaDht" className="text-white hover:text-yellow-400"><FaInstagram className="text-xl" /></a>
           <a className="text-[white]" target="blank" href=" https://x.com/favouser?s=21
  "><FaXTwitter /></a>
-          <a className="text-[white]" href=""><FaFacebook /></a>
+          <a className="text-[white]" target="blank" href="https://www.facebook.com/share/1AmbdRTduo/"><FaFacebook /></a>
           <a className="text-[white]" target="blank" href="https://www.linkedin.com/in/favouser-clothing-749a9b292?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app
 "><FaLinkedin /></a>
           <a className="text-white" target="blank" href="https://t.me/favouserclothing

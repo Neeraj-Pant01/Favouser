@@ -9,6 +9,7 @@ import GlobalLoader from '../../components/GlobalLoader';
 import CartItem from "../../components/product/Product"
 import { BsEmojiSmile } from 'react-icons/bs';
 import { Helmet } from 'react-helmet';
+import AddressCom from '../../components/AddressCom';
 
 
 const Cart = () => {
@@ -45,6 +46,7 @@ const Cart = () => {
     const total = Object.values(itemTotals).reduce((sum, val) => sum + val, 0);
     setCartTotal(total);
   }, [itemTotals]);
+
 
 
   return (
@@ -140,8 +142,30 @@ const Cart = () => {
           </div>
 
           {showCheckoutModal && (
-            <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40 backdrop-blur-sm">
-              <div className="relative bg-white/30 border border-[#e2dcc8] rounded-2xl shadow-2xl p-8 max-w-sm w-full flex flex-col items-center glassy-modal">
+            <div className="fixed inset-0 z-[9999] md:gap-4 flex flex-col md:flex-row items-center justify-center bg-[rgba(0,0,0,0.6)] backdrop-blur-sm">
+              <AddressCom setShowCheckoutModal={setShowCheckoutModal}/>
+              <div className="bg-white rounded-xl shadow-md p-6 w-[99%] mt-1 md:w-[25%] h-fit sticky top-4">
+                <h2 className="text-lg font-semibold mb-4">Order Summary</h2>
+                <div className="space-y-3">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Subtotal</span>
+                    <span>₹{cartTotal.toFixed(2)}</span>
+                  </div>
+                  {/* <div className="flex justify-between">
+                    <span className="text-gray-600">Discount</span>
+                    <span className="text-green-600">-₹{cartTotal.toFixed(2)}</span>
+                  </div> */}
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Shipping</span>
+                    <span className="text-green-600">₹70</span>
+                  </div>
+                  <div className="border-t pt-3 mt-2 flex justify-between font-bold text-lg">
+                    <span>Total</span>
+                    <span>₹{(cartTotal + 70).toFixed(2)}</span>
+                  </div>
+                </div>
+              </div>
+              {/* <div className="relative bg-white/30 border border-[#e2dcc8] rounded-2xl shadow-2xl p-8 max-w-sm w-full flex flex-col items-center glassy-modal">
                 <button
                   className="absolute top-3 right-3 text-2xl text-[#0f3d3e] hover:text-[#e2dcc8] transition"
                   onClick={() => setShowCheckoutModal(false)}
@@ -162,7 +186,7 @@ const Cart = () => {
                 >
                   Explore Products
                 </Link>
-              </div>
+              </div> */}
               <style>{`
                 .glassy-modal {
                   background: rgba(255,255,255, 0.7);
