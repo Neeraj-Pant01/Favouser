@@ -44,6 +44,7 @@ const SingleProduct = () => {
     const usercart = useSelector((state) => state.cart);
     const cart = useSelector((cart) => cart.currentCart.currentUserCart)
     const [newRev, setNewRev] = useState("");
+    const [allReviews, setAllReviews] = useState([]);
 
 
     const api = makeApiRequest(token)
@@ -82,6 +83,16 @@ const SingleProduct = () => {
     }
 
 
+    const loadAllReviews = async () => {
+        try {
+            const response = await api.get(`/api/v1/reviews/${id}`);
+            setAllReviews(response.data)
+            // console.log(response.data)
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
 
     useEffect(() => {
@@ -98,22 +109,23 @@ const SingleProduct = () => {
             }
         }
         loadProduct()
+        loadAllReviews();
     }, [id])
 
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
 
-    const changeColor = async (c) =>{
-        try{
-            const response =  await api.get(`/api/v1/products/?productName=${product?.productName}&color=${c}`)
+    const changeColor = async (c) => {
+        try {
+            const response = await api.get(`/api/v1/products/?productName=${product?.productName}&color=${c}`)
             // console.log(response.data)
-            if(response.data.length === 0){
+            if (response.data.length === 0) {
                 toast.info("Product not available !")
                 return;
             }
             setProduct(response.data[0])
-        }catch(err){
+        } catch (err) {
             console.log(err)
             toast.info("unable to fetch product right now !")
         }
@@ -208,16 +220,19 @@ const SingleProduct = () => {
         }
     }
 
-    const handleNewrev = () =>{
-        if(!newRev || newRev.length < 10){
+    const handleNewrev = async () => {
+        if (!newRev || newRev.length < 10) {
             toast.warn("Please write a review of at least 10 characters.")
             return;
-        }else{
+        } else {
+            const resp = await api.post(`/api/v1/reviews/${id}`, { userId: user?._id, username: user?.username, revText: newRev, starnumber: stars, productId: id })
             toast.success("review added successfully !")
             setNewRev("")
             setStars(0)
+            loadAllReviews();
         }
     }
+
 
     if (product === null) {
         return (
@@ -273,6 +288,17 @@ const SingleProduct = () => {
                                 <b className='text-[#0f3d3e]'>{product?.productName}</b>
                                 <p className='text-[grey] text-sm md:pr-8 text-justify'>{product?.productDesc}</p>
 
+                                {product?.features?.length > 0 && <b className='text-[#0f3d3e] mt-2'>Features</b>}
+                                {
+                                    product?.features?.length > 0 &&
+                                    <ul className='list-inside text-sm text-gray-700 mb-2'>
+                                        {product?.features.map((feature, index) => (
+                                            <li className='mt-1' key={index}>✅ {feature}</li>
+                                        ))}
+                                    </ul>
+                                }
+
+
                                 <div className="flex items-center md:mt-6">
                                     <div>
                                         <div className="flex items-center gap-4">
@@ -299,7 +325,8 @@ const SingleProduct = () => {
                                         <div
                                             key={i}
                                             title={c}
-                                            onClick={() =>{setColor(c)
+                                            onClick={() => {
+                                                setColor(c)
                                                 changeColor(c)
                                             }}
                                             className={`
@@ -478,8 +505,8 @@ const SingleProduct = () => {
 
                                         {/* Review Input */}
                                         <textarea
-                                        value={newRev}
-                                        onChange={(e)=>setNewRev(e.target.value)}
+                                            value={newRev}
+                                            onChange={(e) => setNewRev(e.target.value)}
                                             placeholder="What's on your mind?"
                                             className="w-full h-28 p-4 text-sm md:text-base bg-white/80 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none transition-all"
                                         />
@@ -494,9 +521,10 @@ const SingleProduct = () => {
                                 </div>
 
 
-                                <h1 className='text-[black] md:text-lg'>Explore the feedback from our community members.<span className='text-[black] text-xl'>(2)</span></h1>
+                                <h1 className='text-[black] md:text-lg'>Explore the feedback from our community members.<span className='text-[black] text-xl'>({allReviews?.length})</span></h1>
                                 {
-                                    reviewsData.map((rev, index) => <Reviews rev={rev} />)
+                                    allReviews?.length > 0 &&
+                                    allReviews.map((rev, index) => <Reviews rev={rev} />)
                                 }
 
                             </div>

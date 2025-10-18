@@ -4,15 +4,15 @@ import { AiFillStar, AiOutlineLike, AiOutlineVerified } from 'react-icons/ai'
 const Reviews = ({rev}) => {
   const [readMore, setReadMore] = useState(false);
 
-  const excerpt = rev?.review.slice(0, 150);
-  const isLong = rev?.review.length > 150;
+  const excerpt = rev?.revText.slice(0, 150);
+  const isLong = rev?.revText.length > 150;
 
   return (
     <>
       <div className="flex flex-col gap-3 first:mt-0 px-4 py-3 rounded-xl bg-white/60 border border-[#0f3d3e]/20 shadow-sm transition-all duration-300 hover:shadow-md">
         <div className="flex justify-between items-center">
           <div className="flex gap-1 text-yellow-400 text-base">
-            {[...Array(rev?.stars)].map((_, i) => (
+            {[...Array(rev?.starnumber)].map((_, i) => (
               <AiFillStar key={i} />
             ))}
           </div>
@@ -36,7 +36,7 @@ const Reviews = ({rev}) => {
         <div className="flex justify-between items-center">
           <div className="flex flex-col text-[#4a4a4a] dark:text-gray-300">
             <p className="text-xs font-medium">{rev?.username}</p>
-            <p className="text-[10px] text-gray-500">{rev?.date}</p>
+            <p className="text-[10px] text-gray-500">{new Date(rev?.createdAt).toLocaleDateString()}</p>
           </div>
 
           {/* <div className="flex flex-col items-end">
