@@ -460,8 +460,9 @@ const SingleProduct = () => {
 
                             <div className='flex flex-col px-5 mt-2 mb-24 gap-3'>
                                 <b className='flex border-b-4 border-[gold] w-fit leading-8 px-2 md:text-2xl'>PRODUCT REVIEWS</b>
-                                <p className='flex items-center text-sm gap-2 md:text-lg'><MdVerifiedUser className='text-[green] text-lg' />77% of users vouch for this product</p>
-                                <div className='flex flex-col justify-center px-14 py-4 gap-3 w-fit  items-center rounded-2xl bg-white/60 shadow-lg transition-all hover:scale-105 hover:shadow-2xl'>
+                                {/* <p className='flex items-center text-sm gap-2 md:text-lg'><MdVerifiedUser className='text-[green] text-lg' />77% of users vouch for this product</p> */}
+                                
+                                {/* <div className='flex flex-col justify-center px-14 py-4 gap-3 w-fit  items-center rounded-2xl bg-white/60 shadow-lg transition-all hover:scale-105 hover:shadow-2xl'>
                                     <h1 className='text-3xl font-semibold text-[#1a1a1a]'>
                                         4.6<span className='text-base text-gray-500'>/5</span>
                                     </h1>
@@ -473,7 +474,7 @@ const SingleProduct = () => {
                                     </div>
 
                                     <span className='text-xs text-gray-500 italic'>Based on 1,234 reviews</span>
-                                </div>
+                                </div> */}
 
                                 <h1 className='text-[#212121] my-12'>Your experiences matter. Contribute by adding your review and helping users </h1>
                                 <div className="flex items-start gap-4 md:gap-6 mb-8 p-5 md:p-6 rounded-2xl border border-gray-200 shadow-lg bg-white/60 max-w-xl w-full mx-auto">
