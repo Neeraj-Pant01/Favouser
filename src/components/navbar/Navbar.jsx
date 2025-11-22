@@ -16,7 +16,7 @@ const Navbar = () => {
   const location = useLocation();
   const wishlist = useSelector((wish) => wish?.wishlist)
 
-  const subNavItems = ['SALE', 'MEN', 'WOMEN', 'ACCESSORIES', 'BEST SELL', 'SUMMER SALE', 'NEW ARRIVALS', 'BUY 3 @999', '80% OFF']
+  const subNavItems = ['SALE', 'MEN', 'WOMEN', 'ACCESSORIES', 'BEST SELL', 'SUMMER SALE', 'NEW ARRIVALS', 'BUY 3 @999', '']
 
   return (
     <div className='sticky top-0 z-50'>
@@ -64,7 +64,7 @@ const Navbar = () => {
           <div className='hidden md:flex text-[lightgrey] items-center gap-10'>
             <Link to={`/products?cat=men`}>MEN</Link>
             <Link to={`/products?cat=women`}>WOMEN</Link>
-            <Link to={`/products?cat=LGBTQ+`}>LGBTQ+</Link>
+            {/* <Link to={`/products?cat=LGBTQ+`}>LGBTQ+</Link> */}
             <Link to={`/products`}>ALL PRODUCTS</Link>
             {user && <Link to={`/myOrders`}>MY ORDERS</Link>}
           </div>
