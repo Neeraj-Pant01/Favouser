@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 
 const ShowSale = () => {
   const topImages = [
-    "/portraits/1.png", // Replace with real images later
-    "/portraits/2.png",
-    "/portraits/3.png",
-    "/portraits/4.png",
+    {
+      img: "/portraits/1.png", id: "685398d09ee52094c68f5258"
+    },
+    { img: "/portraits/2.png", id: "691da3a3999b774b059a1dcc" },
+    { img: "/portraits/3.png", id: "691da538999b774b059a1ddf" },
+    { img: "/portraits/4.png", id: "691da607999b774b059a1ded" }
   ];
 
   const bottomImages = [
@@ -22,9 +24,9 @@ const ShowSale = () => {
       {/* Top Row - T-shirts */}
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full">
         {topImages.map((src, index) => (
-          <div key={index} className="w-full cursor-pointer" onClick={()=>navigate(`product/${"sca_esv=f5357ae72790bb1e&sxsrf" + index+1}`)}>
+          <div key={index} className="w-full cursor-pointer" onClick={() => navigate(`product/${src.id}`)}>
             <img
-              src={src}
+              src={src.img}
               alt={`T-shirt ${index + 1}`}
               className="rounded-2xl object-cover w-full h-full sm:h-72 md:h-full shadow-md"
             />
@@ -32,13 +34,13 @@ const ShowSale = () => {
         ))}
       </div>
 
-          <div className="w-full">
-            <img
-              src='/banner/sale/s1.png'
-              alt={`Banner image`}
-              className="rounded-2xl object-cover w-full h-full shadow-md"
-            />
-          </div>
+      <div className="w-full">
+        <img
+          src='/banner/sale/s1.png'
+          alt={`Banner image`}
+          className="rounded-2xl object-cover w-full h-full shadow-md"
+        />
+      </div>
     </div>
   );
 };
