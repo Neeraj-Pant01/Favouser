@@ -55,7 +55,7 @@ const TermsAndConditions = () => {
                     </Section>
 
                     <Section title="Legal Stuff">
-                        Our Terms & Conditions follow Indian law. If any legal matters come up, they'll be handled in the courts of [Insert City/State].
+                        Our Terms & Conditions follow Indian law. If any legal matters come up, they'll be handled in the courts of Noida City/Uttar Pradesh.
                     </Section>
 
                     <Section title="Need Help? Contact Us">

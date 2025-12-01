@@ -6,6 +6,9 @@ const NewShippingPolicy = () => {
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
+
+ const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent('favouserclothing@gmail.com')}&su=${encodeURIComponent('Support Request')}&body=${encodeURIComponent('Hi, I need help with')}`
+
     return (
         <>
             <Navbar />
@@ -14,7 +17,7 @@ const NewShippingPolicy = () => {
                     {/* Page Heading */}
                     <div className="text-center">
                         <h1 className="text-4xl md:text-5xl font-extrabold text-[#e2dcc8] mb-4">Shipping Policy – FAVOUSER</h1>
-                        <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+                        <p className="text-gray-300 text-lg max-w-5xl mx-auto">
                             At Favouser, we are committed to delivering high-quality t-shirts and accessories to your doorstep with care and speed. Please read our shipping policy to understand how your order will be processed and delivered.
                         </p>
                     </div>
@@ -99,14 +102,14 @@ const NewShippingPolicy = () => {
                                 <li>A clear and time-stamped unpacking video must be recorded when you open the package.</li>
                                 <li>You must also provide a second video showing the product's condition when making the return request.</li>
                             </ul>
-                            
+
                             <p className="text-gray-300 mt-4 mb-2"><strong>For exchanges (within 3–4 days of delivery):</strong></p>
                             <ul className="list-disc list-inside text-gray-300 space-y-1 ml-4">
                                 <li>A valid unpacking video is required.</li>
                                 <li>The product must be unused, undamaged, and in its original packaging.</li>
                                 <li>A second video showing the item's condition at the time of return is also required.</li>
                             </ul>
-                            
+
                             <p className="text-gray-300 mt-4 mb-2"><strong>Note:</strong></p>
                             <ul className="list-disc list-inside text-gray-300 space-y-1 ml-4">
                                 <li>Only one return or exchange is allowed per product.</li>
@@ -120,11 +123,14 @@ const NewShippingPolicy = () => {
                     <div className="pt-10 text-center">
                         <h3 className="text-2xl font-bold text-[#e2dcc8] mb-2">Need Help?</h3>
                         <p className="text-gray-300">
-                            Our customer support team is always happy to help. For any questions about your order or shipping, please contact us through our <Link to="/favouser/contact" className="text-[e2dcc8] underline">website</Link> or <a
-                                href="mailto:support@example.com?subject=Support Request&body=Hi, I need help with..."
+                            Our customer support team is always happy to help. For any questions about your order or shipping, please contact us through our <Link to="/favouser/contact" className="text-[e2dcc8] underline">website</Link> or  
+                             <a
+                                href={gmailUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="text-[lightgrey] underline mr-1"
                             >
-                                email
+                                 email
                             </a>.
                         </p>
                     </div>

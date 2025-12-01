@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { FaHeart, FaTrash, FaShoppingBag, FaMagic, FaRegHeart } from 'react-icons/fa';
+import { FaHeart, FaTrash, FaShoppingBag, FaMagic } from 'react-icons/fa';
 import Navbar from '../components/navbar/Navbar';
 import { makeApiRequest } from '../utils/makeRequest';
 import { useDispatch, useSelector } from 'react-redux';
@@ -155,8 +155,7 @@ const wishlist = () => {
                                             <FaShoppingBag />
                                             <span>Add to Cart</span>
                                         </button>
-                                        <button className="p-2 text-pink-600 hover:text-pink-800 transition-colors">
-                                            {item.liked ? <FaHeart className="fill-current" /> : <FaRegHeart className='fill-current' />}
+                                        <button className="p-2 text-pink-600 hover:text-pink-800 transition-colors"><FaHeart />
                                         </button>
                                     </div>
                                 </div>

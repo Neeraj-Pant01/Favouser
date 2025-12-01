@@ -14,7 +14,7 @@ const ShippingPolicy = () => {
                     {/* Page Heading */}
                     <div className="text-center">
                         <h1 className="text-4xl md:text-5xl font-extrabold text-[#e2dcc8] mb-4">Privacy Policy – FAVOUSER</h1>
-                        <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+                        <p className="text-gray-300 text-lg max-w-4xl mx-auto">
                             Welcome to FAVOUSER – where fashion meets individuality. Your privacy matters to us, and we're committed to protecting the personal details you share when you interact with us.
                         </p>
                     </div>
@@ -123,7 +123,7 @@ const ShippingPolicy = () => {
                         </p>
                         <ul className="space-y-1 text-gray-300">
                             <li>📧 Email: <strong>favouserclothing@gmail.com</strong></li>
-                            <li>🌐 Website: <strong>www.favouser.com</strong></li>
+                            <li>🌐 Mobile: <strong>+91 98919 46805</strong></li>
                         </ul>
                     </div>
                 </div>
