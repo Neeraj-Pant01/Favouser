@@ -117,11 +117,13 @@ const CartItem = ({ item, setCart, cart, onTotalChange }) => {
             <div className="text-right">
               <div className="font-semibold">₹{(product?.price * quantity).toFixed(2)}</div>
               <div className="flex items-center justify-end space-x-2 text-sm">
+                {product?.maxPrice &&
                 <span className="text-gray-400 line-through">
-                  ₹{(product?.maxPrice * quantity) ||  ((product?.price + Math.round(product?.price * 0.20)) * quantity)}
+                  ₹{product?.maxPrice }
                 </span>
+}
                 <span className="text-green-600">
-                  Save ₹{product?.offer ? (Math.round(isNaN(product?.price * product?.offer) ? (product?.price * ((product?.offer).substring(0,2)/100)) : (product?.price * product?.offer)) * quantity) :  (Math.round(product?.price * 0.20) * quantity)}
+                  Save ₹{product?.maxPrice - product?.price}
                 </span>
               </div>
             </div>

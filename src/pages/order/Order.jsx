@@ -184,7 +184,7 @@ const Order = () => {
             // 3. Open Razorpay checkout
             const options = {
                 key: import.meta.env.VITE_APP_RZRPAYKEY,
-                amount: order.amount * 100, // Convert to paise
+                amount: (order.amount * 100 + (order?.amount > 999 ? 0 : 70)), // Convert to paise
                 currency: "INR",
                 name: "FAVOUSER",
                 description: "Order Payment",
@@ -360,7 +360,7 @@ const Order = () => {
                             </div>
                             <div className='flex items-center justify-between'>
                                 <span>Total Payable</span>
-                                <span className='md:text-xl'>₹{itemQuantity * location.state?.product.price}</span>
+                                <span className='md:text-xl'>₹{(itemQuantity * location.state?.product.price) + (location.state?.product.price > 999 ? 0 : 70)}</span>
                             </div>
                             <button className='bg-[#e2dcc8] text-[black] cursor-pointer mt-9 py-2 rounded-md' onClick={openPopup}>{loading ? "Loading..." : "PLACE ORDER"}</button>
                         </div>
@@ -369,7 +369,7 @@ const Order = () => {
                     <PaymentPopup
                         open={paymentModePopup}
                         onClose={closePopup}
-                        total={itemQuantity * location.state?.product.price}
+                        total={(itemQuantity * location.state?.product.price) + ((itemQuantity * location.state?.product.price) > 999 ? 0 : 70)}
                         onCOD={handleCOD}
                         onOnlinePay={handleOnlinePay}
                     />

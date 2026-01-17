@@ -12,10 +12,10 @@ const OrderSummary = ({itemQuantity, setItemQuantity, product}) => {
                 <div className='flex flex-col'>
                     <h1 className='text-[black] font-thin'>{product?.product.productName}</h1>
                     <p>{product?.product.productDesc.substring(0,50)}{product?.product.productDesc.length > 50 && '...'}</p>
-                    <span className='text-[grey]'>color</span>
+                    <span className='text-[grey]'>{product?.product?.defaultColor}</span>
                     <div className='flex items-center gap-3 justify-center md:justify-normal mt-4'>
                         <span className='text-[black] text-xl'>₹{Math.round(itemQuantity * product?.product.price)}</span>
-                        <span className='text-[green]'>10% OFF</span>
+                        <span className='text-[green]'>{product?.product?.offer ? `${product?.product?.offer}% OFF` : `${Math.round((product?.product?.price / product?.product?.maxPrice)*100)}% OFF`}</span>
                     </div>
                 </div>
                 {/* <div className=''>right</div> */}

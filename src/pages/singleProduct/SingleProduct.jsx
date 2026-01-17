@@ -303,11 +303,17 @@ const SingleProduct = () => {
                                     <div>
                                         <div className="flex items-center gap-4">
                                             <b className='md:text-2xl text-[#0f3d3e]'>₹ {product.price}</b>
-                                            <div className='flex md:text-xl items-center'>
-                                                ₹
-                                                <span className='text-[maroon] line-through'>{product?.offer ? (Math.round(isNaN(product?.price + ((product?.offer / 100) * product?.price)) ? (product?.price * ((product?.offer).substring(0, 2) / 100) + product?.price) : (product?.price + ((product?.offer / 100) * product?.price)))) : (Math.round(product?.price + (product?.price * 0.40)))}</span>
-                                            </div>
-                                            <h1 className='text-xl  text-[green]'>{product?.offer ? `${product?.offer}% OFF` : "40% OFF"}</h1>
+                                            {product?.maxPrice &&
+                                                <div className='flex md:text-xl items-center'>
+                                                    <span className='text-[maroon] line-through'>
+                                                        {product?.maxPrice && `₹${product?.maxPrice}`}
+
+                                                    </span>
+                                                </div>
+                                            }
+                                            {product?.maxPrice &&
+                                            <h1 className='text-xl  text-[green]'>{product?.offer ? `${product?.offer}% OFF` : `${Math.round((product?.price / product?.maxPrice)*100)}% OFF`}</h1>
+}
 
                                         </div>
                                         <p className='text-[grey]'>Inclusive of all taxes</p>
@@ -461,7 +467,7 @@ const SingleProduct = () => {
                             <div className='flex flex-col px-5 mt-2 mb-24 gap-3'>
                                 <b className='flex border-b-4 border-[gold] w-fit leading-8 px-2 md:text-2xl'>PRODUCT REVIEWS</b>
                                 {/* <p className='flex items-center text-sm gap-2 md:text-lg'><MdVerifiedUser className='text-[green] text-lg' />77% of users vouch for this product</p> */}
-                                
+
                                 {/* <div className='flex flex-col justify-center px-14 py-4 gap-3 w-fit  items-center rounded-2xl bg-white/60 shadow-lg transition-all hover:scale-105 hover:shadow-2xl'>
                                     <h1 className='text-3xl font-semibold text-[#1a1a1a]'>
                                         4.6<span className='text-base text-gray-500'>/5</span>
